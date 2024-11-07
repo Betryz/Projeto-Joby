@@ -1,26 +1,33 @@
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { Image } from 'expo-image'
-import Feather from '@expo/vector-icons/Feather'
-import { Link } from 'expo-router'
+
 import { useLoginStore } from '../stores/useLoginStore'
 
-export default function Header(){
+export default function Header() {
 
-    const {name, avatar} = useLoginStore()
-
+    const { avatar } = useLoginStore()
     return (
         <View style={styles.header}>
-            <View style={styles.user}>
-                <Image 
-                    style={styles.avatar}
-                    source={avatar} //Local
-                    //source="https://avatars.githubusercontent.com/u/4259630?v=4"
+
+
+            <View >
+                <TextInput
+                    style={styles.input}
+                    placeholder="Pesquise"
+
                 />
-                <Text style={styles.name}>{name}</Text>
-            </View>
-            <Link href="create-account">
-                <Feather style={styles.menu} name="plus" size={24} color="black" />
-            </Link>
+                  </View>
+
+                <View style={styles.user}>
+                    <Image
+                        style={styles.avatar}
+                        source={avatar} />
+
+                </View>
+
+          
+
+          
         </View>
     )
 }
@@ -49,5 +56,14 @@ const styles = StyleSheet.create({
     },
     menu: {
         padding: 10
-    }
+    },
+    input: {
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#444444',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        marginVertical: 5,
+        borderRadius: 5
+    },
 })
