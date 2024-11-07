@@ -49,14 +49,14 @@ export default function Login() {
           <TextInput 
             style={styles.input}
             onChangeText={setTxtEmail}
-            value={txtEmail}
+            value={txtEmail} placeholder='Digite seu email...' placeholderTextColor='#c0c2be'
           />
           <Text>Senha:</Text>
           <TextInput 
             style={styles.input}
             onChangeText={setTxtPass}
             value={txtPass}
-            secureTextEntry={true}
+            secureTextEntry={true} placeholder='Digite sua senha...' placeholderTextColor='#c0c2be'
           />
           <Button onPress={handleLogin}>Entrar</Button>
         
