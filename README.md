@@ -16,7 +16,7 @@ npm run prisma:local:migrate
 ### exemplo de env:
 `````
 
-DATABASE_URL="mysql://root:aluno@localhost:3306/backend_db"
+DATABASE_URL="mysql://root:aluno@localhost:3306/jooby_db"
 PORT=5000
 ENVIRONMENT=local
 HOST=http://localhost
