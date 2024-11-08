@@ -20,6 +20,27 @@ export const deleteByToken = async (token) => {
 
 }
 
+export const getSessionByToken = async (token) => {
+    const result = await prisma.session.findUnique({
+        where: {
+            token
+        }
+    })
+    return result
+}
+
+export const updateToken = async (oldToken, newToken) => {
+    const result = await prisma.session.update({
+        data: {
+            token: newToken
+        },
+        where: {
+            token: oldToken
+        }
+    })
+    return result
+}
+
 
 
 

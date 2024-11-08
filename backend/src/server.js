@@ -7,6 +7,7 @@ import { ENVIRONMENT, PORT, HOST } from './config.js';
 import logger from './middlewares/logger.js';
 import cors from 'cors';
 
+
 const app = express();
 
 app.use(logger);

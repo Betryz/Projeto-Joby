@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { Image } from 'expo-image'
 
+
+
 import { useLoginStore } from '../stores/useLoginStore'
 
 export default function Header() {
@@ -8,6 +10,13 @@ export default function Header() {
     const { avatar } = useLoginStore()
     return (
         <View style={styles.header}>
+
+            <View >
+              
+
+            </View>
+
+
 
 
             <View >
