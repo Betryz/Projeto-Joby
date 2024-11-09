@@ -1,4 +1,3 @@
-// const express = require('express');
 
 import express from 'express'
 import authRouter from './routers/authRouter.js'
@@ -13,6 +12,7 @@ app.use(logger);
 app.use(cors({}))
 
 app.use(express.json());
+
 
 
 
