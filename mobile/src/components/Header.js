@@ -1,13 +1,16 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Pressable} from 'react-native'
 import { Image } from 'expo-image'
 
-
+import { useRouter } from 'expo-router'
 
 import { useLoginStore } from '../stores/useLoginStore'
 
 export default function Header() {
 
-    const { avatar } = useLoginStore()
+    const router = useRouter()
+
+
+    const { avatar, name } = useLoginStore()
     return (
         <View style={styles.header}>
 
@@ -28,10 +31,20 @@ export default function Header() {
                   </View>
 
                 <View style={styles.user}>
+
+
+                    <Pressable onPress={() => router.push('/update')}>
                     <Image
                         style={styles.avatar}
                         source={avatar} />
 
+
+
+                    </Pressable>
+               
+              
+                    
+                
                 </View>
 
           
