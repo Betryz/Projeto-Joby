@@ -4,6 +4,8 @@ import Footer from '../components/Footer'
 import { useRouter } from 'expo-router'
 import { getObjectData } from '../utils/asyncStorage'
 import { useLoginStore } from '../stores/useLoginStore'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
 
 export default function Init() {
   const router = useRouter()
@@ -26,10 +28,13 @@ export default function Init() {
   return (
       <ScrollView style={styles.container}>
         <View style={{ flex: 1, marginTop: 100, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{fontSize: 30}}>MyPass</Text>
-          <Text style={{fontSize: 16, marginVertical: 10} }>Organize suas contas e senhas com o MyPass.</Text>
+        <MaterialIcons  name="connected-tv" size={40} color="white"  />
+
+        
+          <Text style={styles.text}>Joby</Text>
+
+          <Text style={styles.textinho} >Avalie os filmes do catálogo </Text>
           <ActivityIndicator style={{marginVertical: 30}} />
-          <Footer />
         </View>
         
       </ScrollView>
@@ -38,6 +43,17 @@ export default function Init() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+    backgroundColor: 'black'
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: 600,
+    color: 'white'
+   },
+   textinho:{
+    color: 'white',
+    width: 200,
+    textAlign: 'center'
+   }
 })
