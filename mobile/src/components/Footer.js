@@ -1,8 +1,8 @@
 import {View, Text, StyleSheet, Alert} from 'react-native'
-import Button from './Button'
 import { useLoginStore } from '../stores/useLoginStore'
 import { useRouter } from 'expo-router'
 import { deleteObjectData } from '../utils/asyncStorage'
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function Footer(){
 
@@ -14,7 +14,7 @@ export default function Footer(){
             accessToken 
         }
     
-        const response = await fetch('http://localhost:3000/auth/logout', {
+        const response = await fetch('http://localhost:5000/auth/logout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,9 @@ export default function Footer(){
     return (
         <View style={styles.footer}>
           <Text style={styles.copy}>Copyright © 2024 Renan Cavichi </Text>
-          <Button onPress={handleLogout}>Logout</Button>
+          
+            <FontAwesome5 style={styles.saida} onPress={handleLogout} name="door-open" size={24} color="white" />
+          
         </View>
     )
 }
@@ -54,4 +56,5 @@ const styles = StyleSheet.create({
     copy: {
         color: "#BBBBBB"
     }
+   
 })
