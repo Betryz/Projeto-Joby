@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     marginVertical: 5,
-    borderRadius: 5
+    borderRadius: 5,
+    color: 'white'
   }
 })
