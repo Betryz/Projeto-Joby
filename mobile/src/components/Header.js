@@ -1,55 +1,44 @@
-import { View, Text, StyleSheet, TextInput, Pressable} from 'react-native'
+import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import { Image } from 'expo-image'
-
-import { useRouter } from 'expo-router'
-
 import { useLoginStore } from '../stores/useLoginStore'
+import { useState } from 'react';
+import { useRouter } from 'expo-router';
 
-export default function Header() {
+export default function Header({ onSearch }) {
 
     const router = useRouter()
-
-
     const { avatar, name } = useLoginStore()
+
+    const [query, setQuery] = useState('');
+
+    const handleSearch = () => {
+        if (query) {
+            onSearch(query);
+        }
+    }
+
     return (
         <View style={styles.header}>
-
-            <View >
-              
-
-            </View>
-
-
-
 
             <View >
                 <TextInput
                     style={styles.input}
                     placeholder="Pesquise"
-
+                    value={query} onChangeText={setQuery} 
+                    onSubmitEditing={handleSearch}
                 />
-                  </View>
+            </View>
 
-                <View style={styles.user}>
+            <View style={styles.user}>
 
-
-                    <Pressable onPress={() => router.push('/update')}>
+                <Pressable onPress={() => router.push('/update')}>
                     <Image
                         style={styles.avatar}
                         source={avatar} />
+                </Pressable>
 
+            </View>
 
-
-                    </Pressable>
-               
-              
-                    
-                
-                </View>
-
-          
-
-          
         </View>
     )
 }
