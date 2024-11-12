@@ -6,7 +6,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 
-export default function CardMovie({ tmdb_id, title, poster_path, sinopse, release_date }) {
+export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
 
     const router = useRouter()
 
@@ -14,7 +14,7 @@ export default function CardMovie({ tmdb_id, title, poster_path, sinopse, releas
 
 
     return (
-        <Pressable onPress={() => router.push({ pathname: '/movie-info', params: { tmdb_id } })}>
+        <Pressable onPress={() => router.push({ pathname: '/movie-info', params: { id } })}>
 
             <View style={styles.card}>
 

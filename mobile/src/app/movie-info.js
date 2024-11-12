@@ -20,26 +20,30 @@ export default function ShowPass() {
         setShowContent(prevState => !prevState);
 
     };
-    const [txtComent, setTxtComent] = useState('')
-    const [txtRating , setTxtRating ] = useState('')
+
     
+    const [txtComent, setTxtComent] = useState('')
+    const [txtRating, setTxtRating] = useState('')
+
+
+
 
     const handleCreateReviews = async () => {
         const review = {
             coment: txtComent,
             rating: txtRating
-           
+
         }
-    
+
         const response = await fetch('http://localhost:5000/review', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(review)
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(review)
         })
 
-        if(response.ok){
+        if (response.ok) {
             const data = await response.json()
             Alert.alert('Avaliação Criada com Sucesso!')
             setTxtComent('')
@@ -63,7 +67,7 @@ export default function ShowPass() {
             <CardAccount />
 
 
-            <View style={{ flexDirection: 'row',  paddingHorizontal: 15, justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
                 <Button style={styles.Button}><MaterialCommunityIcons name="movie-open-plus-outline" size={24} color="black" /></Button>
             </View>
@@ -72,8 +76,8 @@ export default function ShowPass() {
 
             {showContent && (
                 <View style={styles.avaliador}>
-                    <TextInput style={styles.input}  onChangeText={setTxtComent} value={txtComent} />
-                    
+                    <TextInput style={styles.input} onChangeText={setTxtComent} value={txtComent} />
+
                     <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
                 </View>
 
