@@ -55,9 +55,7 @@ export default function Home() {
 
 
 
-                <Button onPress={handlePressList}>
-                    Favoritos
-                </Button>
+              
 
             
             {showContent && (
