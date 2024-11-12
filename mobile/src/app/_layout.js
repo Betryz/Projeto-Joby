@@ -8,35 +8,32 @@ export default function RootLayout() {
     <Stack
       screenOptions={{
         contentStyle: {
-            backgroundColor: "#000"
+          backgroundColor: "#000"
         },
         headerTintColor: '#000',
         headerStyle: {
-          backgroundColor: '#ACCE91', 
+          backgroundColor: '#ACCE91',
         },
         headerTitleStyle: {
           fontWeight: 'bold',
         },
         headerRight: () => (
           <View style={styles.logo} >
-          <MaterialCommunityIcons name="movie-open-star-outline" size={30} color="black" />
-          <Text style={styles.marca} >
+            <MaterialCommunityIcons name="movie-open-star-outline" size={30} color="black" />
+            <Text style={styles.marca} >
               Jooby
-          </Text>
-            
-
+            </Text>
           </View>
-          
+
         ),
-      }}> 
-  
-      <Stack.Screen name="index" options={{headerShown: false}} />
-      <Stack.Screen name="home" options={{headerShown: false}} />
-      <Stack.Screen name="login" options={{title: "Entrar"}}/>
-      <Stack.Screen name="signup" options={{title: "Cadastre-se"}}/>
-      <Stack.Screen name="create-account" options={{title: "Adicionar Conta"}}/>
-      <Stack.Screen name="show-pass" options={{title: "Ver Senha"}}/>
-      <Stack.Screen name="update" options={{title: "Editar"}}/>
+      }}>
+
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="home" options={{ headerShown: false }} />
+      <Stack.Screen name="login" options={{ title: "Entrar" }} />
+      <Stack.Screen name="signup" options={{ title: "Cadastre-se" }} />
+      <Stack.Screen name="movie-info" options={{ title: "Avaliar filme" }} />
+      <Stack.Screen name="user-info" options={{ title: "Editar" }} />
     </Stack>
   );
 }
@@ -44,8 +41,6 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   icon: {
     padding: 20,
-  
-
   },
   logo: {
     paddingHorizontal: 10
@@ -53,6 +48,5 @@ const styles = StyleSheet.create({
   marca: {
     fontWeight: 600,
     fontSize: 12,
-
-}
+  }
 })

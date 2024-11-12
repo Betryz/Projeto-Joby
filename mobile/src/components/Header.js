@@ -50,7 +50,7 @@ export default function Header({ onSearch }) {
 
             <View style={styles.user}>
 
-                <Pressable onPress={() => router.push('/update')}>
+                <Pressable onPress={() => router.push('/user-info')}>
                     <Image
                         style={styles.avatar}
                         source={avatar} />

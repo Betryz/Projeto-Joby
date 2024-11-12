@@ -34,7 +34,7 @@ export default function Init() {
               Jooby
           </Text>
 
-          <Text style={styles.textinho} >Avalie os filmes do catálogo </Text>
+          <Text style={styles.textinho} >Avalie seus filmes e faça sua lista de filmes para assistir!</Text>
           <ActivityIndicator style={{marginVertical: 30}} />
         </View>
         
