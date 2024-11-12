@@ -43,7 +43,6 @@ export default function Header() {
                     </Pressable>
                
               
-                    
                 
                 </View>
 
@@ -83,8 +82,9 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderStyle: 'solid',
         borderColor: '#000',
-        paddingHorizontal: 10,
+        backgroundColor: '#d5d5d5',
         paddingVertical: 6,
+        paddingHorizontal: 6,
         marginVertical: 5,
         borderRadius: 5
     },
