@@ -20,6 +20,39 @@ export default function ShowPass() {
         setShowContent(prevState => !prevState);
 
     };
+    const [txtComent, setTxtComent] = useState('')
+    const [txtRating , setTxtRating ] = useState('')
+    
+
+    const handleCreateReviews = async () => {
+        const review = {
+            coment: txtComent,
+            rating: txtRating
+           
+        }
+    
+        const response = await fetch('http://localhost:5000/review', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(review)
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            Alert.alert('Avaliação Criada com Sucesso!')
+            setTxtComent('')
+            setTxtRating('')
+            router.back()
+        } else {
+            const data = await response.json()
+            Alert.alert('Erro ao Criar a avaliação')
+            console.log(data?.error)
+        }
+        return
+    }
+
 
 
 
@@ -39,8 +72,9 @@ export default function ShowPass() {
 
             {showContent && (
                 <View style={styles.avaliador}>
-                    <TextInput style={styles.input} />
-                    <Button style={styles.Button} >Avaliar</Button>
+                    <TextInput style={styles.input}  onChangeText={setTxtComent} value={txtComent} />
+                    
+                    <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
                 </View>
 
             )}
