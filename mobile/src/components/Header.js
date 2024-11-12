@@ -1,16 +1,25 @@
-import { View, Text, StyleSheet, TextInput, Pressable} from 'react-native'
+import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import { Image } from 'expo-image'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useRouter } from 'expo-router'
-import { useLoginStore } from '../stores/useLoginStore'
 
-export default function Header() {
+import { useLoginStore } from '../stores/useLoginStore'
+import { useState } from 'react';
+
+export default function Header({ onSearch }) {
 
     const router = useRouter()
-
-
     const { avatar, name } = useLoginStore()
+
+    const [query, setQuery] = useState('');
+
+    const handleSearch = () => {
+        if (query) {
+            onSearch(query);
+        }
+    }
+
     return (
         <View style={styles.header}>
 
@@ -27,39 +36,35 @@ export default function Header() {
 
 
 
-
             <View >
                 <TextInput
                     style={styles.input}
                     Image={<FontAwesome name="search" size={24} color="black" />}
                     placeholder="Pesquise"
-                    
-
+                    value={query} onChangeText={setQuery} 
+                    onSubmitEditing={handleSearch}
                 />
-                  </View>
+            </View>
 
-                <View style={styles.user}>
+            <View style={styles.user}>
 
-
-                    <Pressable onPress={() => router.push('/update')}>
+                <Pressable onPress={() => router.push('/update')}>
                     <Image
                         style={styles.avatar}
                         source={avatar} />
+                </Pressable>
 
+            </View>
 
-
-                    </Pressable>
-               
+</View>
               
-                
-                </View>
 
 
 
           
 
           
-        </View>
+
     )
 }
 

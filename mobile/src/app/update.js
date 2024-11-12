@@ -26,6 +26,7 @@ export default function Home() {
 
 
 
+
     
 
     return (
@@ -52,6 +53,13 @@ export default function Home() {
 
             </View>
 
+
+
+                <Button onPress={handlePressList}>
+                    Favoritos
+                </Button>
+
+            
             {showContent && (
                 <View style={styles.card}>
                     <Image
