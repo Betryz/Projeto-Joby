@@ -24,6 +24,11 @@ export default function Home() {
         setShowContent(false);
     };
 
+
+
+
+    
+
     return (
         <ScrollView style={styles.container}>
 
@@ -42,6 +47,11 @@ export default function Home() {
                     Avaliações
                 </Button>
 
+                <Button onPress={handlePressList}>
+                    Favoritos
+                </Button>
+
+            </View>
 
 
 
@@ -49,8 +59,7 @@ export default function Home() {
                     Favoritos
                 </Button>
 
-            </View>
-
+            
             {showContent && (
                 <View style={styles.card}>
                     <Image
