@@ -8,11 +8,20 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 
 export default function Home() {
     const [showContent, setShowContent] = useState(false);
+    const [showContentList, setShowContentList] = useState(false);
+
 
     const { avatar, name } = useLoginStore()
 
     const handlePress = () => {
         setShowContent(prevState => !prevState);
+        setShowContentList(false);
+    };
+
+    
+    const handlePressList = () => {
+        setShowContentList(prevState => !prevState);
+        setShowContent(false);
     };
 
   return (
@@ -36,7 +45,7 @@ export default function Home() {
 
        
 
-        <Button>
+        <Button onPress={handlePressList}>
             Favoritos
         </Button>
 
@@ -52,6 +61,17 @@ export default function Home() {
                   <EvilIcons name="arrow-right" size={26} color="black" />
               </View>
             )}
+
+{showContentList && (
+                  <View style={styles.card}>
+                  <Image 
+                      style={styles.logo} 
+                  />
+                  <Text style={styles.service}>oi</Text>
+                  <Text style={styles.comment}>fgdgdddddddd</Text>
+                  <EvilIcons name="arrow-right" size={26} color="black" />
+              </View>
+            )}
        
         <Footer />
       </ScrollView>
@@ -61,6 +81,8 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#d5d5d5'
+
 
   },
   input:{
@@ -73,10 +95,11 @@ const styles = StyleSheet.create({
 },
 text:{
 
-    color:'white',
+    color:'black',
     fontSize: 20,
     paddingVertical: 13,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    fontWeight:600
 },
 cabe: {
     display: 'flex',

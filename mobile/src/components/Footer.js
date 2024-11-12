@@ -40,7 +40,7 @@ export default function Footer(){
         <View style={styles.footer}>
           <Text style={styles.copy}>Copyright © 2024 Renan Cavichi </Text>
           
-            <FontAwesome5 style={styles.saida} onPress={handleLogout} name="door-open" size={24} color="white" />
+            <FontAwesome5 style={styles.saida} onPress={handleLogout} name="door-open" size={24} color="black" />
           
         </View>
     )
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     copy: {
-        color: "#BBBBBB"
+        color: "#555555"
     }
    
 })

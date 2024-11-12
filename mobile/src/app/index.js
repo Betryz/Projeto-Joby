@@ -28,7 +28,7 @@ export default function Init() {
   return (
       <ScrollView style={styles.container}>
         <View style={{ flex: 1, marginTop: 100, justifyContent: 'center', alignItems: 'center'}}>
-        <MaterialIcons  name="connected-tv" size={40} color="white"  />
+        <MaterialIcons  name="connected-tv" size={40} color="#000"  />
 
         
           <Text style={styles.text}>Joby</Text>
@@ -44,15 +44,15 @@ export default function Init() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: '#d5d5d5'
   },
   text: {
     fontSize: 30,
     fontWeight: 600,
-    color: 'white'
+    color: '#000'
    },
    textinho:{
-    color: 'white',
+    color: '#000',
     width: 200,
     textAlign: 'center'
    }

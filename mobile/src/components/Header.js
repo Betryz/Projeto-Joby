@@ -56,7 +56,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     header: {
-        //backgroundColor: "#899986",
+        backgroundColor: '#ACCE91',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
         padding: 10
     },
     input: {
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderStyle: 'solid',
-        borderColor: '#444444',
+        borderColor: '#000',
         paddingHorizontal: 10,
         paddingVertical: 6,
         marginVertical: 5,
