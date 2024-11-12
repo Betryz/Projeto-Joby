@@ -1,33 +1,62 @@
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, TextInput, Pressable} from 'react-native'
 import { Image } from 'expo-image'
-import Feather from '@expo/vector-icons/Feather'
-import { Link } from 'expo-router'
+
+import { useRouter } from 'expo-router'
+
 import { useLoginStore } from '../stores/useLoginStore'
 
-export default function Header(){
+export default function Header() {
 
-    const {name, avatar} = useLoginStore()
+    const router = useRouter()
 
+
+    const { avatar, name } = useLoginStore()
     return (
         <View style={styles.header}>
-            <View style={styles.user}>
-                <Image 
-                    style={styles.avatar}
-                    source={avatar} //Local
-                    //source="https://avatars.githubusercontent.com/u/4259630?v=4"
-                />
-                <Text style={styles.name}>{name}</Text>
+
+            <View >
+              
+
             </View>
-            <Link href="create-account">
-                <Feather style={styles.menu} name="plus" size={24} color="black" />
-            </Link>
+
+
+
+
+            <View >
+                <TextInput
+                    style={styles.input}
+                    placeholder="Pesquise"
+
+                />
+                  </View>
+
+                <View style={styles.user}>
+
+
+                    <Pressable onPress={() => router.push('/update')}>
+                    <Image
+                        style={styles.avatar}
+                        source={avatar} />
+
+
+
+                    </Pressable>
+               
+              
+                    
+                
+                </View>
+
+          
+
+          
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     header: {
-        //backgroundColor: "#899986",
+        backgroundColor: '#ACCE91',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -49,5 +78,14 @@ const styles = StyleSheet.create({
     },
     menu: {
         padding: 10
-    }
+    },
+    input: {
+        borderWidth: 1.5,
+        borderStyle: 'solid',
+        borderColor: '#000',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        marginVertical: 5,
+        borderRadius: 5
+    },
 })

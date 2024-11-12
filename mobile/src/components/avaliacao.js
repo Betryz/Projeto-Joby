@@ -12,7 +12,7 @@ export default function CardAccount2 ({ service, userName, imgUrl }) {
                 source={imgUrl}
             />
             <Text style={styles.service}>{service}</Text>
-            <Text style={styles.username}>{userName}</Text>
+            <Text style={styles.comment}>{userName}</Text>
             <EvilIcons name="arrow-right" size={26} color="black" />
         </View>
     )
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         borderColor: '#EEEEEE',
         paddingVertical: 10
     },
-    username: {
+    comment: {
         color: '#777777',
         marginLeft: 'auto',
     }

@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router'
 import {useState} from 'react'
 import { useLoginStore } from '../stores/useLoginStore'
 import { storeObjectData } from '../utils/asyncStorage'
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function Login() {
   const router = useRouter()
@@ -19,7 +20,7 @@ export default function Login() {
         pass: txtPass
     }
 
-    const response = await fetch('http://localhost:3000/auth/login', {
+    const response = await fetch('http://localhost:5000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -43,20 +44,30 @@ export default function Login() {
 
   return (
       <ScrollView style={styles.container}>
-        <View style={{ flex: 1, marginTop: 100, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
+
+
+         <View  style={styles.login}>
+         <FontAwesome  name="sign-in" size={40} color="black" />
+        <Text style={styles.text} >
+          Login
+        </Text>   
           
-          <Text>Email:</Text>
+          </View> 
+       
+
+
           <TextInput 
             style={styles.input}
             onChangeText={setTxtEmail}
-            value={txtEmail}
+            value={txtEmail} placeholder='Digite seu email...' placeholderTextColor='#555555'
           />
-          <Text>Senha:</Text>
+          
           <TextInput 
             style={styles.input}
             onChangeText={setTxtPass}
             value={txtPass}
-            secureTextEntry={true}
+            secureTextEntry={true} placeholder='Digite sua senha...' placeholderTextColor='#555555'
           />
           <Button onPress={handleLogin}>Entrar</Button>
         
@@ -70,21 +81,39 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#d5d5d5'
   },
+  text: {
+color: '#000',
+fontSize: 20,
+fontWeight: 600,
+padding: 5
+
+},
+login:{
+  marginVertical: 60,
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'row'
+
+
+},
   input: {
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#444444',
+    borderColor: '#000',
     paddingHorizontal: 10,
-    paddingVertical: 6,
-    marginVertical: 5,
-    borderRadius: 5
+    paddingVertical: 7,
+    marginVertical: 10,
+    borderRadius: 5,
+    color: 'black',
+    width: "85%"
   },
   divisor: {
-    borderBottomColor: '#CCC',
+    borderBottomColor: '#000',
     borderBottomWidth: 1,
     width: '90%',
-    marginVertical: 50,
+    marginVertical: 40,
   }
 })
