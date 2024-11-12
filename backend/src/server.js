@@ -7,6 +7,7 @@ import { ENVIRONMENT, PORT, HOST } from './config.js';
 import logger from './middlewares/logger.js';
 import reviews from './controllers/reviews/reviewsController.js';
 import cors from 'cors';
+import movieRouter from './routers/movieRouter.js'
 
 
 
@@ -18,6 +19,7 @@ app.use(cors({}))
 app.use(express.json());
 
 app.use('/avalia' , reviews)
+app.use('/movies', movieRouter)
 
 
 
