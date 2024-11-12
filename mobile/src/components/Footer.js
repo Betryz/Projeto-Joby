@@ -44,7 +44,6 @@ export default function Footer(){
         <View style={styles.divisor}/>
 
         <View style={styles.footerText}>
-        <Text style={styles.copy}>Copyright © 2024 Renan Cavichi </Text>
           
           <FontAwesome5 style={styles.saida} onPress={handleLogout} name="door-open" size={24} color="black" />
         

@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
-import { StyleSheet, Text } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { StyleSheet, Text, View } from 'react-native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function RootLayout() {
@@ -18,7 +18,14 @@ export default function RootLayout() {
           fontWeight: 'bold',
         },
         headerRight: () => (
-          <MaterialIcons style={styles.icon} name="connected-tv" size={30} color="black"  />
+          <View style={styles.logo} >
+          <MaterialCommunityIcons name="movie-open-star-outline" size={30} color="black" />
+          <Text style={styles.marca} >
+              Jooby
+          </Text>
+            
+
+          </View>
           
         ),
       }}> 
@@ -39,5 +46,13 @@ const styles = StyleSheet.create({
     padding: 20,
   
 
-  }
+  },
+  logo: {
+    paddingHorizontal: 10
+  },
+  marca: {
+    fontWeight: 600,
+    fontSize: 12,
+
+}
 })

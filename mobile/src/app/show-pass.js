@@ -3,9 +3,10 @@ import { View, StyleSheet, Text, TextInput } from 'react-native'
 import Button from '../components/Button'
 import { useRouter } from 'expo-router'
 import CardAccount from '../components/card'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from 'react';
+
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function ShowPass() {
@@ -29,21 +30,18 @@ export default function ShowPass() {
             <CardAccount />
 
 
-            <View style={{ flexDirection: 'row', gap: 20, justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row',  paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
-                <Button style={styles.Button}><MaterialIcons name="format-list-bulleted-add" size={24} color="black" /></Button>
+                <Button style={styles.Button}><MaterialCommunityIcons name="movie-open-plus-outline" size={24} color="black" /></Button>
             </View>
 
 
 
             {showContent && (
-                <>
+                <View style={styles.avaliador}>
                     <TextInput style={styles.input} />
-                    <Button style={styles.Button2} >Avaliar</Button>
-
-
-
-                </>
+                    <Button style={styles.Button} >Avaliar</Button>
+                </View>
 
             )}
 
@@ -53,15 +51,15 @@ export default function ShowPass() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
         backgroundColor: '#d5d5d5',
+
         flex: 1
-
-
     },
 
-    Button2:{
-      display: 'flex'
+    Button: {
+        display: 'flex'
+
+
     },
 
     card: {
@@ -93,5 +91,8 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         borderRadius: 5,
 
+    },
+    avaliador: {
+        paddingHorizontal: 20
     }
 })
