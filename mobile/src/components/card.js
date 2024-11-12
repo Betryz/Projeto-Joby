@@ -6,6 +6,9 @@ export default function CardMovie({ tmdb_id, title, poster_path, sinopse, releas
 
     const router = useRouter()
 
+    const truncatedSinopse = sinopse ? (sinopse.length > 150 ? `${sinopse.slice(0, 100)}...` : sinopse) : 'Sinopse não disponível';
+
+
     return (
         <Pressable onPress={() => router.push({ pathname: '/show-pass', params: { tmdb_id } })}>
             <View style={styles.card}>
@@ -18,7 +21,8 @@ export default function CardMovie({ tmdb_id, title, poster_path, sinopse, releas
 
                 <View style={styles.content}>
                     <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.descrisao}>{sinopse}</Text>
+                    <Text style={styles.descrisao}>{truncatedSinopse}</Text>
+                    <Text style={styles.descrisao}>{release_date}</Text>
     
                 </View>
             </View>
