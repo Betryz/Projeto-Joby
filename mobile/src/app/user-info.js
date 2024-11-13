@@ -53,10 +53,6 @@ export default function Home() {
 
             </View>
 
-
-
-              
-
             
             {showContent && (
                 <View style={styles.card}>

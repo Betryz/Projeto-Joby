@@ -1,4 +1,4 @@
-// const express = require('express');
+
 import express from 'express'
 import authRouter from './routers/authRouter.js'
 
@@ -20,6 +20,7 @@ app.use(express.json());
 
 app.use('/avalia' , reviews)
 app.use('/movies', movieRouter)
+
 
 
 

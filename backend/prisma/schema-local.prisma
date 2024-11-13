@@ -14,12 +14,13 @@ datasource db {
 }
 
 model user {
-  id        Int         @id @default(autoincrement())
-  public_id String      @default(uuid())
-  name      String      @db.VarChar(100)
-  email     String      @unique(map: "email") @db.VarChar(255)
-  pass      String      @db.VarChar(255)
-  avatar    String?     @db.VarChar(700)
+
+  id        Int       @id @default(autoincrement())
+  public_id String    @unique @default(uuid())
+  name      String    @db.VarChar(100)
+  email     String    @unique(map: "email") @db.VarChar(255)
+  pass      String    @db.VarChar(255)
+  avatar    String?   @db.VarChar(700)
   session   session[]
   reviews   reviews[]
   watchlist watchlist[]
@@ -30,7 +31,7 @@ model movie {
   tmdb_id      Int         @unique
   title        String
   poster_path  String?
-  sinopse      String?
+  sinopse      String?  @db.Text
   release_date DateTime?
   reviews      reviews[]
   watchlist    watchlist[]
