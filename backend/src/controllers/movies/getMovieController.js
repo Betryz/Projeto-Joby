@@ -1,5 +1,5 @@
 
-export const searchMovies = async (req, res) => {
+export const getMovies = async (req, res) => {
     const { query } = req.params;
     const api_key = process.env.TMDB_API_KEY;
 
@@ -8,7 +8,7 @@ export const searchMovies = async (req, res) => {
         , {
             headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer 528e5a120a135df10c177389a8481736'
+                Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`
             }
         })
 

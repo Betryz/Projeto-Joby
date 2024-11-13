@@ -9,7 +9,6 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
 
     const truncatedSinopse = sinopse ? (sinopse.length > 100 ? `${sinopse.slice(0, 100)}...` : sinopse) : 'Sinopse não disponível';
 
-
     return (
         <Pressable onPress={() => router.push({ pathname: '/movie-info', params: { id } })}>
 
@@ -25,7 +24,7 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
 
                     <Text style={styles.name}>{title}</Text>
 
-                        <Text style={styles.descrisao}>{truncatedSinopse}</Text>
+                        <Text style={styles.descrisao}>{sinopse}</Text>
                         <Text style={styles.descrisao}>{release_date}</Text>
                         
                         <Text style={styles.avaliacao}>3,4 <AntDesign name="star" size={15} color="yellow" /> </Text>
