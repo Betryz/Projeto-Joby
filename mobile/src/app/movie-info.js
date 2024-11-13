@@ -1,17 +1,17 @@
 import { View, StyleSheet, Text, TextInput } from 'react-native'
-
 import Button from '../components/Button'
-import { useRouter } from 'expo-router'
-import CardAccount from '../components/card'
+import { useRouter, useLocalSearchParams } from 'expo-router'
+import CardMovie from '../components/card'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from 'react';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-
-export default function ShowPass() {
-
+export default function MovieInfo() {
     const router = useRouter()
+
+    const { id } = useLocalSearchParams();
+    console.log("Received id:", id);
 
     const [showContent, setShowContent] = useState(false);
 
@@ -59,9 +59,7 @@ export default function ShowPass() {
     return (
         <View style={styles.container}>
 
-
-            <CardAccount />
-
+            <CardMovie />
 
             <View style={{ flexDirection: 'row',  paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>

@@ -3,10 +3,7 @@ import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-
-
-
-export default function CardMovie({ tmdb_id, title, poster_path, sinopse, release_date }) {
+export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
 
     const router = useRouter()
 
@@ -14,12 +11,9 @@ export default function CardMovie({ tmdb_id, title, poster_path, sinopse, releas
 
 
     return (
-        <Pressable onPress={() => router.push({ pathname: '/movie-info', params: { tmdb_id } })}>
+        <Pressable onPress={() => router.push({ pathname: '/movie-info', params: { id } })}>
 
             <View style={styles.card}>
-
-            
-
 
                     <Image
                         style={styles.logo}
@@ -29,14 +23,6 @@ export default function CardMovie({ tmdb_id, title, poster_path, sinopse, releas
 
                     <View style={styles.content}>
 
-
-
-
-
-
-
-
-
                     <Text style={styles.name}>{title}</Text>
 
                         <Text style={styles.descrisao}>{truncatedSinopse}</Text>
@@ -44,10 +30,8 @@ export default function CardMovie({ tmdb_id, title, poster_path, sinopse, releas
                         
                         <Text style={styles.avaliacao}>3,4 <AntDesign name="star" size={15} color="yellow" /> </Text>
 
-
                     </View>
 
-            
             </View>
         </Pressable>
     )
