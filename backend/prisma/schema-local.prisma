@@ -31,7 +31,7 @@ model movie {
   tmdb_id      Int         @unique
   title        String
   poster_path  String?
-  sinopse      String?
+  sinopse      String?  @db.Text
   release_date DateTime?
   reviews      reviews[]
   watchlist    watchlist[]

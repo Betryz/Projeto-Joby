@@ -99,10 +99,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginVertical: 5,
     borderRadius: 5,
-<<<<<<< HEAD
-    color: 'white'
-=======
-    color: '#000'
->>>>>>> master
+  color: 'white'
   }
 })
