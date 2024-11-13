@@ -48,7 +48,7 @@ export default function Login() {
 
 
          <View  style={styles.login}>
-         <FontAwesome  name="sign-in" size={40} color="white" />
+         <FontAwesome  name="sign-in" size={40} color="black" />
         <Text style={styles.text} >
           Login
         </Text>   
@@ -60,14 +60,14 @@ export default function Login() {
           <TextInput 
             style={styles.input}
             onChangeText={setTxtEmail}
-            value={txtEmail} placeholder='Digite seu email...' placeholderTextColor='#c0c2be'
+            value={txtEmail} placeholder='Digite seu email...' placeholderTextColor='#555555'
           />
           
           <TextInput 
             style={styles.input}
             onChangeText={setTxtPass}
             value={txtPass}
-            secureTextEntry={true} placeholder='Digite sua senha...' placeholderTextColor='#c0c2be'
+            secureTextEntry={true} placeholder='Digite sua senha...' placeholderTextColor='#555555'
           />
           <Button onPress={handleLogin}>Entrar</Button>
         
@@ -82,10 +82,10 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: '#d5d5d5'
   },
   text: {
-color: 'white',
+color: '#000',
 fontSize: 20,
 fontWeight: 600,
 padding: 5
@@ -102,16 +102,16 @@ login:{
   input: {
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#fff',
+    borderColor: '#000',
     paddingHorizontal: 10,
     paddingVertical: 7,
     marginVertical: 10,
     borderRadius: 5,
-    color: 'white',
+    color: 'black',
     width: "85%"
   },
   divisor: {
-    borderBottomColor: '#CCC',
+    borderBottomColor: '#000',
     borderBottomWidth: 1,
     width: '90%',
     marginVertical: 40,

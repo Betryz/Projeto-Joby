@@ -23,6 +23,9 @@ HOST=http://localhost
 NODE_ENV=development
 SECRET_KEY=myChavesecreta12345!@#
 CLIENT_ORIGIN_URL="*"
+TMDB_API_KEY=528e5a120a135df10c177389a8481736
+
+
 
 
 ### Para puxar os códigos da branch master para a sua branch atual, siga os seguintes passos:

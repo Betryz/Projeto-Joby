@@ -53,13 +53,14 @@ export default function SignUp(){
             onChangeText={setTxtName}
             value={txtName}
             placeholder='Digite seu nome...'
-            placeholderTextColor='#DDDDDD'
+            placeholderTextColor='#555555'
           />
           <Text>Email:</Text>
           <TextInput 
             style={styles.input}
             onChangeText={setTxtEmail}
             value={txtEmail}
+           
           />
           <Text>Avatar URL:</Text>
           <TextInput 
@@ -67,6 +68,7 @@ export default function SignUp(){
             onChangeText={setTxtAvatar}
             value={txtAvatar}
             keyboardType='url'
+          
           />
           <Text>Senha:</Text>
           <TextInput 
@@ -74,6 +76,7 @@ export default function SignUp(){
             onChangeText={setTxtPass}
             value={txtPass}
             secureTextEntry={true}
+        
           />
         <Button onPress={handleCreateAccount}>Cadatrar</Button>
         </View>
@@ -82,7 +85,11 @@ export default function SignUp(){
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20
+    paddingHorizontal: 20,
+    backgroundColor: '#d5d5d5',
+    flex: 1,
+    justifyContent:'center'
+
   },
   input: {
     borderWidth: 1,
@@ -92,6 +99,10 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginVertical: 5,
     borderRadius: 5,
+<<<<<<< HEAD
     color: 'white'
+=======
+    color: '#000'
+>>>>>>> master
   }
 })

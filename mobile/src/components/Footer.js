@@ -37,24 +37,61 @@ export default function Footer(){
     }
 
     return (
+        <> 
+      
+    
         <View style={styles.footer}>
-          <Text style={styles.copy}>Copyright © 2024 Renan Cavichi </Text>
+        <View style={styles.divisor}/>
+
+        <View style={styles.footerText}>
           
-            <FontAwesome5 style={styles.saida} onPress={handleLogout} name="door-open" size={24} color="white" />
-          
+          <FontAwesome5 style={styles.saida} onPress={handleLogout} name="door-open" size={24} color="black" />
+        
         </View>
+        
+        </View>
+
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     footer: {
-        padding: 25,
+   
         //backgroundColor: "#998560",
+       
+        position: 'absolute',
+        bottom: -200,
+        left: 0,           
+        right: 0,
+        
+
+    },
+    footerText: {
+       
+       
         justifyContent: 'center',
         alignItems: 'center',
+        position: 'absolute',
+        flexDirection: 'row',
+        left: 0,           
+        right: 0,
+        padding: 10
+        
+       
+
     },
     copy: {
-        color: "#BBBBBB"
-    }
+        color: "#555555"
+    },
+    divisor: {
+        borderBottomColor: '#d4d4d4',
+        borderBottomWidth: 1,
+        width: '100%',
+
+  
+  
+        
+      }
    
 })

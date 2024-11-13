@@ -1,10 +1,9 @@
 import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native'
 import { useEffect } from 'react'
-import Footer from '../components/Footer'
 import { useRouter } from 'expo-router'
 import { getObjectData } from '../utils/asyncStorage'
 import { useLoginStore } from '../stores/useLoginStore'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function Init() {
@@ -27,13 +26,15 @@ export default function Init() {
 
   return (
       <ScrollView style={styles.container}>
-        <View style={{ flex: 1, marginTop: 100, justifyContent: 'center', alignItems: 'center'}}>
-        <MaterialIcons  name="connected-tv" size={40} color="white"  />
+        <View style={{ flex: 1, marginTop: 200, justifyContent: 'center', alignItems: 'center'}}>
+        <MaterialCommunityIcons name="movie-open-star-outline" size={40} color="black" />
 
         
-          <Text style={styles.text}>Joby</Text>
+        <Text style={styles.marca} >
+              Jooby
+          </Text>
 
-          <Text style={styles.textinho} >Avalie os filmes do catálogo </Text>
+          <Text style={styles.textinho} >Avalie seus filmes e faça sua lista de filmes para assistir!</Text>
           <ActivityIndicator style={{marginVertical: 30}} />
         </View>
         
@@ -44,16 +45,16 @@ export default function Init() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: '#d5d5d5'
   },
-  text: {
-    fontSize: 30,
-    fontWeight: 600,
-    color: 'white'
-   },
    textinho:{
-    color: 'white',
+    color: '#000',
     width: 200,
     textAlign: 'center'
-   }
+   },
+   marca: {
+    fontWeight: 600,
+    fontSize: 20,
+
+}
 })
