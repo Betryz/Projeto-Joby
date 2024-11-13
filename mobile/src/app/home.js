@@ -3,10 +3,16 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CardAccount from '../components/card'
 import { useMovieStore } from '../stores/movieStore';
-
+import { useRouter } from 'expo-router';
 
 export default function Home() {
-  const { movies, loading, error, fetchMovies } = useMovieStore();
+  const { movies, loading, error, fetchMovies} = useMovieStore();
+
+  const router = useRouter();
+
+  const handleCardPress = (id) => {
+      router.push({pathname: '/movie-info', params: {id}});
+  };
 
     const searchMovies = (query) => {
         fetchMovies(query);
@@ -28,8 +34,10 @@ export default function Home() {
                         sinopse={movie.sinopse || "Sinopse não disponível"}
                         poster_path={`https://image.tmdb.org/t/p/w200${movie.poster_path || ""}`}
                         release_date={movie.release_date || "Data não disponível"}
+                        onPress={() => handleCardPress(movie.id)}
                     />
                 ))
+
             ) : (
                 !loading && (
                     <CardAccount
@@ -38,7 +46,9 @@ export default function Home() {
                         imgUrl="https://via.placeholder.com/200"
                     />
                 )
-            )}
+               
+               
+            ) }
         </ScrollView>
     );
 };

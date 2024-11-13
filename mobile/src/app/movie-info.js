@@ -1,17 +1,24 @@
 import { View, StyleSheet, Text, TextInput } from 'react-native'
-
+import { Image } from 'react-native'
 import Button from '../components/Button'
-import { useRouter } from 'expo-router'
+import { useRouter, useLocalSearchParams  } from 'expo-router'
 import CardAccount from '../components/card'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from 'react';
+import { useMovieStore } from '../stores/movieStore';
+
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function ShowPass() {
 
-    const router = useRouter()
+    const { id } = useLocalSearchParams();
+    const { movies } = useMovieStore();
+    const movie = movies.find((m) => m.id === parseInt(id));
+    const router = useRouter();
+
+    if (!movie) return <Text>Carregando...</Text>;
 
     const [showContent, setShowContent] = useState(false);
 
@@ -21,7 +28,7 @@ export default function ShowPass() {
 
     };
 
-    
+
     const [txtComent, setTxtComent] = useState('')
     const [txtRating, setTxtRating] = useState('')
 
@@ -63,9 +70,15 @@ export default function ShowPass() {
     return (
         <View style={styles.container}>
 
-
-            <CardAccount />
-
+            <View style={styles.container}>
+                <Image
+                    source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path || ""}` }}
+                    style={styles.poster}
+                />
+                <Text style={styles.title}>{movie.title}</Text>
+                <Text style={styles.releaseDate}>{movie.release_date || "Data não disponível"}</Text>
+                <Text style={styles.synopsis}>{movie.sinopse || "Sinopse não disponível"}</Text>
+            </View>
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>

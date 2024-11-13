@@ -1,5 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
-import { Image } from 'expo-image'
+import { View, Text, StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useRouter } from 'expo-router'

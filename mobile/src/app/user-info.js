@@ -1,7 +1,6 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
 import Footer from '../components/Footer'
 import { useLoginStore } from '../stores/useLoginStore'
-import { Image } from 'expo-image'
 import Button from '../components/Button'
 import React, { useState } from 'react';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
