@@ -70,7 +70,7 @@ export const getMovies = async () => {
     return await prisma.movie.findMany();
 };
 
-
+    
 export const getMovieByIdModel = async (id) => {
 
     const result = await prisma.movie.findUnique({
