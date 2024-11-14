@@ -38,9 +38,35 @@ const reviewSchema = z.object({
 })
 
 
+export const reviewValidateId = (id) => {
+    const partialReviewSchema = reviewSchema.partial({
+        movieId: true,
+        comment: true,
+        rating: true,
+        user_id: true,
+        createdAt: true
+    })
+    return partialReviewSchema.safeParse({id})
+}
+
+
 export const reviewValidateToCreate = (reviews) => {
     const partialReviewSchema = reviewSchema.partial({id: true, user_id: true})
     return partialReviewSchema.safeParse(reviews)
+}
+
+export const listReviews = async (public_id) => {
+    const reviews = await prisma.reviews.findMany({
+        orderBy: {
+            id: 'desc'
+        },
+        where: {
+            user: {
+                public_id
+            }
+        }
+    })
+    return reviews
 }
 
 
