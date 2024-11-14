@@ -2,19 +2,21 @@ import { View, StyleSheet, Text, TextInput } from 'react-native'
 import { Image } from 'react-native'
 import Button from '../components/Button'
 import { useRouter, useLocalSearchParams  } from 'expo-router'
-import CardAccount from '../components/card'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from 'react';
 import { useMovieStore } from '../stores/movieStore';
-
+import { useReviewsStore } from '../stores/useReviewsStore'
+import { fetchAuth } from '../utils/fetchAuth'
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function ShowPass() {
 
+
+    const { addReviews } = useReviewsStore()
     const { id } = useLocalSearchParams();
-    const { movies } = useMovieStore();
+    const { movies, getMovieById } = useMovieStore();
     const movie = movies.find((m) => m.id === parseInt(id));
     const router = useRouter();
 
@@ -38,27 +40,24 @@ export default function ShowPass() {
     const handleCreateReviews = async () => {
         const review = {
             coment: txtComent,
-            rating: txtRating
+            rating: txtRating,
+            movieId: movie.id
 
         }
 
-        const response = await fetch('http://localhost:5000/review', {
+        const response = await fetchAuth('http://localhost:5000/avalia', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(review)
         })
 
         if (response.ok) {
             const data = await response.json()
-            Alert.alert('Avaliação Criada com Sucesso!')
+            addReviews(data.review)
             setTxtComent('')
             setTxtRating('')
             router.back()
         } else {
             const data = await response.json()
-            Alert.alert('Erro ao Criar a avaliação')
             console.log(data?.error)
         }
         return
@@ -90,6 +89,7 @@ export default function ShowPass() {
             {showContent && (
                 <View style={styles.avaliador}>
                     <TextInput style={styles.input} onChangeText={setTxtComent} value={txtComent} />
+                    <TextInput style={styles.input} onChangeText={setTxtRating} value={txtRating} />
 
                     <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
                 </View>
