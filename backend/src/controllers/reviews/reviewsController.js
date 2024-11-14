@@ -1,6 +1,6 @@
-import { reviews } from "../../models/reviewsModel.js"
+import { reviews, reviewValidateToCreate } from "../../models/reviewsModel.js"
 import {getByPublicId } from "../../models/authModel.js" 
-import {getMovieById} from '../movies/getMovieByIdController.js'
+
 
 const avalia = async (req, res, next) => {
     try{
@@ -12,16 +12,18 @@ const avalia = async (req, res, next) => {
 
         const body = req.body
 
+        const reviewValidated = reviewValidateToCreate(body)
+
 
 
         const user = await getByPublicId(req.userLogged.public_id)
-        const movie = await getMovieById(req.params.id)
+        
 
       
        
 
-        body.data.user_id = user.id
-        const result = await reviews(body.data)
+        reviewValidated.data.user_id = user.id
+        const result = await reviews(reviewValidated.data)
 
 
         if(!result)

@@ -41,7 +41,7 @@ export default function ShowPass() {
         const review = {
             coment: txtComent,
             rating: txtRating,
-            movieId: movie.id
+            movieId: movie.id            
 
         }
 
