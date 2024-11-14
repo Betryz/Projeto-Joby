@@ -24,18 +24,14 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
 
             <View style={styles.card}>
 
-            
-
-
                     <Image
                         style={styles.logo}
                         source={{ uri: `https://image.tmdb.org/t/p/w200${poster_path}` }}
                        
-                       
                     />
 
-                    <View style={styles.content}>
 
+                    <View style={styles.content}>
 
                     <Text style={styles.name}>{title}</Text>
 
@@ -44,10 +40,8 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
                         
                         <Text style={styles.avaliacao}>3,4 <AntDesign name="star" size={15} color="yellow" /> </Text>
 
-
                     </View>
 
-            
             </View>
             </TouchableOpacity>  
               )

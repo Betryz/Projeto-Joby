@@ -19,19 +19,23 @@ const reviewSchema = z.object({
         movieId: z.number({
             invalid_type_error: "O movieId deve ser um valor numérico",
             required_error: "O movieId é obrigatório"
-        }).positive({ message: "O movieId deve ser um número positivo maior que 0" }),
+        }).positive({ message: "O movieId deve ser um número positivo maior que 0" })
+        .optional(),
     
         comment: z.string({
             required_error: "O comment é obrigatório",
             invalid_type_error: "O comment deve ser um texto"
-        }).min(1, { message: "O comment não pode estar vazio" }),
+        }).min(1, { message: "O comment não pode estar vazio" })
+        .optional(),
     
         rating: z.number({
             invalid_type_error: "O rating deve ser um valor numérico",
             required_error: "O rating é obrigatório"
-        }).int().min(0, { message: "O rating deve ser pelo menos 0" }).max(5, { message: "O rating deve ser no máximo 5" }),
+        }).int().min(0, { message: "O rating deve ser pelo menos 0" }).max(5, { message: "O rating deve ser no máximo 5" })
+        .optional(),
     
-        createdAt: z.date().default(() => new Date()) 
+        createdAt: z.date().default(() => new Date())
+        .optional(), 
 
         
      
@@ -57,17 +61,20 @@ export const reviewValidateToCreate = (reviews) => {
 
 export const listReviews = async (public_id) => {
     const reviews = await prisma.reviews.findMany({
-        orderBy: {
-            id: 'desc'
-        },
         where: {
             user: {
                 public_id
             }
-        }
+        },
+        include: {
+            movie: true, 
+            user: true   
+        },
     })
     return reviews
 }
+
+
 
 
 export const review = async (reviews) => {
