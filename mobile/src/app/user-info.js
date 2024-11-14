@@ -8,11 +8,9 @@ import { useReviewsStore } from '../stores/useReviewsStore';
 import { fetchAuth } from '../utils/fetchAuth'
 import CardMovie from '../components/card';
 
-
 export default function Home() {
     const [showContent, setShowContent] = useState(false);
     const [showContentList, setShowContentList] = useState(false);
-
 
     const { avatar, name } = useLoginStore()
 
@@ -20,7 +18,6 @@ export default function Home() {
         setShowContent(prevState => !prevState);
         setShowContentList(false);
     };
-
 
     const handlePressList = () => {
         setShowContentList(prevState => !prevState);
@@ -47,11 +44,6 @@ export default function Home() {
         getReviews()
     }, [])
 
-
-
-
-
-
     return (
         <ScrollView style={styles.container}>
 
@@ -74,7 +66,6 @@ export default function Home() {
 
             </View>
 
-
             <View style={styles.card}>
 
                 {
@@ -85,7 +76,6 @@ export default function Home() {
                             comment={review.comment}
                             rating={review.rating}
                             style={styles.card}
-
                         />
                     )
                 }
