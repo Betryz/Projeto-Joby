@@ -1,24 +1,47 @@
-import { reviews } from "../../models/reviewsModel.js"
-import { getByPublicId } from "../../models/authModel.js" 
+import { review, reviewValidateToCreate } from "../../models/reviewsModel.js"
+import { getByPublicId } from "../../models/authModel.js"
 
 
 const avalia = async (req, res, next) => {
-    try{
+    try {
+
+        console.log("req.userLogged:", req.userLogged);
+        if (!req.userLogged || !req.userLogged.public_id) {
+            return res.status(400).json({ error: "Usuário não autenticado!" });
+        }
+
         const body = req.body
 
+        const reviewValidated = reviewValidateToCreate(body)
 
-        if (!req.userLogged || !req.userLogged.public_id) {
+
+        if (!reviewValidated.success) {
+            console.log("Erros de validação:", reviewValidated.error.errors);
             return res.status(400).json({
-                error: "Usuário não autenticado ou dados de usuário ausentes"
+                error: "Dados da avaliação inválidos!",
+                details: reviewValidated.error.errors
             });
         }
 
+
         const user = await getByPublicId(req.userLogged.public_id)
 
-        body.data.user_id = user.id
-        const result = await reviews(body.data)
 
-        if(!result)
+        if (!user)
+            return res.status(401).json({
+                error: "Public ID Inválido!"
+            })
+
+        const reviewData = {
+            ...reviewValidated.data,
+            user_id: user.public_id
+        };
+
+
+        const result = await review(reviewData);
+
+
+        if (!result)
             return res.status(401).json({
                 error: "Erro ao criar conta!"
             })
@@ -27,7 +50,7 @@ const avalia = async (req, res, next) => {
             success: "Conta criada com sucesso!",
             body: result
         })
-    } catch(error) {
+    } catch (error) {
         next(error)
     }
 }

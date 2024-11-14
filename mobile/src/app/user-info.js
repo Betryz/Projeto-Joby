@@ -2,8 +2,12 @@ import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
 import Footer from '../components/Footer'
 import { useLoginStore } from '../stores/useLoginStore'
 import Button from '../components/Button'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { useReviewsStore } from '../stores/useReviewsStore';
+import { fetchAuth } from '../utils/fetchAuth'
+import CardMovie from '../components/card';
+
 
 export default function Home() {
     const [showContent, setShowContent] = useState(false);
@@ -23,10 +27,30 @@ export default function Home() {
         setShowContent(false);
     };
 
+    const { reviews, setReviews } = useReviewsStore()
+
+    console.log('reviews: ', reviews)
+
+    useEffect(() => {
+        const getReviews = async () => {
+            const response = await fetchAuth('http://localhost:5000/avalia')
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data.reviews)
+                setReviews(data.reviews)
+                return
+            }
+            console.log('Erro ao carregar reviews')
+            return
+        }
+
+        getReviews()
+    }, [])
 
 
 
-    
+
+
 
     return (
         <ScrollView style={styles.container}>
@@ -37,8 +61,6 @@ export default function Home() {
                 <Text style={styles.text}> {name}</Text>
 
             </View>
-
-
 
             <View style={styles.select}>
 
@@ -52,17 +74,22 @@ export default function Home() {
 
             </View>
 
-            
-            {showContent && (
-                <View style={styles.card}>
-                    <Image
-                        style={styles.logo}
-                    />
-                    <Text style={styles.service}>dfgdf</Text>
-                    <Text style={styles.comment}>fgdgdddddddd</Text>
-                    <EvilIcons name="arrow-right" size={26} color="black" />
-                </View>
-            )}
+
+            <View style={styles.card}>
+
+                {
+                    reviews.map((review) =>
+                        <CardMovie
+                            key={review.id}
+                            id={review.movie.id}
+                            comment={review.comment}
+                            rating={review.rating}
+                            style={styles.card}
+
+                        />
+                    )
+                }
+            </View>
 
             {showContentList && (
                 <View style={styles.card}>

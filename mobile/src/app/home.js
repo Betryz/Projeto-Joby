@@ -2,7 +2,8 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CardAccount from '../components/card'
-import { useState } from 'react'
+import {useMovieStore} from '../stores/movieStore'
+import { useRouter } from 'expo-router'
 
 export default function Home() {
   const { movies, loading, error, fetchMovies} = useMovieStore();

@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity , Image} from 'react-native'
 import { useRouter } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import {useMovieStore} from '../stores/movieStore'
 
 
 
 export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
+
 
     const router = useRouter()
 
@@ -26,8 +28,8 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
                         style={styles.logo}
                         source={{ uri: `https://image.tmdb.org/t/p/w200${poster_path}` }}
                        
-                       
                     />
+
 
                     <View style={styles.content}>
 
