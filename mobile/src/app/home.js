@@ -32,7 +32,7 @@ export default function Home() {
             id={movies.id}
             title={movies.title}
             sinopse={movies.overview}
-            poster_path={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} release_date={movie.release_date}
+            poster_path={`https://image.tmdb.org/t/p/w200${movies.poster_path}`} release_date={movies.release_date}
           />
         ))
       ) : (
