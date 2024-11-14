@@ -21,10 +21,6 @@ app.use(express.json());
 
 app.use('/avalia' ,auth ,reviews)
 app.use('/movies', movieRouter)
-
-
-
-
 app.use('/auth', authRouter)
 
 

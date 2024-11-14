@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity , Image} from 'react-native'
 import { useRouter } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import {useMovieStore} from '../stores/movieStore'
 
 
 
+export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
 
-export default function CardMovie({ id, title, poster_path, sinopse, release_date}) {
 
     const router = useRouter()
 
@@ -17,7 +18,6 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
     };
 
     const truncatedSinopse = sinopse ? (sinopse.length > 100 ? `${sinopse.slice(0, 100)}...` : sinopse) : 'Sinopse não disponível';
-
 
     return (
         <TouchableOpacity onPress={handlePress} >

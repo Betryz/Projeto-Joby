@@ -2,8 +2,8 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CardAccount from '../components/card'
-import { useMovieStore } from '../stores/movieStore';
-import { useRouter } from 'expo-router';
+import {useMovieStore} from '../stores/movieStore'
+import { useRouter } from 'expo-router'
 
 export default function Home() {
   const { movies, loading, error, fetchMovies} = useMovieStore();
@@ -25,34 +25,28 @@ export default function Home() {
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
 
-            {movies.length > 0 ? (
-                movies.map((movie) => (
-                    <CardAccount
-                        key={movie.id}
-                        id={movie.id}
-                        title={movie.title || "Título não disponível"}
-                        sinopse={movie.sinopse || "Sinopse não disponível"}
-                        poster_path={`https://image.tmdb.org/t/p/w200${movie.poster_path || ""}`}
-                        release_date={movie.release_date || "Data não disponível"}
-                        onPress={() => handleCardPress(movie.id)}
-                    />
-                ))
+      {movies.length > 0 ? (
+        movies.map((movie) => (
+          <CardAccount
+            key={movie.id}
+            id={movie.id}
+            title={movie.title}
+            sinopse={movie.overview}
+            poster_path={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} release_date={movie.release_date}
+          />
+        ))
+      ) : (
+        <CardAccount
+          service="Nenhum resultado encontrado"
+          userName="Por favor, tente outro título."
+          imgUrl="https://via.placeholder.com/200"
+        />
+      )}
 
-            ) : (
-                !loading && (
-                    <CardAccount
-                        service="Nenhum resultado encontrado"
-                        userName="Por favor, tente outro título."
-                        imgUrl="https://via.placeholder.com/200"
-                    />
-                )
-               
-               
-            ) }
-        </ScrollView>
-    );
-};
-
+      <Footer />
+    </ScrollView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
