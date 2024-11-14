@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
-import { Image } from 'expo-image'
+import { View, Text, StyleSheet, TextInput, Pressable, Image } from 'react-native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useRouter } from 'expo-router'
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useLoginStore } from '../stores/useLoginStore'
 import { useState } from 'react';
 
@@ -26,24 +25,26 @@ export default function Header({ onSearch }) {
 
 
             <View style={styles.logo} >
-            <MaterialCommunityIcons name="movie-open-star-outline" size={30} color="black" />
-            <Text style={styles.marca} >
-                Jooby
-            </Text>
-              
+                <MaterialCommunityIcons name="movie-open-star-outline" size={30} color="black" />
+                <Text style={styles.marca} >
+                    Jooby
+                </Text>
+
 
             </View>
 
 
 
-            <View >
+            <View style={styles.barra} >
                 <TextInput
                     style={styles.input}
                     Image={<FontAwesome name="search" size={24} color="black" />}
                     placeholder="Pesquise"
-                    value={query} onChangeText={setQuery} 
+                    value={query} onChangeText={setQuery}
                     onSubmitEditing={handleSearch}
                 />
+
+                <Ionicons name="search-sharp" size={24} color="black" />
             </View>
 
             <View style={styles.user}>
@@ -56,14 +57,14 @@ export default function Header({ onSearch }) {
 
             </View>
 
-</View>
-              
+        </View>
 
 
 
-          
 
-          
+
+
+
 
     )
 }
@@ -94,18 +95,27 @@ const styles = StyleSheet.create({
         padding: 10
     },
     input: {
-       
+
         backgroundColor: '#d5d5d5',
         paddingVertical: 6,
-        paddingHorizontal: 6,
-        marginVertical: 5,
-        borderRadius: 5
+        paddingHorizontal: 6
+     
     },
     marca: {
         fontWeight: 600,
         fontSize: 12,
 
+    },
+    barra: {
+        flexDirection: 'row',
+        backgroundColor: '#d5d5d5',
+        borderRadius: 5,
+        padding: 4,
+        marginHorizontal: 12
+
+
+        
     }
-    
+
 
 })
