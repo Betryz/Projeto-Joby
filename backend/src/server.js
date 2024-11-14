@@ -1,4 +1,4 @@
-// const express = require('express');
+
 import express from 'express'
 import authRouter from './routers/authRouter.js'
 

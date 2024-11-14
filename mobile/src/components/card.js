@@ -1,24 +1,32 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
-import { Image } from 'expo-image'
+import { View, Text, StyleSheet, TouchableOpacity , Image} from 'react-native'
 import { useRouter } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign';
+
 
 
 export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
 
     const router = useRouter()
 
+    const handlePress = () => {
+        router.push({
+            pathname: '/movie-info',
+            params: { id },
+        });
+    };
+
     const truncatedSinopse = sinopse ? (sinopse.length > 100 ? `${sinopse.slice(0, 100)}...` : sinopse) : 'Sinopse não disponível';
 
     return (
-        <Pressable onPress={() => router.push({ pathname: '/movie-info', params: { id } })}>
+        <TouchableOpacity onPress={handlePress} >
 
             <View style={styles.card}>
 
                     <Image
                         style={styles.logo}
-                        source={{ uri: poster_path }}
-                        defaultSource={{ uri: 'https://via.placeholder.com/100x120' }}
+                        source={{ uri: `https://image.tmdb.org/t/p/w200${poster_path}` }}
+                       
+                       
                     />
 
                     <View style={styles.content}>
@@ -33,8 +41,8 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
                     </View>
 
             </View>
-        </Pressable>
-    )
+            </TouchableOpacity>  
+              )
 }
 
 const styles = StyleSheet.create({
