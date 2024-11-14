@@ -1,7 +1,7 @@
  import { ScrollView, StyleSheet } from 'react-native'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import CardAccount from '../components/card'
+import CardMovie from '../components/card'
 import { useState } from 'react'
 
 export default function Home() {
@@ -29,7 +29,8 @@ export default function Home() {
 
       {movies.length > 0 ? (
         movies.map((movie) => (
-          <CardAccount
+          console.log('dados do filme:', movie) ,
+          <CardMovie
             key={movie.id}
             id={movie.id}
             title={movie.title}
@@ -38,7 +39,7 @@ export default function Home() {
           />
         ))
       ) : (
-        <CardAccount
+        <CardMovie
           service="Nenhum resultado encontrado"
           userName="Por favor, tente outro título."
           imgUrl="https://via.placeholder.com/200"
