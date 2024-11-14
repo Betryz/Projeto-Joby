@@ -15,7 +15,6 @@ export const fetchAndSaveMovies = async (query) => {
 
     const data = await response.json();
 
-    // Salva ou atualiza os filmes no banco de dados
     const savedMovies = await Promise.all(
         data.results.map(async (movie) => {
             const { id: tmdb_id, title, poster_path, overview, release_date } = movie;
@@ -50,3 +49,16 @@ export const fetchAndSaveMovies = async (query) => {
 export const getMovies = async () => {
     return await prisma.movie.findMany();
 };
+
+
+export const getMovieByIdModel = async (id) => {
+
+    const result = await prisma.movie.findUnique({
+        where: {
+            id
+        }
+    })
+    return result
+
+};
+

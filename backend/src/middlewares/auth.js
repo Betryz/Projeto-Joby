@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '../config.js'
 
 export const auth = (req, res, next) => {
+
+    console.log("Authorization Header:", req.headers.authorization);
     const authorization = req.headers.authorization
 
     if(!authorization)

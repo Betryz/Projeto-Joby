@@ -8,6 +8,7 @@ import logger from './middlewares/logger.js';
 import reviews from './controllers/reviews/reviewsController.js';
 import cors from 'cors';
 import movieRouter from './routers/movieRouter.js'
+import { auth } from './middlewares/auth.js';
 
 
 
@@ -18,7 +19,7 @@ app.use(cors({}))
 
 app.use(express.json());
 
-app.use('/avalia' , reviews)
+app.use('/avalia' ,auth ,reviews)
 app.use('/movies', movieRouter)
 
 
