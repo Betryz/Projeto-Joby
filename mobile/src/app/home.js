@@ -26,12 +26,12 @@ export default function Home() {
             {error && <p>Error: {error}</p>}
 
       {movies.length > 0 ? (
-        movies.map((movie) => (
+        movies.map((movies) => (
           <CardAccount
-            key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            sinopse={movie.overview}
+            key={movies.id}
+            id={movies.id}
+            title={movies.title}
+            sinopse={movies.overview}
             poster_path={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} release_date={movie.release_date}
           />
         ))
