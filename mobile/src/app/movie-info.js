@@ -31,7 +31,7 @@ export default function ShowPass() {
     };
 
 
-    const [txtComent, setTxtComent] = useState('')
+    const [txtComment, setTxtComment] = useState('')
     const [txtRating, setTxtRating] = useState('')
 
 
@@ -39,21 +39,22 @@ export default function ShowPass() {
 
     const handleCreateReviews = async () => {
         const review = {
-            coment: txtComent,
-            rating: txtRating,
+            comment: txtComment,
+            rating: parseInt(txtRating, 10),
             movieId: movie.id            
 
         }
 
         const response = await fetchAuth('http://localhost:5000/avalia', {
             method: 'POST',
+          
             body: JSON.stringify(review)
         })
 
         if (response.ok) {
             const data = await response.json()
             addReviews(data.review)
-            setTxtComent('')
+            setTxtComment('')
             setTxtRating('')
             router.back()
         } else {
@@ -88,7 +89,7 @@ export default function ShowPass() {
 
             {showContent && (
                 <View style={styles.avaliador}>
-                    <TextInput style={styles.input} onChangeText={setTxtComent} value={txtComent} />
+                    <TextInput style={styles.input} onChangeText={setTxtComment} value={txtComment} />
                     <TextInput style={styles.input} onChangeText={setTxtRating} value={txtRating} />
 
                     <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
