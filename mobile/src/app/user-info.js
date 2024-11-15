@@ -80,10 +80,10 @@ export default function Home() {
                 {
                     reviews.map((review) =>
                         <CardMovie
-                            key={review.id}
-                            id={review.movie.id}
-                            comment={review.comment}
-                            rating={review.rating}
+                            key={reviews.id}
+                            id={reviews.movie.id}
+                            comment={reviews.comment}
+                            rating={reviews.rating}
                             style={styles.card}
 
                         />

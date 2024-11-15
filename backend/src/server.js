@@ -8,8 +8,7 @@ import logger from './middlewares/logger.js';
 import reviews from './controllers/reviews/reviewsController.js';
 import cors from 'cors';
 import movieRouter from './routers/movieRouter.js'
-import { auth } from './middlewares/auth.js';
-
+import favorite from './routers/favoriteRouter.js'
 
 
 const app = express();
@@ -19,9 +18,11 @@ app.use(cors({}))
 
 app.use(express.json());
 
-app.use('/avalia' ,auth ,reviews)
+app.use('/avalia' ,reviews)
 app.use('/movies', movieRouter)
 app.use('/auth', authRouter)
+app.use('/watch', favorite)
+
 
 
 app.use(handler)

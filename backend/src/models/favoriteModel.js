@@ -5,69 +5,47 @@ const prisma = new PrismaClient()
 
 
 
-const reviewSchema = z.object({
+const watchlistSchema = z.object({
     id: z.number({
-            invalid_type_error: "O id deve ser um valor numérico",
-            required_error: "O id é obrigatório"
-        })
-        .positive({message: "O id deve ser um número positivo maior que 0"}),
-     
-    user_id: z.number({
-            invalid_type_error: "O user_id deve ser um valor numérico",
-            required_error: "O user_id é obrigatório"
-        }),
-        movieId: z.number({
-            invalid_type_error: "O movieId deve ser um valor numérico",
-            required_error: "O movieId é obrigatório"
-        }).positive({ message: "O movieId deve ser um número positivo maior que 0" })
-        ,
-    
-        comment: z.string({
-            required_error: "O comment é obrigatório",
-            invalid_type_error: "O comment deve ser um texto"
-        }).min(1, { message: "O comment não pode estar vazio" })
-    ,
-    
-        rating: z.number({
-            invalid_type_error: "O rating deve ser um valor numérico",
-            required_error: "O rating é obrigatório"
-        }).int().min(0, { message: "O rating deve ser pelo menos 0" }).max(5, { message: "O rating deve ser no máximo 5" })
-        ,
-    
-        createdAt: z.date().default(() => new Date())
-      , 
-
-        
-     
-})
-
-
-export const reviewsValidateToUpdate = (review) => {
-    const partialReviewSchema= reviewSchema.partial({user_id: true})
-    return partialReviewSchema.safeParse(review)
-}
-
-
-
-export const reviewValidateId = (id) => {
-    const partialReviewSchema = reviewSchema.partial({
-        movieId: true,
-        comment: true,
-        rating: true,
-        user_id: true,
-        createdAt: true
+        invalid_type_error: "O id deve ser um valor numérico",
+        required_error: "O id é obrigatório"
     })
-    return partialReviewSchema.safeParse({id})
+    .positive({ message: "O id deve ser um número positivo maior que 0" }),
+
+    user_id: z.number({
+        invalid_type_error: "O user_id deve ser um valor numérico",
+        required_error: "O user_id é obrigatório"
+    }),
+
+    movie_id: z.number({
+        invalid_type_error: "O movie_id deve ser um valor numérico",
+        required_error: "O movie_id é obrigatório"
+    }).positive({ message: "O movie_id deve ser um número positivo maior que 0" }),
+
+    watched: z.boolean().default(false) 
+});
+
+
+
+
+export const watchlistValidateId = (id) => {
+    const partialWatchlistSchema = watchlistSchema.partial({
+        movieId: true,
+        watched: true,
+        user_id: true,
+    
+    })
+    return partialWatchlistSchema.safeParse({id})
 }
 
 
-export const reviewValidateToCreate = (reviews) => {
-    const partialReviewSchema = reviewSchema.partial({id: true, user_id: true})
-    return partialReviewSchema.safeParse(reviews)
+export const watchlistValidateToCreate = (watchlist) => {
+    const partialWatchlistSchema = watchlistSchema.partial({id: true, user_id: true})
+    return partialWatchlistSchema.safeParse(watchlist)
 }
 
-export const listReviews = async (public_id) => {
-    const reviews = await prisma.reviews.findMany({
+export const listWatchlist = async (public_id) => {
+    const watchlist = await prisma.watchlist.findMany({
         where: {
             user: {
                 public_id
@@ -78,11 +56,11 @@ export const listReviews = async (public_id) => {
             user: true   
         },
     })
-    return reviews
+    return watchlist
 }
 
-export const deleteReview = async (id, public_id) => {
-    const review = await prisma.reviews.delete({
+export const deleteWatchlist = async (id, public_id) => {
+    const watchlist = await prisma.watchlist.delete({
         where: {
             id: id,
             user:{
@@ -90,30 +68,18 @@ export const deleteReview = async (id, public_id) => {
             }
         }
     })
-    return review
+    return watchlist
 }
 
 
-export const review = async (reviews) => {
-    const result = await prisma.reviews.create({
-         data: reviews
+export const watchlist = async (watchlist) => {
+    const result = await prisma.watchlist.create({
+         data: watchlist
     })
     return result
 }
 
 
-export const update = async (review, public_id) => {
-    const result = await prisma.reviews.update({
-        data: review,
-        where:{
-           id: review.id,
-           user:{
-            public_id
-           } 
-        }
-    })
-    return result
-}
 
 
 
