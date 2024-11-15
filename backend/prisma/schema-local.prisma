@@ -50,10 +50,10 @@ model reviews {
 
 model watchlist {
   id       Int     @id @default(autoincrement())
-  user_id  Int
+  user_id  String
   movie_id Int
-  watched  Boolean @default(false)
-  user     user    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  watched  Boolean? @default(false)
+  user     user    @relation(fields: [user_id], references: [public_id], onDelete: Cascade)
   movie    movie   @relation(fields: [movie_id], references: [id], onDelete: Cascade)
 }
 

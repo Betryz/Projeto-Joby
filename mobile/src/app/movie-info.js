@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useMovieStore } from '../stores/movieStore';
 import { useReviewsStore } from '../stores/useReviewsStore'
 import { fetchAuth } from '../utils/fetchAuth'
+import { useWatchlistStore } from '../stores/useFavoriteStore'
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
@@ -15,6 +16,7 @@ export default function ShowPass() {
 
 
     const { addReviews } = useReviewsStore()
+    const {addWatchlist} = useWatchlistStore()
     const { id } = useLocalSearchParams();
     const { movies, getMovieById } = useMovieStore();
     const movie = movies.find((m) => m.id === parseInt(id));
@@ -67,6 +69,37 @@ export default function ShowPass() {
 
 
 
+    const [txtWatched , setTxtWatched ] = useState('')
+
+
+    const handleCreateWatchlist = async () => {
+        const watchlist = {
+            watched: txtWatched.toLowerCase() === 'true', 
+            movie_id: movie.id            
+
+        }
+
+        const response = await fetchAuth('http://localhost:5000/watch', {
+            method: 'POST',
+          
+            body: JSON.stringify(watchlist)
+        })
+
+        if (response.ok) {
+            const data = await response.json()
+            addWatchlist(data.watchlist)
+            setTxtWatched ('')
+            router.back()
+        } else {
+            const data = await response.json()
+            console.log(data?.error)
+        }
+        return
+    }
+
+
+
+
     return (
         <View style={styles.container}>
 
@@ -82,7 +115,7 @@ export default function ShowPass() {
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
-                <Button style={styles.Button}><MaterialCommunityIcons name="movie-open-plus-outline" size={24} color="black" /></Button>
+                <Button style={styles.Button} onPress={handleCreateWatchlist}><MaterialCommunityIcons name="movie-open-plus-outline" size={24} color="black" /></Button>
             </View>
 
 

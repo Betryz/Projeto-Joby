@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client'
-import {z} from 'zod'
+import {optional, z} from 'zod'
 
 const prisma = new PrismaClient()
 
@@ -22,7 +22,8 @@ const watchlistSchema = z.object({
         required_error: "O movie_id é obrigatório"
     }).positive({ message: "O movie_id deve ser um número positivo maior que 0" }),
 
-    watched: z.boolean().default(false) 
+    watched: z.boolean().default(false)
+    .optional()
 });
 
 

@@ -10,6 +10,14 @@ import CardMovie from '../components/card';
 
 
 export default function Home() {
+
+    
+
+
+
+
+
+
     const [showContent, setShowContent] = useState(false);
     const [showContentList, setShowContentList] = useState(false);
 
