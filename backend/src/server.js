@@ -9,6 +9,7 @@ import reviews from './controllers/reviews/reviewsController.js';
 import cors from 'cors';
 import movieRouter from './routers/movieRouter.js'
 import favorite from './routers/favoriteRouter.js'
+import table from './routers/tableRouter.js'
 
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/avalia' ,reviews)
 app.use('/movies', movieRouter)
 app.use('/auth', authRouter)
 app.use('/watch', favorite)
+app.use('/table' , table)
 
 
 
