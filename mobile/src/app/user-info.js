@@ -8,12 +8,41 @@ import { useReviewsStore } from '../stores/useReviewsStore';
 import { fetchAuth } from '../utils/fetchAuth'
 import CardMovie from '../components/card';
 import { useRouter } from 'expo-router'
+import { deleteObjectData } from '../utils/asyncStorage';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 
 export default function Home() {
 
-    const router = useRouter()
-    
+    const { logout: logoutStore, accessToken } = useLoginStore();
+    const router = useRouter();
+  
+    const handleLogout = async () => {
+      const logout = {
+        accessToken,
+      };
+  
+      const response = await fetch('http://localhost:5000/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(logout),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        logoutStore();
+        await deleteObjectData('userLogged');
+        router.replace('/login');
+      } else {
+        const data = await response.json();
+        Alert.alert('Erro ao logar');
+        console.log(data?.error);
+      }
+      return;
+    };    
 
 
 
@@ -25,91 +54,48 @@ export default function Home() {
 
     const { avatar, name } = useLoginStore()
 
-    const handlePress = () => {
-        setShowContent(prevState => !prevState);
-        setShowContentList(false);
-    };
+  
 
-    const handlePressList = () => {
-        setShowContentList(prevState => !prevState);
-        setShowContent(false);
-    };
-
-    const { reviews, setReviews } = useReviewsStore()
-
-    console.log('reviews: ', reviews)
-
-    useEffect(() => {
-        const getReviews = async () => {
-            const response = await fetchAuth('http://localhost:5000/avalia')
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data.reviews)
-                setReviews(data.reviews)
-                return
-            }
-            console.log('Erro ao carregar reviews')
-            return
-        }
-
-        getReviews()
-    }, [])
-
+    
 
     return (
-        <ScrollView style={styles.container}>
 
-            <View style={styles.cabe}>
-                <Image
-                    source={avatar} style={styles.avatar} />
-                <Text style={styles.text}> {name}</Text>
+        <View style={styles.container}>
+             <ScrollView contentContainerStyle={styles.scrollContent}>
+
+<View style={styles.cabe}>
+    <Image
+        source={avatar} style={styles.avatar} />
+    <Text style={styles.text}> {name}</Text>
 
 
-                <Button onPress={() => router.push('/table')}>Lista</Button>
+    <Button onPress={() => router.push('/table')}>Lista</Button>
 
 
-            </View>
+</View>
 
-            <View style={styles.select}>
 
-                <Button onPress={handlePress}>
-                    Avaliações
-                </Button>
 
-                <Button onPress={handlePressList}>
-                    Favoritos
-                </Button>
 
-            </View>
 
-            <View style={styles.card}>
+<View style={styles.footerText}>
+        <FontAwesome5
+          style={styles.icon}
+          onPress={handleLogout}
+          name="door-open"
+          size={24}
+          color="black"
+        />
+      </View>
 
-                {
-                    reviews.map((review) =>
-                        <CardMovie
-                            key={reviews.id}
-                            id={reviews.movie.id}
-                            comment={reviews.comment}
-                            rating={reviews.rating}
-                            style={styles.card}
-                        />
-                    )
-                }
-            </View>
+</ScrollView>
 
-            {showContentList && (
-                <View style={styles.card}>
-                    <Image
-                        style={styles.logo}
-                    />
-                    <Text style={styles.service}>oi</Text>
-                    <Text style={styles.comment}>fgdgdddddddd</Text>
-                    <EvilIcons name="arrow-right" size={26} color="black" />
-                </View>
-            )}
 
-            <Footer />
-        </ScrollView>
+
+
+
+        </View>
+       
     )
 }
 
@@ -174,5 +160,19 @@ const styles = StyleSheet.create({
     comment: {
         color: '#777777',
         marginLeft: 'auto',
-    }
+    },
+    scrollContent: {
+        paddingBottom: 60, // Espaço para evitar sobreposição com o Footer
+      },
+
+
+      footerText: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+      },
+      icon: {
+        paddingHorizontal: 20, // Espaçamento ao redor do ícone
+      },
 })
