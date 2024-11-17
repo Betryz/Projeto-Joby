@@ -78,12 +78,12 @@ export const deleteTable = async (id, public_id) => {
             }
         }
     })
-    return review
+    return table
 }
 
 
 export const createTable = async (tableData) => {
-    const { name, description, user_id, movieIds } = tableData;
+    const { name, description, user_id, movies } = tableData;
 
     const result = await prisma.table.create({
         data: {
@@ -91,7 +91,7 @@ export const createTable = async (tableData) => {
             description,
             user_id,
             movies: {
-                connect: movieIds?.map(id => ({ id: movieIds })) || [],
+                connect: movies?.map((id) => ({ id })), 
             },
         },
         include: {
@@ -129,7 +129,11 @@ export const update = async (table, public_id) => {
 
 
 export const list = async () => {
-    const result = await prisma.table.findMany()
+    const result = await prisma.table.findMany({
+        include: {
+            movies: true, 
+        },
+    })
 
     return result
 
