@@ -15,13 +15,13 @@ export default function Table() {
     const [txtDescription, setTxtDescription] = useState('');
     const [txtName, setTxtName] = useState('');
     const [query, setQuery] = useState('');
-    const [selectedMovies, setSelectedMovies] = useState([]); 
+    const [selectedMovies, setSelectedMovies] = useState([]);
 
     const handleCreateTable = async () => {
         const table = {
             description: txtDescription,
             name: txtName,
-            movies: selectedMovies, 
+            movies: selectedMovies,
         };
 
         const response = await fetchAuth('http://localhost:5000/table', {
@@ -34,7 +34,7 @@ export default function Table() {
             addTable(data.table);
             setTxtDescription('');
             setTxtName('');
-            setSelectedMovies([]); 
+            setSelectedMovies([]);
             router.back();
         } else {
             const data = await response.json();
@@ -52,10 +52,11 @@ export default function Table() {
     const toggleSelection = (movieId) => {
         setSelectedMovies((prev) =>
             prev.includes(movieId)
-                ? prev.filter((id) => id !== movieId) 
-                : [...prev, movieId]
+                ? prev.filter((id) => id !== movieId) // Remove se já estiver selecionado
+                : [...prev, movieId] // Adiciona se não estiver selecionado
         );
     };
+    
 
     return (
         <View style={styles.container}>
@@ -97,8 +98,9 @@ export default function Table() {
                         <View key={movie.id} style={styles.card}>
                             <TouchableOpacity
                                 style={styles.radio}
-                                onPress={() => toggleSelection(movie.id)}
+                                onPress={() => toggleSelection(movie.id)} // Alterna a seleção do filme
                             >
+                                {/* Verifica se o filme está selecionado */}
                                 {selectedMovies.includes(movie.id) ? (
                                     <View style={styles.radioSelected} />
                                 ) : null}
@@ -113,10 +115,9 @@ export default function Table() {
                         </View>
                     ))
                 ) : (
-                    <View style={styles.card}>
-                        
-                    </View>
+                    <Text>Nenhum filme encontrado</Text>
                 )}
+
             </ScrollView>
         </View>
     );
