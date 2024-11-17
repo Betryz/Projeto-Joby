@@ -20,11 +20,7 @@ const tableSchema = z.object({
         required_error: "A descrição é obrigatória",
       }).min(1, { message: "A descrição não pode estar vazia" }).max(700, { message: "A descrição pode ter no máximo 700 caracteres" }),
     
-      movies: z.number({
-        invalid_type_error: "O movies deve ser um valor numérico",
-        required_error: "O movies é obrigatório",
-      }).positive({ message: "O movies deve ser um número positivo maior que 0" }),
-    
+      movies: z.array(z.number()).min(1, { message: "Deve conter ao menos 1 filme" }),
       user_id: z.number({
         invalid_type_error: "O user_id deve ser um valor numérico",
         required_error: "O user_id é obrigatório",
@@ -95,7 +91,7 @@ export const createTable = async (tableData) => {
             description,
             user_id,
             movies: {
-                connect: movieIds?.map(id => ({ id })) || [],
+                connect: movieIds?.map(id => ({ id: movieIds })) || [],
             },
         },
         include: {
