@@ -35,7 +35,7 @@ const create = async (req, res, next) => {
         const tableData = {
             ...tableValidated.data,
             user_id: user.public_id, 
-            movieIds: body.movieIds || [], 
+            movies: body.movies || [], 
         };
 
        

@@ -8,10 +8,10 @@ import update from '../controllers/table/updateController.js'
 import { auth } from '../middlewares/auth.js'
 const router = express.Router();
 
+router.get('/list', getList)
 
 router.use(auth)
 router.post('/' , create)
-router.get('/', getList)
 router.get('/', get)
 router.delete('/:id', del)
 router.put('/:id', update)
