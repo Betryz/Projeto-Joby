@@ -61,7 +61,6 @@ export default function ShowPass() {
         return
     }
 
-<<<<<<< HEAD
 
 
 
@@ -96,8 +95,7 @@ export default function ShowPass() {
 
 
 
-=======
->>>>>>> master
+
     return (
         <View style={styles.container}>
 

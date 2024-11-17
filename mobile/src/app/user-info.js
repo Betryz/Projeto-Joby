@@ -55,17 +55,7 @@ export default function Home() {
         getReviews()
     }, [])
 
-<<<<<<< HEAD
 
-
-
-
-
-
-
-
-=======
->>>>>>> master
     return (
         <ScrollView style={styles.container}>
 
