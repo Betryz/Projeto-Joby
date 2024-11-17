@@ -7,7 +7,6 @@ import {useMovieStore} from '../stores/movieStore'
 
 export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
 
-
     const router = useRouter()
 
     const handlePress = () => {
@@ -29,7 +28,6 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
                         source={{ uri: `https://image.tmdb.org/t/p/w200${poster_path}` }}
                        
                     />
-
 
                     <View style={styles.content}>
 

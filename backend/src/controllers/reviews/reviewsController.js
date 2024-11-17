@@ -40,7 +40,6 @@ const avalia = async (req, res, next) => {
 
         const result = await review(reviewData);
 
-
         if (!result)
             return res.status(401).json({
                 error: "Erro ao criar conta!"

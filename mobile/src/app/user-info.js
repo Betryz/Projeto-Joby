@@ -10,7 +10,6 @@ import CardMovie from '../components/card';
 import { useRouter } from 'expo-router'
 
 
-
 export default function Home() {
 
     const router = useRouter()
@@ -24,14 +23,12 @@ export default function Home() {
     const [showContent, setShowContent] = useState(false);
     const [showContentList, setShowContentList] = useState(false);
 
-
     const { avatar, name } = useLoginStore()
 
     const handlePress = () => {
         setShowContent(prevState => !prevState);
         setShowContentList(false);
     };
-
 
     const handlePressList = () => {
         setShowContentList(prevState => !prevState);
@@ -57,13 +54,6 @@ export default function Home() {
 
         getReviews()
     }, [])
-
-
-
-
-
-
-
 
 
     return (
@@ -92,7 +82,6 @@ export default function Home() {
 
             </View>
 
-
             <View style={styles.card}>
 
                 {
@@ -103,7 +92,6 @@ export default function Home() {
                             comment={reviews.comment}
                             rating={reviews.rating}
                             style={styles.card}
-
                         />
                     )
                 }
