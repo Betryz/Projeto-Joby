@@ -33,6 +33,7 @@ export default function RootLayout() {
       <Stack.Screen name="login" options={{ title: "Entrar" }} />
       <Stack.Screen name="signup" options={{ title: "Cadastre-se" }} />
       <Stack.Screen name="user-info" options={{ title: "Editar" }} />
+      <Stack.Screen name="table" options={{ title: "Criar" }} />
 
     </Stack>
   );

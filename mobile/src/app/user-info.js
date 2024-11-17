@@ -7,10 +7,13 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useReviewsStore } from '../stores/useReviewsStore';
 import { fetchAuth } from '../utils/fetchAuth'
 import CardMovie from '../components/card';
+import { useRouter } from 'expo-router'
+
 
 
 export default function Home() {
 
+    const router = useRouter()
     
 
 
@@ -60,6 +63,9 @@ export default function Home() {
 
 
 
+
+
+
     return (
         <ScrollView style={styles.container}>
 
@@ -67,6 +73,10 @@ export default function Home() {
                 <Image
                     source={avatar} style={styles.avatar} />
                 <Text style={styles.text}> {name}</Text>
+
+
+                <Button onPress={() => router.push('/table')}>Lista</Button>
+
 
             </View>
 
