@@ -7,93 +7,95 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useReviewsStore } from '../stores/useReviewsStore';
 import { fetchAuth } from '../utils/fetchAuth'
 import CardMovie from '../components/card';
+import { useRouter } from 'expo-router'
+import { deleteObjectData } from '../utils/asyncStorage';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
 
 export default function Home() {
+
+    const { logout: logoutStore, accessToken } = useLoginStore();
+    const router = useRouter();
+  
+    const handleLogout = async () => {
+      const logout = {
+        accessToken,
+      };
+  
+      const response = await fetch('http://localhost:5000/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(logout),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        logoutStore();
+        await deleteObjectData('userLogged');
+        router.replace('/login');
+      } else {
+        const data = await response.json();
+        Alert.alert('Erro ao logar');
+        console.log(data?.error);
+      }
+      return;
+    };    
+
+
+
+
+
+
     const [showContent, setShowContent] = useState(false);
     const [showContentList, setShowContentList] = useState(false);
 
     const { avatar, name } = useLoginStore()
 
-    const handlePress = () => {
-        setShowContent(prevState => !prevState);
-        setShowContentList(false);
-    };
+  
 
-    const handlePressList = () => {
-        setShowContentList(prevState => !prevState);
-        setShowContent(false);
-    };
-
-    const { reviews, setReviews } = useReviewsStore()
-
-    console.log('reviews: ', reviews)
-
-    useEffect(() => {
-        const getReviews = async () => {
-            const response = await fetchAuth('http://localhost:5000/avalia')
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data.reviews)
-                setReviews(data.reviews)
-                return
-            }
-            console.log('Erro ao carregar reviews')
-            return
-        }
-
-        getReviews()
-    }, [])
+    
 
     return (
-        <ScrollView style={styles.container}>
 
-            <View style={styles.cabe}>
-                <Image
-                    source={avatar} style={styles.avatar} />
-                <Text style={styles.text}> {name}</Text>
+        <View style={styles.container}>
+             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-            </View>
+<View style={styles.cabe}>
+    <Image
+        source={avatar} style={styles.avatar} />
+    <Text style={styles.text}> {name}</Text>
 
-            <View style={styles.select}>
 
-                <Button onPress={handlePress}>
-                    Avaliações
-                </Button>
+    <Button onPress={() => router.push('/table')}>Lista</Button>
 
-                <Button onPress={handlePressList}>
-                    Favoritos
-                </Button>
 
-            </View>
+</View>
 
-            <View style={styles.card}>
 
-                {
-                    reviews.map((review) =>
-                        <CardMovie
-                            key={review.id}
-                            id={review.movie.id}
-                            comment={review.comment}
-                            rating={review.rating}
-                            style={styles.card}
-                        />
-                    )
-                }
-            </View>
 
-            {showContentList && (
-                <View style={styles.card}>
-                    <Image
-                        style={styles.logo}
-                    />
-                    <Text style={styles.service}>oi</Text>
-                    <Text style={styles.comment}>fgdgdddddddd</Text>
-                    <EvilIcons name="arrow-right" size={26} color="black" />
-                </View>
-            )}
 
-            <Footer />
-        </ScrollView>
+
+<View style={styles.footerText}>
+        <FontAwesome5
+          style={styles.icon}
+          onPress={handleLogout}
+          name="door-open"
+          size={24}
+          color="black"
+        />
+      </View>
+
+</ScrollView>
+
+
+
+
+
+        </View>
+       
     )
 }
 
@@ -158,5 +160,19 @@ const styles = StyleSheet.create({
     comment: {
         color: '#777777',
         marginLeft: 'auto',
-    }
+    },
+    scrollContent: {
+        paddingBottom: 60, // Espaço para evitar sobreposição com o Footer
+      },
+
+
+      footerText: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+      },
+      icon: {
+        paddingHorizontal: 20, // Espaçamento ao redor do ícone
+      },
 })
