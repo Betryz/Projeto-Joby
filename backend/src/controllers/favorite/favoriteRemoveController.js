@@ -3,7 +3,7 @@ import { deleteWatchlist,  watchlistValidateId } from "../../models/favoriteMode
 const remove = async (req, res, next) => {
     const {id} = req.params
     try{
-        const  watchlistSValidate =  watchlistValidateId(+id)
+        const watchlistSValidate =  watchlistValidateId(+id)
 
         if(watchlistValidate?.error)
             return res.status(401).json({

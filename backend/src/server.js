@@ -5,7 +5,7 @@ import authRouter from './routers/authRouter.js'
 import handler from './middlewares/errorHandler.js';
 import { ENVIRONMENT, PORT, HOST } from './config.js';
 import logger from './middlewares/logger.js';
-import reviews from './controllers/reviews/reviewsController.js';
+import reviewsRouter from './routers/reviewsRouter.js';
 import cors from 'cors';
 import movieRouter from './routers/movieRouter.js'
 import favorite from './routers/favoriteRouter.js'
@@ -19,7 +19,7 @@ app.use(cors({}))
 
 app.use(express.json());
 
-app.use('/avalia' ,reviews)
+app.use('/avalia' , reviewsRouter)
 app.use('/movies', movieRouter)
 app.use('/auth', authRouter)
 app.use('/watch', favorite)

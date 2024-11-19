@@ -38,6 +38,9 @@ export default function Home() {
         getWatchlist();
     }, [setWatchlist]);
 
+
+    
+
     return (
         <View style={styles.container}>
             <ScrollView>

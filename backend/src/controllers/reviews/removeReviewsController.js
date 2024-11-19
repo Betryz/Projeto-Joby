@@ -1,4 +1,4 @@
-import { deleteReview,  reviewValidateId } from "../../models/reviewsModel"
+import { deleteReview,  reviewValidateId } from "../../models/reviewsModel.js"
 
 const remove = async (req, res, next) => {
     const {id} = req.params

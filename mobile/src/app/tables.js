@@ -35,8 +35,12 @@ export default function Home() {
                 {Array.isArray(tablet) && tablet.length > 0 ? (
                     tablet.map((tableItem) => (
                         <View key={tableItem.id} style={styles.tableContainer}>
+
                             <Text style={styles.tableName}>Nome: {tableItem.name}</Text>
+
                             <Text style={styles.tableDescription}>Descrição: {tableItem.description}</Text>
+
+                            
                             {tableItem.movies && tableItem.movies.length > 0 && (
                                 tableItem.movies.map((movie) => (
                                     <View key={movie.id} style={styles.watchlistItem}>

@@ -18,7 +18,7 @@ export default function ShowPass() {
     const { addReviews } = useReviewsStore()
     const {addWatchlist} = useWatchlistStore()
     const { id } = useLocalSearchParams();
-    const { movies, getMovieById } = useMovieStore();
+    const { movies} = useMovieStore();
     const movie = movies.find((m) => m.id === parseInt(id));
     const router = useRouter();
 
