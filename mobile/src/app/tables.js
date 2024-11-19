@@ -1,142 +1,88 @@
-import { View, StyleSheet, Text, TextInput } from 'react-native'
-import { Image } from 'react-native'
-import Button from '../components/Button'
-import { useRouter, useLocalSearchParams } from 'expo-router'
-import AntDesign from '@expo/vector-icons/AntDesign';
-import React, { useState } from 'react';
-import { useMovieStore } from '../stores/movieStore';
-import { useReviewsStore } from '../stores/useReviewsStore'
-import { fetchAuth } from '../utils/fetchAuth'
-import { useWatchlistStore } from '../stores/useFavoriteStore'
+import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
+import { useWatchlistStore } from '../stores/useFavoriteStore';
+import { useEffect, useState } from 'react';
+import { fetchAuth } from '../utils/fetchAuth';
 
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+export default function Home() {
+    const { setWatchlist } = useWatchlistStore();
+    const [movies, setMovies] = useState([]);
 
+    useEffect(() => {
+        const getWatchlist = async () => {
+            try {
+                const response = await fetchAuth('http://localhost:5000/watch');
 
-export default function ShowPass() {
+                if (response.ok) {
+                    const data = await response.json();
 
+                    if (data && data.favorite) {
+                        setWatchlist(data.favorite);
 
-    const { addReviews } = useReviewsStore()
-    const {addWatchlist} = useWatchlistStore()
-    const { id } = useLocalSearchParams();
-    const { movies} = useMovieStore();
-    const movie = movies.find((m) => m.id === parseInt(id));
-    const router = useRouter();
+                        const movieDetailsPromises = data.favorite.map(async (favoriteItem) => {
+                            if (favoriteItem.movie_id) {
+                                const movieResponse = await fetchAuth(`http://localhost:5000/movies/movie-info/${favoriteItem.movie_id}`);
+                                return movieResponse.ok ? await movieResponse.json() : null;
+                            }
+                            return null;
+                        });
 
-    if (!movie) return <Text>Carregando...</Text>;
+                        const moviesData = await Promise.all(movieDetailsPromises);
+                        setMovies(moviesData.filter(movie => movie !== null));
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao realizar o fetch:', error);
+            }
+        };
 
-    const [showContent, setShowContent] = useState(false);
-
-    const handlePress = () => {
-        setShowContent(prevState => !prevState);
-
-    };
-
-    const [txtComment, setTxtComment] = useState('')
-    const [txtRating, setTxtRating] = useState('')
-
-    const handleCreateReviews = async () => {
-        const review = {
-            comment: txtComment,
-            rating: parseInt(txtRating, 10),
-            movieId: movie.id
-
-        }
-
-        const response = await fetchAuth('http://localhost:5000/avalia', {
-            method: 'POST',
-
-            body: JSON.stringify(review)
-        })
-
-        if (response.ok) {
-            const data = await response.json()
-            addReviews(data.review)
-            setTxtComment('')
-            setTxtRating('')
-            router.back()
-        } else {
-            const data = await response.json()
-            console.log(data?.error)
-        }
-        return
-    }
-
-
-
-
-    const [txtWatched , setTxtWatched ] = useState('')
-
-
-    const handleCreateWatchlist = async () => {
-        const watchlist = {
-            watched: txtWatched.toLowerCase() === 'true', 
-            movie_id: movie.id            
-
-        }
-
-        const response = await fetchAuth('http://localhost:5000/watch', {
-            method: 'POST',
-          
-            body: JSON.stringify(watchlist)
-        })
-
-        if (response.ok) {
-            const data = await response.json()
-            addWatchlist(data.watchlist)
-            setTxtWatched ('')
-            router.back()
-        } else {
-            const data = await response.json()
-            console.log(data?.error)
-        }
-        return
-    }
-
-
+        getWatchlist();
+    }, [setWatchlist]);
 
     return (
         <View style={styles.container}>
+            <ScrollView>
+                <Text style={styles.titulo}>Lista de favoritos</Text>
+                <View style={styles.divisor} />
 
-            <View style={styles.card}>
-                <Image
-                    style={styles.logo}
-                    source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
-
-                />
-
-                <Text style={styles.title}>{movie.title}</Text>
-                <Text style={styles.releaseDate}>{movie.release_date || "Data não disponível"}</Text>
-                <Text style={styles.synopsis}>{movie.sinopse || "Sinopse não disponível"}</Text>
-            </View>
-
-            <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
-                <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
-                <Button style={styles.Button} onPress={handleCreateWatchlist}><MaterialCommunityIcons name="movie-open-plus-outline" size={24} color="black" /></Button>
-            </View>
-
-            {showContent && (
-                <View style={styles.avaliador}>
-                    <TextInput style={styles.input} onChangeText={setTxtComment} value={txtComment} />
-                    <TextInput style={styles.input} onChangeText={setTxtRating} value={txtRating} />
-
-                    <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
-                </View>
-
-            )}
-
+                {movies.length > 0 && (
+                    movies.map((movie) => (
+                        <View key={movie.id} style={styles.watchlistItem}>
+                            {movie.poster_path && (
+                                <Image
+                                    source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
+                                    style={styles.movieImage}
+                                    resizeMode="cover"
+                                />
+                            )}
+                            <Text style={styles.movieText}>Título: {movie.title}</Text>
+                            
+                        </View>
+                    ))
+   
+                )}
+            </ScrollView>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: '#d5d5d5',
-        flex: 1
     },
-    Button: {
-        display: 'flex'
+    titulo: {
+        fontSize: 20,
+        fontWeight: '600',
+        textAlign: 'center',
+        paddingVertical: 10,
     },
-    card: {
+    divisor: {
+        borderBottomColor: '#000',
+        borderBottomWidth: 1,
+        width: '100%',
+        marginBottom: 10,
+    },
+    watchlistItem: {
         padding: 10,
         borderStyle: 'solid',
         borderColor: '#66666666',
@@ -146,38 +92,30 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 8,
         gap: 15,
-        marginVertical: 50,
+        marginVertical: 30,
         marginHorizontal: 10,
         borderRadius: 10,
-        flexDirection: 'column'
+        alignItems: 'center',
+        flexDirection: 'row',
     },
-    logo: {
-        width: 150,
-        height: 200
+    movieText: {
+        fontSize: 16,
+        marginTop: 10,
     },
-    title: {
+    watchedText: {
         fontSize: 14,
-        fontWeight: 600,
-        maxWidth: '40%',
-        flexShrink: 1
+        color: '#555',
+        marginTop: 5,
     },
-    service: {
-        fontSize: 17
+    movieImage: {
+        width: 150,
+        height: 220,
+        borderRadius: 8,
     },
-    username: {
-        color: '#777777'
+    emptyMessage: {
+        textAlign: 'center',
+        paddingTop: 20,
+        fontSize: 16,
+        color: '#888',
     },
-    input: {
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: '#444444',
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        marginVertical: 5,
-        borderRadius: 5,
-
-    },
-    avaliador: {
-        paddingHorizontal: 20
-    }
-})
+});

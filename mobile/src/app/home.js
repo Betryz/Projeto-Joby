@@ -43,7 +43,6 @@ export default function Home() {
         )}
       </ScrollView>
 
-      {/* Footer Fixo */}
       <Footer />
     </View>
   );

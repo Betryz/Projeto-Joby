@@ -5,7 +5,7 @@ export const getMovieById = async (req, res) => {
     
     try {
 
-        const movie = await getMovieByIdModel(id);
+        const movie = await getMovieByIdModel(+id);
 
         res.json(movie);
     } catch (error) {

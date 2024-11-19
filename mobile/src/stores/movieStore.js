@@ -33,16 +33,24 @@ export const useMovieStore = create((set) => ({
     getMovieById: async (id) => {
         set({ loading: true, error: null });
         try {
-            const response = await fetch(`http://localhost:5000/movies/${id}`, {
+            const response = await fetch(`http://localhost:5000/movies/movie-info/${id}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MjhlNWExMjBhMTM1ZGYxMGMxNzczODlhODQ4MTczNiIsIm5iZiI6MTczMTQzMjY1OS4wMjk4ODI3LCJzdWIiOiI2NzJkMGViMmViZTIxZGVmMDhjOGRjNTYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.mChbJJ8m8CrsNzRXymoUoy83IdhEpjc9mPVa6WI1loQ'
-                }
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
-                set({ selectedMovie: data, loading: false });
+    
+                // Atualizar o estado apenas se o filme ainda não estiver presente
+                set((state) => {
+                    const movieExists = state.movies.some(movie => movie.id === data.id);
+                    if (!movieExists) {
+                        return {
+                            movies: [...state.movies, data],
+                            loading: false,
+                        };
+                    }
+                    return { loading: false }; // Apenas alterar o loading se o filme já existir
+                });
             } else {
                 const errorMessage = await response.text();
                 set({ error: errorMessage, loading: false });
@@ -51,4 +59,6 @@ export const useMovieStore = create((set) => ({
             set({ error: error.message, loading: false });
         }
     }
+    
+    
 }));
