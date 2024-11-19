@@ -1,8 +1,8 @@
 import { create } from "zustand"
 
 export const useTableStore = create((set) => ({
-    table: [],
-    addTable: (newTable) => set((state) => ({ table: [newTable, ...state.table]})),
-    setTable: (newTable) => set({ table: newTable }),
+    tablet: [],
+    addTable: (newTable) => set((state) => ({ tablet: [newTable, ...state.tablet]})),
+    setTable: (newTable) => set({ tablet: newTable }),
    
 }))
