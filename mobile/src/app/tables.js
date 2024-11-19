@@ -1,33 +1,21 @@
 import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
-import { useWatchlistStore } from '../stores/useFavoriteStore';
-import { useEffect, useState } from 'react';
+import { useTableStore } from '../stores/useTableStore';
+import { useEffect } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
 
 export default function Home() {
-    const { setWatchlist } = useWatchlistStore();
-    const [movies, setMovies] = useState([]);
+    const { tablet, setTable } = useTableStore();
 
     useEffect(() => {
-        const getWatchlist = async () => {
+        const getTables = async () => {
             try {
-                const response = await fetchAuth('http://localhost:5000/watch');
+                const response = await fetchAuth('http://localhost:5000/table');
 
                 if (response.ok) {
                     const data = await response.json();
 
-                    if (data && data.favorite) {
-                        setWatchlist(data.favorite);
-
-                        const movieDetailsPromises = data.favorite.map(async (favoriteItem) => {
-                            if (favoriteItem.movie_id) {
-                                const movieResponse = await fetchAuth(`http://localhost:5000/movies/movie-info/${favoriteItem.movie_id}`);
-                                return movieResponse.ok ? await movieResponse.json() : null;
-                            }
-                            return null;
-                        });
-
-                        const moviesData = await Promise.all(movieDetailsPromises);
-                        setMovies(moviesData.filter(movie => movie !== null));
+                    if (data && data.table) {
+                        setTable(data.table);
                     }
                 }
             } catch (error) {
@@ -35,8 +23,8 @@ export default function Home() {
             }
         };
 
-        getWatchlist();
-    }, [setWatchlist]);
+        getTables();
+    }, [setTable]);
 
     return (
         <View style={styles.container}>
@@ -44,21 +32,37 @@ export default function Home() {
                 <Text style={styles.titulo}>Lista de favoritos</Text>
                 <View style={styles.divisor} />
 
-                {movies.length > 0 && (
-                    movies.map((movie) => (
-                        <View key={movie.id} style={styles.watchlistItem}>
-                            {movie.poster_path && (
-                                <Image
-                                    source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
-                                    style={styles.movieImage}
-                                    resizeMode="cover"
-                                />
+                {Array.isArray(tablet) && tablet.length > 0 ? (
+                    tablet.map((tableItem) => (
+                        <View key={tableItem.id} style={styles.tableContainer}>
+                            <Text style={styles.tableName}>Nome: {tableItem.name}</Text>
+                            <Text style={styles.tableDescription}>Descrição: {tableItem.description}</Text>
+                            {tableItem.movies && tableItem.movies.length > 0 && (
+                                tableItem.movies.map((movie) => (
+                                    <View key={movie.id} style={styles.watchlistItem}>
+                                        {movie.poster_path && (
+                                            <Image
+                                                source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
+                                                style={styles.movieImage}
+                                                resizeMode="cover"
+                                            />
+                                        )}
+                                        <View style={{ marginLeft: 10 }}>
+                                            <Text style={styles.movieText}>Título: {movie.title}</Text>
+                                            <Text style={styles.watchedText}>
+                                                Sinopse: {movie.sinopse ? movie.sinopse : 'Sinopse não disponível'}
+                                            </Text>
+                                            <Text style={styles.watchedText}>
+                                                Data de Lançamento: {new Date(movie.release_date).toLocaleDateString()}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                ))
                             )}
-                            <Text style={styles.movieText}>Título: {movie.title}</Text>
-                            
                         </View>
                     ))
-   
+                ) : (
+                    <Text style={styles.emptyMessage}>Nenhuma tabela ou filme disponível.</Text>
                 )}
             </ScrollView>
         </View>
@@ -82,6 +86,22 @@ const styles = StyleSheet.create({
         width: '100%',
         marginBottom: 10,
     },
+    tableContainer: {
+        marginBottom: 20,
+        padding: 10,
+        borderRadius: 5,
+        marginHorizontal: 20,
+    },
+    tableName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    tableDescription: {
+        fontSize: 16,
+        color: '#555',
+        marginBottom: 10,
+    },
     watchlistItem: {
         padding: 10,
         borderStyle: 'solid',
@@ -92,7 +112,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 8,
         gap: 15,
-        marginVertical: 30,
+        marginVertical: 10,
         marginHorizontal: 10,
         borderRadius: 10,
         alignItems: 'center',
