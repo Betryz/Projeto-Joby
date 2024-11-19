@@ -52,34 +52,52 @@ export default function Table() {
     const toggleSelection = (movieId) => {
         setSelectedMovies((prev) =>
             prev.includes(movieId)
-                ? prev.filter((id) => id !== movieId) // Remove se já estiver selecionado
-                : [...prev, movieId] // Adiciona se não estiver selecionado
+                ? prev.filter((id) => id !== movieId)
+                : [...prev, movieId]
         );
     };
-    
+
 
     return (
         <View style={styles.container}>
+
+
+
+
             <View style={styles.avaliador}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Descrição"
-                    onChangeText={setTxtDescription}
-                    value={txtDescription}
-                />
+
+
+                <Text style={styles.titulo}>
+                    Crie sua lista de filmes
+                </Text>
+
+                <View style={styles.divisor} />
+
+
                 <TextInput
                     style={styles.input}
                     placeholder="Nome"
                     onChangeText={setTxtName}
                     value={txtName}
                 />
-                <Button style={styles.Button} onPress={handleCreateTable}>
-                    Avaliar
-                </Button>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Descrição"
+                    onChangeText={setTxtDescription}
+                    value={txtDescription}
+                />
+
+             
             </View>
 
             <ScrollView style={styles.container}>
+
+                <Text style={styles.text}>
+                    Selecione o filme desejado na lista
+                </Text>
                 <View style={styles.barra}>
+
+
                     <TextInput
                         style={styles.pesquisa}
                         placeholder="Pesquise"
@@ -93,14 +111,13 @@ export default function Table() {
                 {loading && <Text>Carregando...</Text>}
                 {error && <Text>Erro: {error}</Text>}
 
-                {movies.length > 0 ? (
+                {movies.length > 0 && (
                     movies.map((movie) => (
                         <View key={movie.id} style={styles.card}>
                             <TouchableOpacity
                                 style={styles.radio}
-                                onPress={() => toggleSelection(movie.id)} // Alterna a seleção do filme
-                            >
-                                {/* Verifica se o filme está selecionado */}
+                                onPress={() => toggleSelection(movie.id)}>
+
                                 {selectedMovies.includes(movie.id) ? (
                                     <View style={styles.radioSelected} />
                                 ) : null}
@@ -114,11 +131,14 @@ export default function Table() {
                             </View>
                         </View>
                     ))
-                ) : (
-                    <Text>Nenhum filme encontrado</Text>
                 )}
 
+
             </ScrollView>
+
+            <Button style={styles.Button} onPress={handleCreateTable}>
+                    Criar
+                </Button>
         </View>
     );
 }
@@ -130,16 +150,29 @@ const styles = StyleSheet.create({
     },
     Button: {
         display: 'flex',
+        position: 'absolute', 
+        bottom: 0, 
+        left: 0,
+        right: 0,
+        height: 60, 
+        backgroundColor: '#ACCE91', 
+        borderTopWidth: 1, 
+        fontSize: 20,
+        borderTopColor: '#d4d4d4',
+        justifyContent: 'center',
+        alignItems: 'center',
+      
     },
+
+  
     card: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
         marginBottom: 10,
-        backgroundColor: '#fff',
         borderRadius: 8,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
+        shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 0.3,
         shadowRadius: 2,
         elevation: 3,
@@ -186,7 +219,7 @@ const styles = StyleSheet.create({
         borderColor: '#444',
         paddingHorizontal: 10,
         paddingVertical: 6,
-        marginVertical: 5,
+        marginVertical: 15,
         borderRadius: 5,
     },
     avaliador: {
@@ -203,7 +236,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     pesquisa: {
-        backgroundColor: '#fff',
         paddingVertical: 6,
         paddingHorizontal: 6,
         flex: 1,
@@ -218,4 +250,25 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#666',
     },
+    text: {
+        fontSize: 15,
+        fontWeight: 600,
+        textAlign: 'center',
+        paddingVertical: 10
+
+    },
+    titulo: {
+        fontSize: 20,
+        fontWeight: 600,
+        textAlign: 'center',
+        paddingVertical: 10
+
+    },
+    divisor: {
+        borderBottomColor: '#000',
+        borderBottomWidth: 1,
+        width: '100%',
+
+        justifyContent: 'center'
+    }
 });

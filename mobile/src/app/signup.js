@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginVertical: 5,
     borderRadius: 5,
-  color: 'white'
+  color: 'black'
   }
 })

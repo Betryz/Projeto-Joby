@@ -62,8 +62,7 @@ export const listTable = async (public_id) => {
             }
         },
         include: {
-            movie: true, 
-            user: true   
+            movies: true, 
         },
     })
     return table
