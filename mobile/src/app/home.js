@@ -16,9 +16,12 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      {/* Conteúdo Rolável */}
+    
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Header onSearch={searchMovies} />
+
+        <Link style={styles.Link} href='/watchlist'>Veja aqui listas de filmes para assistir!</Link>
+        <View style={styles.divisor} />
 
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#d5d5d5',
   },
   scrollContent: {
-    paddingBottom: 60, // Espaço para evitar sobreposição com o Footer
+    paddingBottom: 60, 
   },
  
 });
