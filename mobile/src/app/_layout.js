@@ -39,7 +39,7 @@ export default function RootLayout() {
       <Stack.Screen name="reviews" options={{ title: "Suas avaliações" }} />
       <Stack.Screen name="favorite" options={{ title: "Seus filmes favoritados" }} />
       <Stack.Screen name="watchlist" options={{ title: "Listas disponíveis" }} />
-
+      <Stack.Screen name="updateReviews" options={{title: "Editar"}}/>
     </Stack>
   );
 }

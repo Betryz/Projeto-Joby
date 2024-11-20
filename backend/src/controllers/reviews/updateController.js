@@ -22,7 +22,7 @@ const updateController = async (req, res, next) => {
                 error: "Public ID Inválido!"
             })
 
-            reviewValidated.data.user_id = user.id
+            reviewValidated.data.user_id = user.public_id; 
 
         const result = await update(reviewValidated.data, req.userLogged.public_id)
 

@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
 import { useReviewsStore } from '../stores/useReviewsStore';
 import Button from '../components/Button'; // Supondo que há um botão reutilizável
-
+import { useRouter } from 'expo-router';
 export default function Reviews() {
     const { setReviews } = useReviewsStore();
     const [reviews, setLocalReviews] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const router = useRouter();
     const handleDelete = async (reviewId) => {
         console.log(`Tentando excluir a avaliação com ID: ${reviewId}`);
 
@@ -81,6 +82,9 @@ export default function Reviews() {
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
                                 <Text style={styles.ratingText}>Nota: {review.rating}/10</Text>
                                 <Button onPress={() => handleDelete(review.id)}>🗑 Excluir</Button>
+
+
+                                <Button onPress={() => router.push({ pathname: '/updateReviews', params: { id: review.id } })}>Editar</Button>
                             </View>
                         </View>
                     ))
