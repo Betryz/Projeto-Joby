@@ -2,10 +2,36 @@ import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { useWatchlistStore } from '../stores/useFavoriteStore';
 import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
+import { useLocalSearchParams, useRouter} from 'expo-router'
+import Button from '../components/Button';
+
 
 export default function Home() {
-    const { setWatchlist } = useWatchlistStore();
+    const { setWatchlist, deleteWatchlist, watchlists } = useWatchlistStore();
     const [movies, setMovies] = useState([]);
+    const {id} = useLocalSearchParams()
+    const router = useRouter()
+
+
+  
+    const watchlist = watchlists.find((item) => item.id === id)
+
+
+    const handleDelete = async () => {
+        const response = await fetchAuth(`http://localhost:5000/watch/${id}`, {
+            method: 'DELETE'
+        })
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+            deleteWatchlist(id)
+            router.back()
+            return
+        }
+        console.log('Erro ao carregar accounts')
+        return
+    }
+
 
     useEffect(() => {
         const getWatchlist = async () => {
@@ -39,7 +65,6 @@ export default function Home() {
     }, [setWatchlist]);
 
 
-    
 
     return (
         <View style={styles.container}>
@@ -64,6 +89,9 @@ export default function Home() {
    
                 )}
             </ScrollView>
+
+            <Button onPress={handleDelete}>🗑 Excluir</Button>
+
         </View>
     );
 }

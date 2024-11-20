@@ -65,7 +65,7 @@ export default function Reviews() {
                             <View style={styles.reviewDetails}>
                                 <Text style={styles.movieTitle}>Título: {review.movie?.title || 'Desconhecido'}</Text>
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
-                                <Text style={styles.ratingText}>Nota: {review.rating}/10</Text>
+                                <Text style={styles.ratingText}>Nota: {review.rating}/5</Text>
                             </View>
                         </View>
                     ))
@@ -102,9 +102,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginHorizontal: 10,
         marginBottom: 15,
-        backgroundColor: '#fff',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
+        shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
     },
@@ -118,8 +117,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     movieTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 15,
+        fontWeight: '500',
     },
     reviewText: {
         fontSize: 16,

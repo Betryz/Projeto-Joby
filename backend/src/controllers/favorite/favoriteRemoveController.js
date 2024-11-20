@@ -3,15 +3,15 @@ import { deleteWatchlist,  watchlistValidateId } from "../../models/favoriteMode
 const remove = async (req, res, next) => {
     const {id} = req.params
     try{
-        const watchlistSValidate =  watchlistValidateId(+id)
+        const watchlistSValidate =  watchlistValidateId(id)
 
-        if(watchlistValidate?.error)
+        if(watchlistSValidate?.error)
             return res.status(401).json({
                 error: "Erro ao deletar um serviço!",
-                fieldErrors: watchlistValidate.error.flatten().fieldErrors
+                fieldErrors: watchlistSValidate.error.flatten().fieldErrors
             })
 
-        const watchlist = await deleteWatchlist(watchlistValidate.data.id, req.userLogged.public_id)
+        const watchlist = await deleteWatchlist(watchlistSValidate.data.id, req.userLogged.public_id)
 
         return res.json({
             success: "Conta removida com sucesso!",
