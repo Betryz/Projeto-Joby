@@ -37,6 +37,7 @@ export default function RootLayout() {
       <Stack.Screen name="tables" options={{ title: "Criar" }} />
       <Stack.Screen name="reviews" options={{ title: "Criar" }} />
       <Stack.Screen name="favorite" options={{ title: "Criar" }} />
+      <Stack.Screen name="watchlist" options={{ title: "Listas disponíveis" }} />
 
     </Stack>
   );
