@@ -1,4 +1,4 @@
-import { update, reviewsValidateToUpdate } from "../../models/accountModel.js"
+import { update, reviewsValidateToUpdate } from "../../models/reviewsModel.js"
 import { getByPublicId } from '../../models/authModel.js'
 
 const updateController = async (req, res, next) => {
