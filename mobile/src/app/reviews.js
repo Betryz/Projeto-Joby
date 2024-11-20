@@ -30,7 +30,7 @@ export default function Reviews() {
                         });
     
                         const reviewsData = await Promise.all(reviewDetailsPromises);
-                        setLocalReviews(reviewsData.filter((item) => item.movie !== null)); // Filtra reviews com filmes válidos
+                        setLocalReviews(reviewsData.filter((item) => item.movie !== null));
                     }
                 } else {
                     console.error('Erro na API:', response.status);
@@ -49,8 +49,7 @@ export default function Reviews() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titulo}>Lista de Reviews</Text>
-                <View style={styles.divisor} />
+                
 
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
@@ -70,7 +69,7 @@ export default function Reviews() {
                         </View>
                     ))
                 ) : (
-                    <Text style={styles.emptyMessage}>Nenhum review encontrado.</Text>
+                    <Text style={styles.emptyMessage}>Nenhuma avaliação encontrada</Text>
                 )}
             </ScrollView>
         </View>

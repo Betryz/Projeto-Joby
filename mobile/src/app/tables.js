@@ -29,8 +29,6 @@ export default function Home() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titulo}>Lista de favoritos</Text>
-                <View style={styles.divisor} />
 
                 {Array.isArray(tablet) && tablet.length > 0 ? (
                     tablet.map((tableItem) => (

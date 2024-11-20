@@ -59,5 +59,13 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 60, 
   },
+  divisor: {
+      borderBottomColor: '#ACCE91',
+      borderBottomWidth: 2,
+      margin: 5,
+  },
+  Link: {
+    margin: 10
+  }
  
 });

@@ -61,18 +61,7 @@ export default function Table() {
     return (
         <View style={styles.container}>
 
-
-
-
             <View style={styles.avaliador}>
-
-
-                <Text style={styles.titulo}>
-                    Crie sua lista de filmes
-                </Text>
-
-                <View style={styles.divisor} />
-
 
                 <TextInput
                     style={styles.input}
@@ -147,6 +136,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#d5d5d5',
         flex: 1,
+        paddingVertical: 10
     },
     Button: {
         display: 'flex',
@@ -161,10 +151,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#d4d4d4',
         justifyContent: 'center',
         alignItems: 'center',
-      
     },
-
-  
     card: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -262,7 +249,6 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         textAlign: 'center',
         paddingVertical: 10
-
     },
     divisor: {
         borderBottomColor: '#000',

@@ -44,8 +44,6 @@ export default function Home() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titulo}>Lista de favoritos</Text>
-                <View style={styles.divisor} />
 
                 {movies.length > 0 && (
                     movies.map((movie) => (
@@ -61,8 +59,9 @@ export default function Home() {
                             
                         </View>
                     ))
-   
-                )}
+                 
+                )} 
+                
             </ScrollView>
         </View>
     );
