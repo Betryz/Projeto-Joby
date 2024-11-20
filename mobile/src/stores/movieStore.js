@@ -1,4 +1,4 @@
-// src/store/movieStore.js
+
 import { create } from "zustand";
 
 export const useMovieStore = create((set) => ({
@@ -40,7 +40,6 @@ export const useMovieStore = create((set) => ({
             if (response.ok) {
                 const data = await response.json();
     
-                // Atualizar o estado apenas se o filme ainda não estiver presente
                 set((state) => {
                     const movieExists = state.movies.some(movie => movie.id === data.id);
                     if (!movieExists) {

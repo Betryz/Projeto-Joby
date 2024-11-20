@@ -1,3 +1,4 @@
+
 import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
 import { useLoginStore } from '../stores/useLoginStore'
 import Button from '../components/Button'
@@ -5,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router'
 import { deleteObjectData } from '../utils/asyncStorage';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
 
 
@@ -41,19 +42,10 @@ export default function Home() {
     return;
   };
 
-
-
-
-
-
-  const [showContent, setShowContent] = useState(false);
-  const [showContentList, setShowContentList] = useState(false);
+  // const [showContent, setShowContent] = useState(false);
+  // const [showContentList, setShowContentList] = useState(false);
 
   const { avatar, name } = useLoginStore()
-
-
-
-
 
   return (
 
@@ -65,29 +57,14 @@ export default function Home() {
             source={avatar} style={styles.avatar} />
           <Text style={styles.text}> {name}</Text>
 
-
-
-
-
-
         </View>
 
         <View style={styles.divisor} />
 
         <Link href="/table" style={styles.link}>
-
-        Crie sua lista de filmes!
-
-        <MaterialCommunityIcons name="send-circle" size={24} color="black" />
-      </Link>
-
-
-
-
-
-
-
-
+          Crie sua própria lista de filmes 
+          <AntDesign style={styles.icon} name="pluscircleo" size={24} color="black" />
+        </Link>
 
       </ScrollView>
       <View style={styles.footerText}>
@@ -102,9 +79,6 @@ export default function Home() {
         />
       </View>
 
-
-
-
     </View>
 
   )
@@ -114,8 +88,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#d5d5d5'
-
-
   },
   input: {
     display: 'none'
@@ -126,7 +98,6 @@ const styles = StyleSheet.create({
     borderRadius: 25
   },
   text: {
-
     color: 'black',
     fontSize: 20,
     paddingVertical: 13,
@@ -173,10 +144,8 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   scrollContent: {
-    paddingBottom: 60, // Espaço para evitar sobreposição com o Footer
+    paddingBottom: 60,
   },
-
-
   footerText: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -191,27 +160,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: '#ACCE91'
-
-
   },
-
-
-
   icon: {
-    paddingHorizontal: 20, // Espaçamento ao redor do ícone
+    paddingHorizontal: 20, 
   },
   divisor: {
+    display: 'flex',
+    alignItems: 'center',
     borderBottomColor: '#555555',
-    borderBottomWidth: 1,
-    width: '100%',
-
-    justifyContent: 'center'
-  },
+    borderBottomWidth: 1
+    },
   link: {
     fontSize: 17,
-    fontWeight: 500,
-    borderBottomWidth: 2,
-    
-
+    margin: 10,
+    fontWeight: 500
   }
 })

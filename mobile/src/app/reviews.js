@@ -1,3 +1,4 @@
+
 import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
@@ -30,7 +31,7 @@ export default function Reviews() {
                         });
     
                         const reviewsData = await Promise.all(reviewDetailsPromises);
-                        setLocalReviews(reviewsData.filter((item) => item.movie !== null)); // Filtra reviews com filmes válidos
+                        setLocalReviews(reviewsData.filter((item) => item.movie !== null));
                     }
                 } else {
                     console.error('Erro na API:', response.status);
@@ -49,8 +50,7 @@ export default function Reviews() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titulo}>Lista de Reviews</Text>
-                <View style={styles.divisor} />
+                
 
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
@@ -65,12 +65,12 @@ export default function Reviews() {
                             <View style={styles.reviewDetails}>
                                 <Text style={styles.movieTitle}>Título: {review.movie?.title || 'Desconhecido'}</Text>
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
-                                <Text style={styles.ratingText}>Nota: {review.rating}/5</Text>
+                                <Text style={styles.ratingText}>Nota: {review.rating}/10</Text>
                             </View>
                         </View>
                     ))
                 ) : (
-                    <Text style={styles.emptyMessage}>Nenhum review encontrado.</Text>
+                    <Text style={styles.emptyMessage}>Nenhuma avaliação encontrada</Text>
                 )}
             </ScrollView>
         </View>
@@ -102,8 +102,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginHorizontal: 10,
         marginBottom: 15,
+        backgroundColor: '#fff',
         shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
+        shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
     },
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     movieTitle: {
-        fontSize: 15,
-        fontWeight: '500',
+        fontSize: 18,
+        fontWeight: 'bold',
     },
     reviewText: {
         fontSize: 16,

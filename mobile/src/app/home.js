@@ -1,9 +1,10 @@
+
 import { StyleSheet, View, ScrollView } from 'react-native';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CardAccount from '../components/card';
 import { useMovieStore } from '../stores/movieStore';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 
 export default function Home() {
   const { movies, loading, error, fetchMovies } = useMovieStore();
@@ -16,9 +17,12 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      {/* Conteúdo Rolável */}
+    
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Header onSearch={searchMovies} />
+
+        <Link style={styles.Link} href='/watchlist'>Veja aqui listas de filmes para assistir!</Link>
+        <View style={styles.divisor} />
 
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
@@ -54,7 +58,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#d5d5d5',
   },
   scrollContent: {
-    paddingBottom: 60, // Espaço para evitar sobreposição com o Footer
+    paddingBottom: 60, 
   },
+  divisor: {
+      borderBottomColor: '#ACCE91',
+      borderBottomWidth: 2,
+      margin: 5,
+  },
+  Link: {
+    margin: 10
+  }
  
 });
