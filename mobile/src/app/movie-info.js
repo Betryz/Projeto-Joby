@@ -83,7 +83,7 @@ export default function ShowPass() {
         if (response.ok) {
             const data = await response.json()
             addWatchlist(data.watchlist)
-            setTxtWatched ('')
+            setTxtWatched('')
             router.back()
         } else {
             const data = await response.json()

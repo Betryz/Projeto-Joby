@@ -1,35 +1,54 @@
-
 import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
 import { useReviewsStore } from '../stores/useReviewsStore';
+import Button from '../components/Button'; // Supondo que há um botão reutilizável
 
 export default function Reviews() {
     const { setReviews } = useReviewsStore();
     const [reviews, setLocalReviews] = useState([]);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
+
+    const handleDelete = async (reviewId) => {
+        console.log(`Tentando excluir a avaliação com ID: ${reviewId}`);
+
+        const response = await fetchAuth(`http://localhost:5000/avalia/${reviewId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Avaliação com ID ${reviewId} excluída com sucesso.`);
+            setLocalReviews((prevReviews) =>
+                prevReviews.filter((review) => review.id !== reviewId)
+            );
+            return;
+        }
+
+        const errorData = await response.json();
+        console.error('Erro ao excluir a avaliação:', errorData);
+    };
 
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await fetchAuth('http://localhost:5000/avalia'); 
-    
+                const response = await fetchAuth('http://localhost:5000/avalia');
+
                 if (response.ok) {
                     const data = await response.json();
-    
-                    if (data && data.avaliar) { 
-                        setReviews(data.avaliar); 
-    
+
+                    if (data && data.avaliar) {
+                        setReviews(data.avaliar);
+
                         const reviewDetailsPromises = data.avaliar.map(async (review) => {
                             if (review.movieId) {
                                 const movieResponse = await fetchAuth(`http://localhost:5000/movies/movie-info/${review.movieId}`);
                                 return movieResponse.ok
-                                    ? { ...review, movie: await movieResponse.json() } 
+                                    ? { ...review, movie: await movieResponse.json() }
                                     : { ...review, movie: null };
                             }
                             return { ...review, movie: null };
                         });
-    
+
                         const reviewsData = await Promise.all(reviewDetailsPromises);
                         setLocalReviews(reviewsData.filter((item) => item.movie !== null));
                     }
@@ -40,18 +59,13 @@ export default function Reviews() {
                 console.error('Erro ao buscar reviews:', error);
             }
         };
-    
+
         fetchReviews();
     }, [setReviews]);
-    
-
-   
 
     return (
         <View style={styles.container}>
             <ScrollView>
-                
-
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
                         <View key={review.id} style={styles.reviewItem}>
@@ -66,6 +80,7 @@ export default function Reviews() {
                                 <Text style={styles.movieTitle}>Título: {review.movie?.title || 'Desconhecido'}</Text>
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
                                 <Text style={styles.ratingText}>Nota: {review.rating}/10</Text>
+                                <Button onPress={() => handleDelete(review.id)}>🗑 Excluir</Button>
                             </View>
                         </View>
                     ))
@@ -81,18 +96,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#d5d5d5',
-    },
-    titulo: {
-        fontSize: 20,
-        fontWeight: '600',
-        textAlign: 'center',
-        paddingVertical: 10,
-    },
-    divisor: {
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        width: '100%',
-        marginBottom: 10,
     },
     reviewItem: {
         padding: 10,
@@ -135,14 +138,5 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         fontSize: 16,
         color: '#888',
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    loadingText: {
-        fontSize: 16,
-        color: '#555',
     },
 });
