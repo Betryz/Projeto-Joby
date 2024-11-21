@@ -9,14 +9,14 @@ import { useReviewsStore } from '../stores/useReviewsStore'
 import { fetchAuth } from '../utils/fetchAuth'
 import { useWatchlistStore } from '../stores/useFavoriteStore'
 
+
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function ShowPass() {
 
 
-    const [count, setCount] = useState(0);
-    const onPress = () => setCount(prevCount => prevCount + 1);
+
 
 
     const { addReviews } = useReviewsStore()
@@ -36,7 +36,18 @@ export default function ShowPass() {
     };
 
     const [txtComment, setTxtComment] = useState('')
-    const [txtRating, setTxtRating] = useState('')
+    const [txtRating, setTxtRating] = useState(0)
+
+
+    const onPressIncrementRating = () => {
+        const currentRating = parseInt(txtRating, 10);
+        if (!isNaN(currentRating) && currentRating < 5) {
+            setTxtRating((currentRating + 1).toString());
+        } else if (isNaN(currentRating)) {
+            setTxtRating('1');
+        }
+    };
+
 
     const handleCreateReviews = async () => {
         const review = {
@@ -102,16 +113,23 @@ export default function ShowPass() {
         <ScrollView style={styles.container}>
 
             <View style={styles.card}>
+
+            <Text style={styles.title}>{movie.title}</Text>
                 <Image
                     style={styles.logo}
                     source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
 
                 />
 
-                <Text style={styles.title}>{movie.title}</Text>
-                <Text style={styles.releaseDate}>{movie.release_date || "Data não disponível"}</Text>
+                
+              
                 <Text style={styles.synopsis}>{movie.sinopse || "Sinopse não disponível"}</Text>
+
+
+                <Text style={styles.releaseDate}>{movie.release_date || "Data não disponível"}</Text>
             </View>
+
+            
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
@@ -122,19 +140,25 @@ export default function ShowPass() {
                 <View style={styles.avaliador}>
 
 
-                    <TextInput style={styles.input} onChangeText={setTxtComment} value={txtComment} />
 
 
-                    <SafeAreaView style={styles.container}>
-                        <View style={styles.countContainer}>
 
-                            <Text  value={txtRating} >{count}</Text>
 
-                        </View>
-                        <TouchableOpacity onPress={setTxtRating}>
-                            <Text>Press Here</Text>
+
+
+                    <View style={styles.countContainer}>
+                        <Text onChangeText={setTxtRating} style={styles.numeric}  keyboardType="numeric">
+                            {txtRating}
+                        </Text>
+
+                        <TouchableOpacity onPress={onPressIncrementRating} >
+                            <Text style={styles.buttonText}> <AntDesign style={styles.icon} name="pluscircleo" size={24} color="black" /> </Text>
                         </TouchableOpacity>
-                    </SafeAreaView>
+                    </View>
+
+
+                    <TextInput style={styles.input}  placeholder='Digite seu comentário...' onChangeText={setTxtComment} value={txtComment} />
+
 
 
                     <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
@@ -170,14 +194,17 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     logo: {
-        width: 150,
-        height: 200
+        maxWidthwidth: 200,
+        height: 380,
+        justifyContent:'center'
     },
     title: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 600,
-        maxWidth: '40%',
-        flexShrink: 1
+        maxWidth: '100%',
+        flexShrink: 1,
+        textAlign: 'center',
+        
     },
     service: {
         fontSize: 17
@@ -197,5 +224,24 @@ const styles = StyleSheet.create({
     },
     avaliador: {
         paddingHorizontal: 20
+    },
+    countContainer: {
+        flexDirection: 'row',
+      
+        borderWidth: 1,
+        justifyContent: 'space-between',
+        borderStyle: 'solid',
+        borderColor: '#444444',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        
+
+    },
+    numeric: {
+        fontSize: 18
+    },
+    synopsis: {
+        textAlign:'justify'
     }
 })

@@ -11,7 +11,7 @@ export default function Home() {
     const handleDeleteTable = async (tableId) => {
         console.log(`Tentando excluir a tabela com ID: ${tableId}`);
 
-        const response = await fetchAuth(`http://localhost:5000/table/${tableId}`, {
+        const response = await fetchAuth(`http://localhost:5000/watchlist/${tableId}`, {
             method: 'DELETE',
         });
 
@@ -29,7 +29,7 @@ export default function Home() {
         const getTables = async () => {
             try {
                 setLoading(true);
-                const response = await fetchAuth('http://localhost:5000/table');
+                const response = await fetchAuth('http://localhost:5000/watchlist');
 
                 if (response.ok) {
                     const data = await response.json();

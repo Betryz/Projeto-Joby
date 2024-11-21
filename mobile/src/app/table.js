@@ -25,7 +25,7 @@ export default function Table() {
             movies: selectedMovies,
         };
 
-        const response = await fetchAuth('http://localhost:5000/table', {
+        const response = await fetchAuth('http://localhost:5000/watchlist', {
             method: 'POST',
             body: JSON.stringify(table),
         });
