@@ -57,7 +57,7 @@ export default function ShowPass() {
 
         }
 
-        const response = await fetchAuth('http://localhost:5000/avalia', {
+        const response = await fetchAuth('http://localhost:5000/reviews', {
             method: 'POST',
 
             body: JSON.stringify(review)
@@ -89,7 +89,7 @@ export default function ShowPass() {
 
         }
 
-        const response = await fetchAuth('http://localhost:5000/watch', {
+        const response = await fetchAuth('http://localhost:5000/favorites', {
             method: 'POST',
 
             body: JSON.stringify(watchlist)

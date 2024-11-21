@@ -3,7 +3,7 @@ import { useWatchlistStore } from '../stores/useFavoriteStore';
 import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
 import Button from '../components/Button';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 export default function Home() {
     const { setWatchlist, deleteWatchlist } = useWatchlistStore();
     const [movies, setMovies] = useState([]);
@@ -11,7 +11,7 @@ export default function Home() {
     const handleDelete = async (watchlistId) => {
         console.log(`Tentando excluir o item com ID da watchlist: ${watchlistId}`);
 
-        const response = await fetchAuth(`http://localhost:5000/watch/${watchlistId}`, {
+        const response = await fetchAuth(`http://localhost:5000/favorites/${watchlistId}`, {
             method: 'DELETE',
         });
 
@@ -35,7 +35,7 @@ export default function Home() {
     useEffect(() => {
         const getWatchlist = async () => {
             try {
-                const response = await fetchAuth('http://localhost:5000/watch');
+                const response = await fetchAuth('http://localhost:5000/favorites');
 
                 if (response.ok) {
                     const data = await response.json();
@@ -43,7 +43,7 @@ export default function Home() {
                     if (data && data.favorite) {
                         setWatchlist(data.favorite);
 
-                        // Combine os detalhes dos filmes com os IDs da watchlist
+
                         const movieDetailsPromises = data.favorite.map(async (favoriteItem) => {
                             if (favoriteItem.movie_id) {
                                 const movieResponse = await fetchAuth(
@@ -73,8 +73,7 @@ export default function Home() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titulo}>Lista de favoritos</Text>
-                <View style={styles.divisor} />
+              
 
                 {movies.length > 0 &&
                     movies.map((movie) => (
@@ -86,8 +85,19 @@ export default function Home() {
                                     resizeMode="cover"
                                 />
                             )}
+
+                            <View>
+
+                            <View>
                             <Text style={styles.movieText}>Título: {movie.title}</Text>
-                            <Button onPress={() => handleDelete(movie.watchlistId)}>🗑 Excluir</Button>
+                            </View>
+                            
+                            <Ionicons style={styles.lixeira} onPress={() => handleDelete(movie.watchlistId)} name="trash-bin" size={24} color="black" />
+
+
+                            </View>
+
+                          
                         </View>
                     ))}
 
@@ -123,7 +133,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
-        gap: 15,
+     
         marginVertical: 30,
         marginHorizontal: 10,
         borderRadius: 10,
@@ -132,11 +142,17 @@ const styles = StyleSheet.create({
     },
     movieText: {
         fontSize: 16,
-        marginTop: 10,
+        fontWeight: 700,
+        paddingHorizontal: 10,
+        maxWidth: 170,
+        position: 'relative',
+        top: 100
+        
+       
     },
     movieImage: {
-        width: 150,
-        height: 220,
+        width: 130,
+        height: 180,
         borderRadius: 8,
     },
     emptyMessage: {
@@ -145,4 +161,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#888',
     },
+    lixeira: {
+        position: 'absolute',
+        bottom: -70,
+        left: 120,
+        height: 20
+    }
 });

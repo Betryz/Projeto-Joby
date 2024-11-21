@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity , Image} from 'react-native'
 import { useRouter } from 'expo-router'
-import AntDesign from '@expo/vector-icons/AntDesign';
-import {useMovieStore} from '../stores/movieStore'
+
 
 
 
@@ -36,8 +35,7 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
                         <Text style={styles.descrisao}>{truncatedSinopse}</Text>
                         <Text style={styles.descrisao}>{release_date}</Text>
                         
-                        <Text style={styles.avaliacao}>3,4 <AntDesign name="star" size={15} color="yellow" /> </Text>
-
+                      
                     </View>
 
             </View>

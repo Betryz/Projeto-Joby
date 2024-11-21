@@ -8,7 +8,7 @@ export default function WatchtsLists() {
     useEffect(() => {
         const getTables = async () => {
             try {
-                const response = await fetch('http://localhost:5000/table/list');
+                const response = await fetch('http://localhost:5000/watchlist/list');
 
                 if (response.ok) {
                     const data = await response.json();

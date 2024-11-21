@@ -61,7 +61,7 @@ export default function Table() {
 
     return (
         <View style={styles.container}>
-
+       <ScrollView style={styles.container}>
             <View style={styles.avaliador}>
 
                 <TextInput
@@ -80,7 +80,7 @@ export default function Table() {
              
             </View>
 
-            <ScrollView style={styles.container}>
+           
 
                 <Text style={styles.text}>
                     Selecione o filme desejado na lista
