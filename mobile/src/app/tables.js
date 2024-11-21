@@ -1,14 +1,34 @@
 import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { useTableStore } from '../stores/useTableStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
+import Button from '../components/Button';
 
 export default function Home() {
     const { tablet, setTable } = useTableStore();
+    const [loading, setLoading] = useState(true);
+
+    const handleDeleteTable = async (tableId) => {
+        console.log(`Tentando excluir a tabela com ID: ${tableId}`);
+
+        const response = await fetchAuth(`http://localhost:5000/table/${tableId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Tabela com ID ${tableId} excluída com sucesso.`);
+            setTable((prevTables) => prevTables.filter((tableItem) => tableItem.id !== tableId));
+            return;
+        }
+
+        const errorData = await response.json();
+        console.error('Erro ao excluir a tabela:', errorData);
+    };
 
     useEffect(() => {
         const getTables = async () => {
             try {
+                setLoading(true);
                 const response = await fetchAuth('http://localhost:5000/table');
 
                 if (response.ok) {
@@ -20,25 +40,31 @@ export default function Home() {
                 }
             } catch (error) {
                 console.error('Erro ao realizar o fetch:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
         getTables();
     }, [setTable]);
 
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text style={styles.loadingText}>Carregando...</Text>
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
-
                 {Array.isArray(tablet) && tablet.length > 0 ? (
                     tablet.map((tableItem) => (
                         <View key={tableItem.id} style={styles.tableContainer}>
-
                             <Text style={styles.tableName}>Nome: {tableItem.name}</Text>
-
                             <Text style={styles.tableDescription}>Descrição: {tableItem.description}</Text>
 
-                            
                             {tableItem.movies && tableItem.movies.length > 0 && (
                                 tableItem.movies.map((movie) => (
                                     <View key={movie.id} style={styles.watchlistItem}>
@@ -61,6 +87,7 @@ export default function Home() {
                                     </View>
                                 ))
                             )}
+                            <Button onPress={() => handleDeleteTable(tableItem.id)}>🗑 Excluir Tabela</Button>
                         </View>
                     ))
                 ) : (
@@ -76,23 +103,25 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#d5d5d5',
     },
-    titulo: {
-        fontSize: 20,
-        fontWeight: '600',
-        textAlign: 'center',
-        paddingVertical: 10,
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    divisor: {
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        width: '100%',
-        marginBottom: 10,
+    loadingText: {
+        fontSize: 16,
+        color: '#555',
     },
     tableContainer: {
         marginBottom: 20,
         padding: 10,
         borderRadius: 5,
         marginHorizontal: 20,
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
     },
     tableName: {
         fontSize: 18,

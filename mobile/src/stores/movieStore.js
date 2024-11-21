@@ -1,4 +1,4 @@
-// src/store/movieStore.js
+
 import { create } from "zustand";
 
 export const useMovieStore = create((set) => ({
