@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TextInput } from 'react-native'
+import { View, StyleSheet, Text, TextInput, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import { Image } from 'react-native'
 import Button from '../components/Button'
 import { useRouter, useLocalSearchParams } from 'expo-router'
@@ -15,10 +15,14 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 export default function ShowPass() {
 
 
+    const [count, setCount] = useState(0);
+    const onPress = () => setCount(prevCount => prevCount + 1);
+
+
     const { addReviews } = useReviewsStore()
-    const {addWatchlist} = useWatchlistStore()
+    const { addWatchlist } = useWatchlistStore()
     const { id } = useLocalSearchParams();
-    const { movies} = useMovieStore();
+    const { movies } = useMovieStore();
     const movie = movies.find((m) => m.id === parseInt(id));
     const router = useRouter();
 
@@ -64,19 +68,19 @@ export default function ShowPass() {
 
 
 
-    const [txtWatched , setTxtWatched ] = useState('')
+    const [txtWatched, setTxtWatched] = useState('')
 
 
     const handleCreateWatchlist = async () => {
         const watchlist = {
-            watched: txtWatched.toLowerCase() === 'true', 
-            movie_id: movie.id            
+            watched: txtWatched.toLowerCase() === 'true',
+            movie_id: movie.id
 
         }
 
         const response = await fetchAuth('http://localhost:5000/watch', {
             method: 'POST',
-          
+
             body: JSON.stringify(watchlist)
         })
 
@@ -95,7 +99,7 @@ export default function ShowPass() {
 
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
 
             <View style={styles.card}>
                 <Image
@@ -116,15 +120,29 @@ export default function ShowPass() {
 
             {showContent && (
                 <View style={styles.avaliador}>
+
+
                     <TextInput style={styles.input} onChangeText={setTxtComment} value={txtComment} />
-                    <TextInput style={styles.input} onChangeText={setTxtRating} value={txtRating} />
+
+
+                    <SafeAreaView style={styles.container}>
+                        <View style={styles.countContainer}>
+
+                            <Text  value={txtRating} >{count}</Text>
+
+                        </View>
+                        <TouchableOpacity onPress={setTxtRating}>
+                            <Text>Press Here</Text>
+                        </TouchableOpacity>
+                    </SafeAreaView>
+
 
                     <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
                 </View>
 
             )}
 
-        </View>
+        </ScrollView>
     )
 }
 
