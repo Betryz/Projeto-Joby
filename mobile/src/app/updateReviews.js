@@ -64,7 +64,8 @@ export default function UpdateReview() {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        backgroundColor: '#fff'
+        backgroundColor: '#ffffd7',
+
     },
     input: {
         borderWidth: 1,

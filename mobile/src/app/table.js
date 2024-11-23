@@ -126,18 +126,18 @@ export default function Table() {
 
             </ScrollView>
 
-            <Button style={styles.Button} onPress={handleCreateTable}>
+<Button style={styles.Button} onPress={handleCreateTable}>
                     Criar
                 </Button>
+           
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#d5d5d5',
+        backgroundColor: '#ffffd7',
         flex: 1,
-        paddingVertical: 10
     },
     Button: {
         display: 'flex',
@@ -145,9 +145,7 @@ const styles = StyleSheet.create({
         bottom: 0, 
         left: 0,
         right: 0,
-        height: 60, 
         backgroundColor: '#ACCE91', 
-        borderTopWidth: 1, 
         fontSize: 20,
         borderTopColor: '#d4d4d4',
         justifyContent: 'center',
@@ -215,7 +213,7 @@ const styles = StyleSheet.create({
     },
     barra: {
         flexDirection: 'row',
-        backgroundColor: '#d5d5d5',
+        backgroundColor: '#ffffd7',
         borderRadius: 5,
         padding: 4,
         marginHorizontal: 12,
@@ -257,5 +255,6 @@ const styles = StyleSheet.create({
         width: '100%',
 
         justifyContent: 'center'
-    }
+    },
+  
 });

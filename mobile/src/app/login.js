@@ -82,7 +82,8 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d5d5d5'
+    backgroundColor: '#ffffd7',
+
   },
   text: {
 color: '#000',

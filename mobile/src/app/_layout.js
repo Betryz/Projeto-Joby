@@ -13,7 +13,9 @@ export default function RootLayout() {
         },
         headerTintColor: '#000',
         headerStyle: {
-          backgroundColor: '#ACCE91',
+
+          backgroundColor: '#ebce73',
+
         },
         headerTitleStyle: {
           fontWeight: 'bold',

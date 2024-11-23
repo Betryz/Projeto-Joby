@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor: '#d5d5d5'
+        backgroundColor: '#ffffd7',
+
     },
     itemContainer: {
         marginBottom: 15,

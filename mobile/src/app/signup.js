@@ -86,9 +86,9 @@ export default function SignUp(){
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    backgroundColor: '#d5d5d5',
     flex: 1,
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor: '#ffffd7',
 
   },
   input: {
