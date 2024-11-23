@@ -1,9 +1,10 @@
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from "react";
 import Button from '../components/Button';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useReviewsStore } from '../stores/useReviewsStore';
 import { fetchAuth } from '../utils/fetchAuth';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function UpdateReview() {
     const { reviu, updateReviews } = useReviewsStore();
@@ -12,8 +13,22 @@ export default function UpdateReview() {
 
     const review = reviu.find((item) => item.id === +id);
 
+  
+
+
     const [txtComment, setTxtComment] = useState(review?.comment || '');
     const [txtRating, setTxtRating] = useState(review?.rating?.toString() || '0');
+
+
+    const onPressIncrementRating = () => {
+        const currentRating = parseInt(txtRating, 10);
+        if (!isNaN(currentRating) && currentRating < 5) {
+            setTxtRating((currentRating + 1).toString());
+        } else if (isNaN(currentRating)) {
+            setTxtRating('1');
+        }
+    };
+
 
     const handleUpdateReview = async () => {
         const updatedReview = {
@@ -28,8 +43,8 @@ export default function UpdateReview() {
 
         if (response.ok) {
             const data = await response.json();
-            updateReviews(data.review); 
-            router.back(); 
+            updateReviews(data.review);
+            router.back();
             return;
         }
 
@@ -48,14 +63,21 @@ export default function UpdateReview() {
                 placeholderTextColor="#DDDDDD"
             />
             <Text>Nota:</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={setTxtRating}
-                value={txtRating}
-                keyboardType="numeric"
-                placeholder="Digite a nota (0-5)"
-                placeholderTextColor="#DDDDDD"
-            />
+            
+
+
+            <View style={styles.countContainer}>
+                <Text onChangeText={setTxtRating} style={styles.numeric} keyboardType="numeric">
+                    {txtRating}
+                </Text>
+
+                <TouchableOpacity onPress={onPressIncrementRating} >
+                    <Text style={styles.buttonText}> <AntDesign style={styles.icon} name="pluscircleo" size={24} color="black" /> </Text>
+                </TouchableOpacity>
+            </View>
+
+
+
             <Button onPress={handleUpdateReview}>Atualizar</Button>
         </View>
     );
@@ -76,4 +98,23 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         borderRadius: 5,
     },
+    countContainer: {
+        flexDirection: 'row',
+      
+        borderWidth: 1,
+        justifyContent: 'space-between',
+        borderStyle: 'solid',
+        borderColor: '#444444',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        
+
+    },
+    numeric: {
+        fontSize: 18
+    },
+    synopsis: {
+        textAlign:'justify'
+    }
 });

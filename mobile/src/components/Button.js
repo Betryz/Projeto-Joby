@@ -18,11 +18,17 @@ const styles = StyleSheet.create({
         marginVertical: 2, 
         borderRadius: 10,
         paddingVertical: 5,
-        paddingHorizontal: 30
+        paddingHorizontal: 30,
+        maxWidth:150,
+        justifyContent: 'center',
+
+
+        
     }],
+ 
     text:{
         fontWeight: 600,
-        fontSize: 13
+        fontSize: 12
     }
     
 })

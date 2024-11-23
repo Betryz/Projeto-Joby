@@ -34,8 +34,8 @@ export default function Home() {
                 if (response.ok) {
                     const data = await response.json();
 
-                    if (data && data.table) {
-                        setTable(data.table);
+                    if (data && data.watchlist) {
+                        setTable(data.watchlist);
                     }
                 }
             } catch (error) {
@@ -76,12 +76,10 @@ export default function Home() {
                                             />
                                         )}
                                         <View style={{ marginLeft: 10 }}>
-                                            <Text style={styles.movieText}>Título: {movie.title}</Text>
+                                            <Text style={styles.movieText}>{movie.title}</Text>
+                                           
                                             <Text style={styles.watchedText}>
-                                                Sinopse: {movie.sinopse ? movie.sinopse : 'Sinopse não disponível'}
-                                            </Text>
-                                            <Text style={styles.watchedText}>
-                                                Data de Lançamento: {new Date(movie.release_date).toLocaleDateString()}
+                                            Lançamento: {new Date(movie.release_date).toLocaleDateString()}
                                             </Text>
                                         </View>
                                     </View>
@@ -117,8 +115,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 10,
         borderRadius: 5,
-        marginHorizontal: 20,
-        backgroundColor: '#fff',
+        padding: 15,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
@@ -135,7 +132,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     watchlistItem: {
-        padding: 10,
         borderStyle: 'solid',
         borderColor: '#66666666',
         borderWidth: 1,
@@ -151,13 +147,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     movieText: {
-        fontSize: 16,
-        marginTop: 10,
+        fontSize: 13,
+        maxWidth: 100,
+        textAlign: 'center'
+
     },
     watchedText: {
-        fontSize: 14,
+        fontSize: 10,
         color: '#555',
         marginTop: 5,
+        maxWidth: 140
     },
     movieImage: {
         width: 150,

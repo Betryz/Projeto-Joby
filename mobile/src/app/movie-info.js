@@ -161,7 +161,10 @@ export default function ShowPass() {
 
 
 
-                    <Button style={styles.Button} onPress={handleCreateReviews} >Avaliar</Button>
+                    <View style={styles.Button}>
+                    <Button  onPress={handleCreateReviews} >Avaliar</Button>
+
+                    </View>
                 </View>
 
             )}
@@ -176,8 +179,14 @@ const styles = StyleSheet.create({
         flex: 1
     },
     Button: {
-        display: 'flex'
-    },
+display: 'flex',
+            justifyContent: 'center',
+        textAlign: 'center',
+            backgroundColor: '#ebce73',
+            paddingHorizontal: 100,
+            borderRadius: 20
+
+        },
     card: {
         padding: 10,
         borderStyle: 'solid',

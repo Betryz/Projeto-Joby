@@ -4,6 +4,10 @@ import { fetchAuth } from '../utils/fetchAuth';
 import { useReviewsStore } from '../stores/useReviewsStore';
 import Button from '../components/Button'; // Supondo que há um botão reutilizável
 import { useRouter } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+
+
 export default function Reviews() {
     const { setReviews } = useReviewsStore();
     const [reviews, setLocalReviews] = useState([]);
@@ -68,8 +72,14 @@ export default function Reviews() {
         <View style={styles.container}>
             <ScrollView>
                 {reviews.length > 0 ? (
+
+
+
                     reviews.map((review) => (
                         <View key={review.id} style={styles.reviewItem}>
+
+
+
                             {review.movie?.poster_path && (
                                 <Image
                                     source={{ uri: `https://image.tmdb.org/t/p/w200${review.movie.poster_path}` }}
@@ -77,15 +87,32 @@ export default function Reviews() {
                                     resizeMode="cover"
                                 />
                             )}
+
                             <View style={styles.reviewDetails}>
-                                <Text style={styles.movieTitle}>Título: {review.movie?.title || 'Desconhecido'}</Text>
+
+
+
+                                <Text style={styles.movieTitle}> {review.movie?.title || 'Desconhecido'}</Text>
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
-                                <Text style={styles.ratingText}>Nota: {review.rating}/10</Text>
-                                <Button onPress={() => handleDelete(review.id)}>🗑 Excluir</Button>
+                                <Text style={styles.ratingText}>Nota: {review.rating}/5</Text>
 
 
-                                <Button onPress={() => router.push({ pathname: '/updateReviews', params: { id: review.id } })}>Editar</Button>
+
+                                <Button style={styles.botton} onPress={() => router.push({ pathname: '/updateReviews', params: { id: review.id } })}>Editar</Button>
+
+
+
+
                             </View>
+                            
+
+
+                            <Ionicons style={styles.icon}
+                                onPress={() => handleDelete(review.id)}
+                                name="trash-bin"
+                                size={24}
+                                color="black"
+                            />
                         </View>
                     ))
                 ) : (
@@ -104,45 +131,57 @@ const styles = StyleSheet.create({
 
     },
     reviewItem: {
-        padding: 10,
+        padding: 11,
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: '#ddd',
         borderRadius: 10,
         marginHorizontal: 10,
         marginBottom: 15,
-        backgroundColor: '#fff',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
+        marginTop: 50,
+        height: 200
     },
     reviewDetails: {
         flex: 1,
         marginLeft: 10,
+        justifyContent: 'center'
     },
     movieImage: {
         width: 100,
-        height: 150,
+        height: '100%',
         borderRadius: 8,
     },
     movieTitle: {
-        fontSize: 18,
+        fontSize: 15,
         fontWeight: 'bold',
     },
     reviewText: {
-        fontSize: 16,
+        fontSize: 13,
         marginTop: 5,
     },
     ratingText: {
-        fontSize: 14,
+        fontSize: 12,
         color: '#555',
         marginTop: 5,
+        paddingBottom: 10
     },
+
     emptyMessage: {
         textAlign: 'center',
         paddingTop: 20,
         fontSize: 16,
         color: '#888',
     },
+    icon: {
+        position: 'relative',
+        top: 145,
+        height: 20
+
+
+
+    }
 });

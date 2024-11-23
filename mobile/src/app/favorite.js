@@ -73,7 +73,7 @@ export default function Home() {
     return (
         <View style={styles.container}>
             <ScrollView>
-              
+
 
                 {movies.length > 0 &&
                     movies.map((movie) => (
@@ -86,18 +86,18 @@ export default function Home() {
                                 />
                             )}
 
-                            <View>
-
-                            <View>
-                            <Text style={styles.movieText}>Título: {movie.title}</Text>
+                            <View style={styles.textAndIconContainer}>
+                                <Text style={styles.movieText}>Título: {movie.title}</Text>
+                                <Ionicons
+                                    style={styles.trashIcon}
+                                    onPress={() => handleDelete(movie.watchlistId)}
+                                    name="trash-bin"
+                                    size={24}
+                                    color="black"
+                                />
                             </View>
-                            
-                            <Ionicons style={styles.lixeira} onPress={() => handleDelete(movie.watchlistId)} name="trash-bin" size={24} color="black" />
 
 
-                            </View>
-
-                          
                         </View>
                     ))}
 
@@ -111,19 +111,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffd7',
-
     },
     titulo: {
         fontSize: 20,
         fontWeight: '600',
         textAlign: 'center',
-        paddingVertical: 10,
-    },
-    divisor: {
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        width: '100%',
-        marginBottom: 10,
+        paddingVertical: 4,
     },
     watchlistItem: {
         padding: 10,
@@ -134,38 +127,35 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
-     
         marginVertical: 30,
         marginHorizontal: 10,
         borderRadius: 10,
         alignItems: 'center',
-        flexDirection: 'row',
-    },
-    movieText: {
-        fontSize: 16,
-        fontWeight: 700,
-        paddingHorizontal: 10,
-        maxWidth: 170,
-        position: 'relative',
-        top: 100
-        
-       
+        flexDirection: 'row', // Organiza os elementos na horizontal
     },
     movieImage: {
         width: 130,
         height: 180,
         borderRadius: 8,
     },
-    emptyMessage: {
-        textAlign: 'center',
-        paddingTop: 20,
-        fontSize: 16,
-        color: '#888',
+    textAndIconContainer: {
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        marginLeft: 10, 
     },
-    lixeira: {
+    movieText: {
+        fontSize: 16,
+        fontWeight: '700',
+        flex: 1, 
+        maxWidth: 130,
+        textAlign: 'center'
+    },
+    trashIcon: {
         position: 'absolute',
-        bottom: -70,
-        left: 120,
-        height: 20
-    }
+        left: 130,
+        top: 90
+    },
 });
+
