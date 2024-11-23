@@ -42,9 +42,6 @@ export default function Home() {
     return;
   };
 
-  // const [showContent, setShowContent] = useState(false);
-  // const [showContentList, setShowContentList] = useState(false);
-
   const { avatar, name } = useLoginStore()
 
   return (
@@ -68,8 +65,10 @@ export default function Home() {
 
       </ScrollView>
       <View style={styles.footerText}>
-
-        Deslogue da sua conta
+      <Text style={styles.textf}>
+      Sair
+      </Text>
+        
         <FontAwesome5
           style={styles.icon}
           onPress={handleLogout}
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    paddingVertical: 10,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ACCE91'
   },
   icon: {
-    paddingHorizontal: 20, 
+    paddingHorizontal: 8, 
   },
   divisor: {
     display: 'flex',
@@ -174,5 +173,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     margin: 10,
     fontWeight: 500
+  },
+  textf: {
+    fontSize: 18,
+    fontWeight: 700
   }
 })

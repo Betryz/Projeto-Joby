@@ -13,7 +13,7 @@ export default function Reviews() {
     const handleDelete = async (reviewId) => {
         console.log(`Tentando excluir a avaliação com ID: ${reviewId}`);
 
-        const response = await fetchAuth(`http://localhost:5000/avalia/${reviewId}`, {
+        const response = await fetchAuth(`http://localhost:5000/reviews/${reviewId}`, {
             method: 'DELETE',
         });
 
@@ -32,7 +32,7 @@ export default function Reviews() {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await fetchAuth('http://localhost:5000/avalia');
+                const response = await fetchAuth('http://localhost:5000/reviews');
 
                 if (response.ok) {
                     const data = await response.json();

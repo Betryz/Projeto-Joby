@@ -21,7 +21,7 @@ export default function UpdateReview() {
             rating: +txtRating,
         };
 
-        const response = await fetchAuth(`http://localhost:5000/avalia/${id}`, {
+        const response = await fetchAuth(`http://localhost:5000/reviews/${id}`, {
             method: 'PUT',
             body: JSON.stringify(updatedReview),
         });

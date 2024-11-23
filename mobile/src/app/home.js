@@ -9,7 +9,7 @@ import { useRouter, Link } from 'expo-router';
 export default function Home() {
   const { movies, loading, error, fetchMovies } = useMovieStore();
 
-  const router = useRouter();
+ 
 
   const searchMovies = (query) => {
     fetchMovies(query);
