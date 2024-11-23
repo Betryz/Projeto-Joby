@@ -55,14 +55,15 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d5d5d5',
+    backgroundColor: '#ffffd7',
   },
   scrollContent: {
     paddingBottom: 60, 
   },
   divisor: {
-      borderBottomColor: '#ACCE91',
-      borderBottomWidth: 2,
+    backgroundColor: '#ebce73',
+
+    borderBottomWidth: 2,
       margin: 5,
   },
   Link: {

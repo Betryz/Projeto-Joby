@@ -13,9 +13,9 @@ export default function Button({onPress, children}){
 
 const styles = StyleSheet.create({
     button: ({pressed}) => [{
-        backgroundColor: pressed ? '#8DB986': '#ACCE91',
+        backgroundColor: pressed ? '#f0da8c': '#ebce73',
         alignItems: 'center',
-        marginVertical: 10, 
+        marginVertical: 2, 
         borderRadius: 10,
         paddingVertical: 5,
         paddingHorizontal: 30

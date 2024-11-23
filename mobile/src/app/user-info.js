@@ -86,7 +86,8 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d5d5d5'
+    backgroundColor: '#ffffd7',
+
   },
   input: {
     display: 'none'
@@ -158,7 +159,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: '#ACCE91'
+    backgroundColor: '#ebce73',
+
   },
   icon: {
     paddingHorizontal: 8, 

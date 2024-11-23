@@ -45,7 +45,8 @@ export default function Init() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d5d5d5'
+    backgroundColor: '#ffffd7',
+
   },
    textinho:{
     color: '#000',

@@ -172,7 +172,7 @@ export default function ShowPass() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#d5d5d5',
+        backgroundColor: '#ffffd7',
         flex: 1
     },
     Button: {

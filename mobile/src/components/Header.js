@@ -37,7 +37,7 @@ export default function Header({ onSearch }) {
 
             <View style={styles.barra} >
                 <TextInput
-                    style={styles.input}
+                    style={styles.input}  
                     Image={<FontAwesome name="search" size={24} color="black" />}
                     placeholder="Pesquise"
                     value={query} onChangeText={setQuery}
@@ -71,7 +71,7 @@ export default function Header({ onSearch }) {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#ACCE91',
+        backgroundColor: '#ebce73',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -95,10 +95,10 @@ const styles = StyleSheet.create({
         padding: 10
     },
     input: {
-
-        backgroundColor: '#d5d5d5',
+        backgroundColor: '#ffffd7',
+        borderBlockColor:'#ffffd7' ,
         paddingVertical: 6,
-        paddingHorizontal: 6
+        paddingHorizontal: 6,
      
     },
     marca: {
@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
     },
     barra: {
         flexDirection: 'row',
-        backgroundColor: '#d5d5d5',
+        backgroundColor: '#ffffd7',
+
         borderRadius: 5,
         padding: 4,
         marginHorizontal: 12

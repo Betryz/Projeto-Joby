@@ -101,7 +101,8 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#d5d5d5',
+        backgroundColor: '#ffffd7',
+
     },
     loadingContainer: {
         flex: 1,
