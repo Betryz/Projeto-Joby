@@ -1,9 +1,9 @@
 import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import { useEffect } from 'react';
-import { useTableStore } from '../stores/useWatchlistStore.js';
+import { useWatchlistStore } from '../stores/useWatchlistStore.js';
 
-export default function WatchtsLists() {
-    const { tablet, setTable } = useTableStore();
+export default function Watchlists() {
+    const { watchlist, setWatchlist } = useWatchlistStore();
 
     useEffect(() => {
         const getWatchlists = async () => {
@@ -13,8 +13,8 @@ export default function WatchtsLists() {
                 if (response.ok) {
                     const data = await response.json();
 
-                    if (data && data.table) {
-                        setTable(data.table);
+                    if (data && data.watchlist) {
+                        setWatchlist(data.watchlist);
                     }
                 } else {
                     console.error('Erro ao buscar os dados:', response.statusText);
@@ -25,14 +25,13 @@ export default function WatchtsLists() {
         };
 
         getWatchlists();
-    }, [setTable]);
+    }, [setWatchlist]);
 
     return (
         <View style={styles.container}>
             <ScrollView>
-                {tablet.length > 0 ? (
-                    tablet.map((item) => (
-
+                {watchlist.length > 0 ? (
+                    watchlist.map((item) => (
                         <View key={item.id} style={styles.itemContainer}>
                             <Text style={styles.itemTitle}>Nome: {item.name}</Text>
                             <Text style={styles.itemDescription}>Descrição: {item.description}</Text>
@@ -44,7 +43,7 @@ export default function WatchtsLists() {
                                     </Text>
                                 ))
                             ) : (
-                                <Text style={styles.noMovies}>Sem filmes </Text>
+                                <Text style={styles.noMovies}>Sem filmes</Text>
                             )}
                         </View>
                     ))
@@ -54,14 +53,13 @@ export default function WatchtsLists() {
             </ScrollView>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
         backgroundColor: '#ffffd7',
-
     },
     itemContainer: {
         marginBottom: 15,

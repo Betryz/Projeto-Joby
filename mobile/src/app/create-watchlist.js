@@ -1,17 +1,15 @@
-
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, ScrollView, Image, TouchableOpacity } from 'react-native';
 import Button from '../components/Button';
 import { useRouter } from 'expo-router';
-import { useTableStore } from '../stores/useWatchlistStore';
+import { useWatchlistStore } from '../stores/useWatchlistStore';
 import { fetchAuth } from '../utils/fetchAuth';
 import { useMovieStore } from '../stores/movieStore';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function Table() {
-
+export default function WatchlistCreator() {
     const { movies, loading, error, fetchMovies } = useMovieStore();
-    const { addTable } = useTableStore();
+    const { addToWatchlist } = useWatchlistStore();
     const router = useRouter();
 
     const [txtDescription, setTxtDescription] = useState('');
@@ -19,8 +17,8 @@ export default function Table() {
     const [query, setQuery] = useState('');
     const [selectedMovies, setSelectedMovies] = useState([]);
 
-    const handleCreateTable = async () => {
-        const table = {
+    const handleCreateWatchlist = async () => {
+        const watchlist = {
             description: txtDescription,
             name: txtName,
             movies: selectedMovies,
@@ -28,12 +26,12 @@ export default function Table() {
 
         const response = await fetchAuth('http://localhost:5000/watchlist', {
             method: 'POST',
-            body: JSON.stringify(table),
+            body: JSON.stringify(watchlist),
         });
 
         if (response.ok) {
             const data = await response.json();
-            addTable(data.table);
+            addToWatchlist(data.watchlist);
             setTxtDescription('');
             setTxtName('');
             setSelectedMovies([]);
@@ -42,7 +40,6 @@ export default function Table() {
             const data = await response.json();
             console.log(data?.error);
         }
-        return;
     };
 
     const handleSearch = () => {
@@ -59,12 +56,10 @@ export default function Table() {
         );
     };
 
-
     return (
         <View style={styles.container}>
             <ScrollView style={styles.container}>
-                <View style={styles.avaliador}>
-
+                <View style={styles.inputGroup}>
                     <TextInput
                         style={styles.input}
                         placeholder="Nome"
@@ -77,20 +72,12 @@ export default function Table() {
                         onChangeText={setTxtDescription}
                         value={txtDescription}
                     />
-
-
                 </View>
 
-
-
-                <Text style={styles.text}>
-                    Selecione o filme desejado na lista
-                </Text>
-                <View style={styles.barra}>
-
-
+                <Text style={styles.text}>Selecione o filme desejado na lista</Text>
+                <View style={styles.searchBar}>
                     <TextInput
-                        style={styles.pesquisa}
+                        style={styles.searchInput}
                         placeholder="Pesquise"
                         value={query}
                         onChangeText={setQuery}
@@ -102,13 +89,13 @@ export default function Table() {
                 {loading && <Text>Carregando...</Text>}
                 {error && <Text>Erro: {error}</Text>}
 
-                {movies.length > 0 && (
+                {movies.length > 0 &&
                     movies.map((movie) => (
                         <View key={movie.id} style={styles.card}>
                             <TouchableOpacity
                                 style={styles.radio}
-                                onPress={() => toggleSelection(movie.id)}>
-
+                                onPress={() => toggleSelection(movie.id)}
+                            >
                                 {selectedMovies.includes(movie.id) ? (
                                     <View style={styles.radioSelected} />
                                 ) : null}
@@ -121,17 +108,11 @@ export default function Table() {
                                 <Text style={styles.title}>{movie.title}</Text>
                             </View>
                         </View>
-                    ))
-                )}
-
+                    ))}
             </ScrollView>
-            <View style={styles.Button}>
-
-                <Button  onPress={handleCreateTable}>
-                    Criar
-                </Button>
+            <View style={styles.buttonContainer}>
+                <Button onPress={handleCreateWatchlist}>Criar</Button>
             </View>
-
         </View>
     );
 }
@@ -141,19 +122,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffd7',
         flex: 1,
     },
-    Button: {
-        display: 'flex',
+    buttonContainer: {
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
         backgroundColor: '#ebce73',
-
-        fontSize: 20,
-        borderTopColor: '#d4d4d4',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 40
+        height: 40,
     },
     card: {
         flexDirection: 'row',
@@ -194,16 +171,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: 600,
-        textAlign: 'center'
-    },
-    sinopse: {
-        fontSize: 14,
-        color: '#666',
-    },
-    date: {
-        fontSize: 12,
-        color: '#999',
+        fontWeight: '600',
+        textAlign: 'center',
     },
     input: {
         borderWidth: 1,
@@ -213,10 +182,10 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         borderRadius: 5,
     },
-    avaliador: {
+    inputGroup: {
         paddingHorizontal: 20,
     },
-    barra: {
+    searchBar: {
         flexDirection: 'row',
         backgroundColor: '#ffffd7',
         borderRadius: 5,
@@ -224,40 +193,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 9,
         paddingVertical: 6,
-        justifyContent: 'center',
+        alignItems: 'center',
     },
-    pesquisa: {
+    searchInput: {
         flex: 1,
-    },
-    noResult: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    noResultSub: {
-        fontSize: 14,
-        textAlign: 'center',
-        color: '#666',
     },
     text: {
         fontSize: 15,
-        fontWeight: 600,
+        fontWeight: '600',
         textAlign: 'center',
-        paddingVertical: 10
-
+        paddingVertical: 10,
     },
-    titulo: {
-        fontSize: 20,
-        fontWeight: 600,
-        textAlign: 'center',
-        paddingVertical: 10
-    },
-    divisor: {
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        width: '100%',
-
-        justifyContent: 'center'
-    },
-
 });

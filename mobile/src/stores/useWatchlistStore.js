@@ -1,8 +1,10 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
-export const useTableStore = create((set) => ({
-    tablet: [],
-    addTable: (newTable) => set((state) => ({ tablet: [newTable, ...state.tablet]})),
-    setTable: (newTable) => set({ tablet: newTable }),
-   
-}))
+export const useWatchlistStore = create((set) => ({
+    watchlist: [], 
+
+    addToWatchlist: (newItem) => 
+        set((state) => ({ watchlist: [newItem, ...state.watchlist] })),
+
+    setWatchlist: (newList) => set({ watchlist: newList }),
+}));
