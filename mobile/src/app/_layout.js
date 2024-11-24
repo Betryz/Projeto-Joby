@@ -35,13 +35,13 @@ export default function RootLayout() {
       <Stack.Screen name="home" options={{ headerShown: false }} />
       <Stack.Screen name="login" options={{ title: "Entrar" }} />
       <Stack.Screen name="signup" options={{ title: "Cadastre-se" }} />
-      <Stack.Screen name="user-info" options={{ title: "Editar" }} />
-      <Stack.Screen name="table" options={{ title: "Crie lista personalizada" }} />
-      <Stack.Screen name="tables" options={{ title: "Suas listas pessoais" }} />
+      <Stack.Screen name="user-info" options={{ title: "Informações pessoais" }} />
       <Stack.Screen name="reviews" options={{ title: "Suas avaliações" }} />
       <Stack.Screen name="favorite" options={{ title: "Seus filmes favoritados" }} />
-      <Stack.Screen name="watchlist" options={{ title: "Listas disponíveis" }} />
-      <Stack.Screen name="updateReviews" options={{title: "Editar"}}/>
+      <Stack.Screen name="public-watchlists" options={{ title: "Listas disponíveis" }} />
+      <Stack.Screen name="create-watchlist" options={{ title: "Crie lista personalizada" }} />
+      <Stack.Screen name="manage-watchlist" options={{ title: "Suas listas pessoais" }} />
+      <Stack.Screen name="update-reviews" options={{title: "Editar avaliação"}}/>
     </Stack>
   );
 }

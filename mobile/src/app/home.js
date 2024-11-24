@@ -21,7 +21,7 @@ export default function Home() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Header onSearch={searchMovies} />
 
-        <Link style={styles.Link} href='/watchlist'>Veja aqui listas de filmes para assistir!</Link>
+        <Link style={styles.Link} href='/public-watchlists'>Veja aqui listas de filmes para assistir!</Link>
         <View style={styles.divisor} />
 
         {loading && <p>Loading...</p>}

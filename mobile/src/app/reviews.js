@@ -90,18 +90,11 @@ export default function Reviews() {
 
                             <View style={styles.reviewDetails}>
 
-
-
                                 <Text style={styles.movieTitle}> {review.movie?.title || 'Desconhecido'}</Text>
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
                                 <Text style={styles.ratingText}>Nota: {review.rating}/5</Text>
 
-
-
                                 <Button style={styles.botton} onPress={() => router.push({ pathname: '/updateReviews', params: { id: review.id } })}>Editar</Button>
-
-
-
 
                             </View>
                             

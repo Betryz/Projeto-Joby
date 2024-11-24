@@ -1,12 +1,12 @@
 import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import { useEffect } from 'react';
-import { useTableStore } from '../stores/useTableStore.js';
+import { useTableStore } from '../stores/useWatchlistStore.js';
 
 export default function WatchtsLists() {
     const { tablet, setTable } = useTableStore();
 
     useEffect(() => {
-        const getTables = async () => {
+        const getWatchlists = async () => {
             try {
                 const response = await fetch('http://localhost:5000/watchlist/list');
 
@@ -24,7 +24,7 @@ export default function WatchtsLists() {
             }
         };
 
-        getTables();
+        getWatchlists();
     }, [setTable]);
 
     return (

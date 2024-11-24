@@ -15,7 +15,7 @@ export default function Footer() {
     <View style={styles.footer}>
 
       <AntDesign name="star" onPress={() => router.push('/reviews')} size={36} color="black" />
-      <MaterialCommunityIcons onPress={() => router.push('/tables')} name="table-eye" size={36} color="black" />
+      <MaterialCommunityIcons onPress={() => router.push('/manage-watchlist')} name="table-eye" size={36} color="black" />
       <Fontisto onPress={() => router.push('/favorite')} name="favorite" size={24} color="black" />
 
     </View>

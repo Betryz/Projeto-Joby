@@ -58,7 +58,7 @@ export default function Home() {
 
         <View style={styles.divisor} />
 
-        <Link href="/table" style={styles.link}>
+        <Link href="/create-watchlist" style={styles.link}>
           Crie sua própria lista de filmes 
           <AntDesign style={styles.icon} name="pluscircleo" size={24} color="black" />
         </Link>
