@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useState } from "react";
 import Button from '../components/Button';
 import { useRouter, useLocalSearchParams } from 'expo-router';
@@ -13,7 +13,7 @@ export default function UpdateReview() {
 
     const review = reviu.find((item) => item.id === +id);
 
-  
+
 
 
     const [txtComment, setTxtComment] = useState(review?.comment || '');
@@ -53,8 +53,8 @@ export default function UpdateReview() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text>Comentário:</Text>
+        <ScrollView style={styles.container}>
+            <Text style={styles.text}> Comentário:</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setTxtComment}
@@ -62,8 +62,8 @@ export default function UpdateReview() {
                 placeholder="Digite o comentário..."
                 placeholderTextColor="#DDDDDD"
             />
-            <Text>Nota:</Text>
-            
+            <Text style={styles.text}>Nota:</Text>
+
 
 
             <View style={styles.countContainer}>
@@ -76,10 +76,12 @@ export default function UpdateReview() {
                 </TouchableOpacity>
             </View>
 
+            <View style={styles.Button}> 
+                <Button onPress={handleUpdateReview}>Atualizar</Button>
 
+            </View>
 
-            <Button onPress={handleUpdateReview}>Atualizar</Button>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         backgroundColor: '#ffffd7',
+        flex: 1
 
     },
     input: {
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     },
     countContainer: {
         flexDirection: 'row',
-      
+
         borderWidth: 1,
         justifyContent: 'space-between',
         borderStyle: 'solid',
@@ -108,13 +111,27 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        
+
 
     },
     numeric: {
         fontSize: 18
     },
     synopsis: {
-        textAlign:'justify'
+        textAlign: 'justify'
+    },
+
+    Button: {
+        display: 'flex',
+        justifyContent: 'center',
+        textAlign: 'center',
+        backgroundColor: '#ebce73',
+        paddingHorizontal: 100,
+        borderRadius: 10,
+        marginTop: 30
+
+    },
+    text: {
+        fontWeight: 700
     }
 });

@@ -8,9 +8,9 @@ import { useMovieStore } from '../stores/movieStore';
 import { useReviewsStore } from '../stores/useReviewsStore'
 import { fetchAuth } from '../utils/fetchAuth'
 import { useWatchlistStore } from '../stores/useFavoriteStore'
+import Fontisto from '@expo/vector-icons/Fontisto';
 
 
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
 export default function ShowPass() {
@@ -25,6 +25,9 @@ export default function ShowPass() {
     const { movies } = useMovieStore();
     const movie = movies.find((m) => m.id === parseInt(id));
     const router = useRouter();
+
+
+
 
     if (!movie) return <Text>Carregando...</Text>;
 
@@ -112,42 +115,60 @@ export default function ShowPass() {
     return (
         <ScrollView style={styles.container}>
 
+
+
+
             <View style={styles.card}>
-
-            <Text style={styles.title}>{movie.title}</Text>
-                <Image
-                    style={styles.logo}
-                    source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
-
-                />
-
-                
-              
-                <Text style={styles.synopsis}>{movie.sinopse || "Sinopse não disponível"}</Text>
+                <Text style={styles.title}>{movie.title}</Text>
 
 
-                <Text style={styles.releaseDate}>{movie.release_date || "Data não disponível"}</Text>
+
+                <View style={styles.cards}>
+
+                    <View>
+                        <Image
+                            style={styles.logo}
+                            source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
+
+                        />
+                    </View>
+
+                    <View>
+
+                        <Text style={styles.synopsis}>
+                            {movie.sinopse && movie.sinopse.length > 150
+                                ? `${movie.sinopse.slice(0, 250)}...`
+                                : movie.sinopse || "Sinopse não disponível"}
+                        </Text>
+
+
+
+                        <Text style={styles.releaseDate}>
+                        Lançamento: {new Date(movie.release_date).toLocaleDateString()}
+                    </Text>
+
+                    </View>
+
+                </View>
+
+
+
             </View>
 
-            
+
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
-                <Button style={styles.Button} onPress={handleCreateWatchlist}><MaterialCommunityIcons name="movie-open-plus-outline" size={24} color="black" /></Button>
+                <Button style={styles.Button} onPress={handleCreateWatchlist}><Fontisto name="favorite" size={24} color="black" />
+                </Button>
             </View>
 
             {showContent && (
                 <View style={styles.avaliador}>
 
 
-
-
-
-
-
-
                     <View style={styles.countContainer}>
-                        <Text onChangeText={setTxtRating} style={styles.numeric}  keyboardType="numeric">
+                        <Text onChangeText={setTxtRating} style={styles.numeric} keyboardType="numeric">
                             {txtRating}
                         </Text>
 
@@ -157,12 +178,12 @@ export default function ShowPass() {
                     </View>
 
 
-                    <TextInput style={styles.input}  placeholder='Digite seu comentário...' onChangeText={setTxtComment} value={txtComment} />
+                    <TextInput style={styles.input} placeholder='Digite seu comentário...' onChangeText={setTxtComment} value={txtComment} />
 
 
 
                     <View style={styles.Button}>
-                    <Button  onPress={handleCreateReviews} >Avaliar</Button>
+                        <Button onPress={handleCreateReviews} >Avaliar</Button>
 
                     </View>
                 </View>
@@ -178,17 +199,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffd7',
         flex: 1
     },
-    Button: {
-display: 'flex',
-            justifyContent: 'center',
-        textAlign: 'center',
-            backgroundColor: '#ebce73',
-            paddingHorizontal: 100,
-            borderRadius: 20
 
-        },
+    Button: {
+        display: 'flex',
+        justifyContent: 'center',
+        textAlign: 'center',
+        backgroundColor: '#ebce73',
+        paddingHorizontal: 100,
+        borderRadius: 20
+
+    },
+    cards: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+    },
     card: {
-        padding: 10,
+        padding: 12,
         borderStyle: 'solid',
         borderColor: '#66666666',
         borderWidth: 1,
@@ -196,24 +223,24 @@ display: 'flex',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
-        gap: 15,
         marginVertical: 50,
         marginHorizontal: 10,
         borderRadius: 10,
-        flexDirection: 'column'
+
     },
     logo: {
-        maxWidthwidth: 200,
-        height: 380,
-        justifyContent:'center'
+        width: 150,
+        height: 180,
+        borderRadius: 10
     },
     title: {
-        fontSize: 16,
+        fontSize: 13,
         fontWeight: 600,
         maxWidth: '100%',
         flexShrink: 1,
         textAlign: 'center',
-        
+        marginBottom: 10
+
     },
     service: {
         fontSize: 17
@@ -227,16 +254,17 @@ display: 'flex',
         borderColor: '#444444',
         paddingHorizontal: 10,
         paddingVertical: 6,
-        marginVertical: 5,
+        marginVertical: 20,
         borderRadius: 5,
 
     },
     avaliador: {
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        marginVertical: 40
     },
     countContainer: {
         flexDirection: 'row',
-      
+
         borderWidth: 1,
         justifyContent: 'space-between',
         borderStyle: 'solid',
@@ -244,13 +272,20 @@ display: 'flex',
         borderRadius: 5,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        
+
 
     },
     numeric: {
         fontSize: 18
     },
     synopsis: {
-        textAlign:'justify'
+        textAlign: 'justify',
+        maxWidth: 130,
+        fontSize: 11,
+        marginTop: 20
+
+    },
+    releaseDate: {
+        fontSize: 8
     }
 })

@@ -61,26 +61,26 @@ export default function Table() {
 
     return (
         <View style={styles.container}>
-       <ScrollView style={styles.container}>
-            <View style={styles.avaliador}>
+            <ScrollView style={styles.container}>
+                <View style={styles.avaliador}>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Nome"
-                    onChangeText={setTxtName}
-                    value={txtName}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Descrição"
-                    onChangeText={setTxtDescription}
-                    value={txtDescription}
-                />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Nome"
+                        onChangeText={setTxtName}
+                        value={txtName}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Descrição"
+                        onChangeText={setTxtDescription}
+                        value={txtDescription}
+                    />
 
-             
-            </View>
 
-           
+                </View>
+
+
 
                 <Text style={styles.text}>
                     Selecione o filme desejado na lista
@@ -125,11 +125,14 @@ export default function Table() {
 
 
             </ScrollView>
+            <View style={styles.Button}>
 
-<Button style={styles.Button} onPress={handleCreateTable}>
+                <Button  onPress={handleCreateTable}>
                     Criar
                 </Button>
-           
+            </View>
+
+
         </View>
     );
 }
@@ -141,15 +144,17 @@ const styles = StyleSheet.create({
     },
     Button: {
         display: 'flex',
-        position: 'absolute', 
-        bottom: 0, 
+        position: 'absolute',
+        bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#ACCE91', 
+        backgroundColor: '#ebce73',
+
         fontSize: 20,
         borderTopColor: '#d4d4d4',
         justifyContent: 'center',
         alignItems: 'center',
+        height: 40
     },
     card: {
         flexDirection: 'row',
@@ -190,7 +195,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: 600,
+        textAlign: 'center'
     },
     sinopse: {
         fontSize: 14,
@@ -215,15 +221,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#ffffd7',
         borderRadius: 5,
-        padding: 4,
-        marginHorizontal: 12,
-        borderColor: 'black',
-        borderWidth: 2,
+        marginHorizontal: 20,
+        borderWidth: 1,
+        paddingHorizontal: 9,
+        paddingVertical: 6,
         justifyContent: 'center',
     },
     pesquisa: {
-        paddingVertical: 6,
-        paddingHorizontal: 6,
         flex: 1,
     },
     noResult: {
@@ -256,5 +260,5 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center'
     },
-  
+
 });

@@ -33,7 +33,6 @@ export default function Home() {
               key={movie.id}
               id={movie.id}
               title={movie.title}
-              sinopse={movie.overview}
               poster_path={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               release_date={movie.release_date}
             />

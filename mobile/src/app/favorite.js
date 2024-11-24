@@ -19,12 +19,11 @@ export default function Home() {
             const data = await response.json();
             console.log('Item excluído:', data);
 
-            // Atualiza o estado local removendo o filme correspondente
             setMovies((prevMovies) =>
                 prevMovies.filter((movie) => movie.watchlistId !== watchlistId)
             );
 
-            deleteWatchlist(watchlistId); // Atualiza a store, se necessário
+            deleteWatchlist(watchlistId);
             return;
         }
 
@@ -87,14 +86,26 @@ export default function Home() {
                             )}
 
                             <View style={styles.textAndIconContainer}>
-                                <Text style={styles.movieText}>Título: {movie.title}</Text>
-                                <Ionicons
-                                    style={styles.trashIcon}
-                                    onPress={() => handleDelete(movie.watchlistId)}
-                                    name="trash-bin"
-                                    size={24}
-                                    color="black"
-                                />
+                                <Text style={styles.movieText}>{movie.title}</Text>
+
+
+
+                                <View   style={styles.trashIcon}>
+                                    <Text style={styles.data}>
+                                        Lançamento: {new Date(movie.release_date).toLocaleDateString()}
+                                    </Text>
+
+                                    <Ionicons
+                                        style={styles.lixeira}
+                                        onPress={() => handleDelete(movie.watchlistId)}
+                                        name="trash-bin"
+                                        size={24}
+                                        color="black"
+                                    />
+                                </View>
+
+
+
                             </View>
 
 
@@ -117,6 +128,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: 'center',
         paddingVertical: 4,
+
     },
     watchlistItem: {
         padding: 10,
@@ -131,7 +143,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderRadius: 10,
         alignItems: 'center',
-        flexDirection: 'row', // Organiza os elementos na horizontal
+        flexDirection: 'row',
     },
     movieImage: {
         width: 130,
@@ -139,23 +151,27 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     textAndIconContainer: {
-        flex: 1, 
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
+        justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 10, 
+        marginLeft: 10,
+        flex: 1
     },
     movieText: {
         fontSize: 16,
         fontWeight: '700',
-        flex: 1, 
-        maxWidth: 130,
-        textAlign: 'center'
+        textAlign: 'center',
+        width: 200,
+        marginVertical: 60
+
     },
     trashIcon: {
-        position: 'absolute',
-        left: 130,
-        top: 90
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        gap: '1.5rem',
     },
+    data: {
+        fontSize: 10
+    }
+
 });
 

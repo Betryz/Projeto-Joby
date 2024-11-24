@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity , Image} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { useRouter } from 'expo-router'
 
 
@@ -15,32 +15,33 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
         });
     };
 
-    const truncatedSinopse = sinopse ? (sinopse.length > 100 ? `${sinopse.slice(0, 100)}...` : sinopse) : 'Sinopse não disponível';
 
     return (
         <TouchableOpacity onPress={handlePress} >
 
             <View style={styles.card}>
 
-                    <Image
-                        style={styles.logo}
-                        source={{ uri: `https://image.tmdb.org/t/p/w200${poster_path}` }}
-                       
-                    />
+                <Image
+                    style={styles.logo}
+                    source={{ uri: `https://image.tmdb.org/t/p/w200${poster_path}` }}
 
-                    <View style={styles.content}>
+                />
+
+                <View style={styles.content}>
 
                     <Text style={styles.name}>{title}</Text>
 
-                        <Text style={styles.descrisao}>{truncatedSinopse}</Text>
-                        <Text style={styles.descrisao}>{release_date}</Text>
-                        
-                      
-                    </View>
+
+                    <Text style={styles.descrisao}>
+                        Lançamento: {new Date(release_date).toLocaleDateString()}
+                    </Text>
+
+
+                </View>
 
             </View>
-            </TouchableOpacity>  
-              )
+        </TouchableOpacity>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: 150,
-        height: 200
+        height: 200,
+        borderRadius: 10
     },
     content: {
         gap: 6
@@ -70,16 +72,16 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 14,
         fontWeight: 600,
-        maxWidth: '40%',
-        flexShrink: 1
-    },
-    avaliacao: {
-        color: '#777777'
+        maxWidth: 120,
+        flexShrink: 1,
+        textAlign: 'center',
+        marginVertical: 40
     },
 
     descrisao: {
         color: '#777777',
         width: 120,
+        fontSize: 10
 
     },
     inicio: {
