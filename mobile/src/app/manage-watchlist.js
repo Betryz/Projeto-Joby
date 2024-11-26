@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function Home() {
+export default function manageWatchlist() {
+
     const { watchlist, setWatchlist } = useWatchlistStore();
     const [loading, setLoading] = useState(true);
 

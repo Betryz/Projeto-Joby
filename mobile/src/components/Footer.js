@@ -9,8 +9,6 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 export default function Footer() {
   const router = useRouter();
 
-
-
   return (
     <View style={styles.footer}>
 
@@ -30,7 +28,6 @@ const styles = StyleSheet.create({
     right: 0,
     height: 60,
     backgroundColor: '#ebce73',
-
     borderTopWidth: 1,
     borderTopColor: '#d4d4d4',
     justifyContent: 'center',

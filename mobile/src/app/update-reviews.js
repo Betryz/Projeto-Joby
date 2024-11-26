@@ -13,12 +13,8 @@ export default function UpdateReview() {
 
     const review = reviu.find((item) => item.id === +id);
 
-
-
-
     const [txtComment, setTxtComment] = useState(review?.comment || '');
     const [txtRating, setTxtRating] = useState(review?.rating?.toString() || '0');
-
 
     const onPressIncrementRating = () => {
         const currentRating = parseInt(txtRating, 10);
@@ -28,7 +24,6 @@ export default function UpdateReview() {
             setTxtRating('1');
         }
     };
-
 
     const handleUpdateReview = async () => {
         const updatedReview = {
@@ -44,7 +39,7 @@ export default function UpdateReview() {
         if (response.ok) {
             const data = await response.json();
             updateReviews(data.review);
-            router.back();
+            router.push('/home');
             return;
         }
 
@@ -64,8 +59,6 @@ export default function UpdateReview() {
             />
             <Text style={styles.text}>Nota:</Text>
 
-
-
             <View style={styles.countContainer}>
                 <Text onChangeText={setTxtRating} style={styles.numeric} keyboardType="numeric">
                     {txtRating}
@@ -76,7 +69,7 @@ export default function UpdateReview() {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.Button}> 
+            <View style={styles.Button}>
                 <Button onPress={handleUpdateReview}>Atualizar</Button>
 
             </View>
@@ -90,7 +83,6 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#ffffd7',
         flex: 1
-
     },
     input: {
         borderWidth: 1,
@@ -103,7 +95,6 @@ const styles = StyleSheet.create({
     },
     countContainer: {
         flexDirection: 'row',
-
         borderWidth: 1,
         justifyContent: 'space-between',
         borderStyle: 'solid',
@@ -111,8 +102,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 10,
         paddingVertical: 5,
-
-
     },
     numeric: {
         fontSize: 18
@@ -120,7 +109,6 @@ const styles = StyleSheet.create({
     synopsis: {
         textAlign: 'justify'
     },
-
     Button: {
         display: 'flex',
         justifyContent: 'center',
@@ -129,7 +117,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 100,
         borderRadius: 10,
         marginTop: 30
-
     },
     text: {
         fontWeight: 700

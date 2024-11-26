@@ -2,9 +2,10 @@ import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { useWatchlistStore } from '../stores/useFavoriteStore';
 import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
-import Button from '../components/Button';
 import Ionicons from '@expo/vector-icons/Ionicons';
-export default function Home() {
+
+export default function deleteFavorite() {
+
     const { setWatchlist, deleteWatchlist } = useWatchlistStore();
     const [movies, setMovies] = useState([]);
 
@@ -51,7 +52,7 @@ export default function Home() {
 
                                 if (movieResponse.ok) {
                                     const movieData = await movieResponse.json();
-                                    return { ...movieData, watchlistId: favoriteItem.id }; // Adicione o ID da watchlist
+                                    return { ...movieData, watchlistId: favoriteItem.id };
                                 }
                             }
                             return null;
@@ -73,7 +74,6 @@ export default function Home() {
         <View style={styles.container}>
             <ScrollView>
 
-
                 {movies.length > 0 &&
                     movies.map((movie) => (
                         <View key={movie.watchlistId} style={styles.watchlistItem}>
@@ -87,8 +87,6 @@ export default function Home() {
 
                             <View style={styles.textAndIconContainer}>
                                 <Text style={styles.movieText}>{movie.title}</Text>
-
-
 
                                 <View   style={styles.trashIcon}>
                                     <Text style={styles.data}>
@@ -104,10 +102,7 @@ export default function Home() {
                                     />
                                 </View>
 
-
-
                             </View>
-
 
                         </View>
                     ))}
@@ -128,7 +123,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: 'center',
         paddingVertical: 4,
-
     },
     watchlistItem: {
         padding: 10,

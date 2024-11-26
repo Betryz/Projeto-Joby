@@ -2,7 +2,8 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import { useEffect } from 'react';
 import { useWatchlistStore } from '../stores/useWatchlistStore.js';
 
-export default function Watchlists() {
+export default function publicWatchlists() {
+
     const { watchlist, setWatchlist } = useWatchlistStore();
 
     useEffect(() => {

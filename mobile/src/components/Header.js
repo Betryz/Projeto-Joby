@@ -22,22 +22,17 @@ export default function Header({ onSearch }) {
     return (
         <View style={styles.header}>
 
-
-
             <View style={styles.logo} >
                 <MaterialCommunityIcons name="movie-open-star-outline" size={30} color="black" />
                 <Text style={styles.marca} >
                     Jooby
                 </Text>
 
-
             </View>
-
-
 
             <View style={styles.barra} >
                 <TextInput
-                    style={styles.input}  
+                    style={styles.input}
                     Image={<FontAwesome name="search" size={24} color="black" />}
                     placeholder="Pesquise"
                     value={query} onChangeText={setQuery}
@@ -96,10 +91,10 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: '#ffffd7',
-        borderBlockColor:'#ffffd7' ,
+        borderBlockColor: '#ffffd7',
         paddingVertical: 6,
         paddingHorizontal: 6,
-     
+
     },
     marca: {
         fontWeight: 600,
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 12
 
 
-        
+
     }
 
 

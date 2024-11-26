@@ -2,7 +2,6 @@ import {View, Text, StyleSheet} from 'react-native'
 import { Image } from 'expo-image'
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 
-
 export default function CardAccount2 ({ service, userName, imgUrl }) {
 
     return (
@@ -21,10 +20,6 @@ export default function CardAccount2 ({ service, userName, imgUrl }) {
 const styles = StyleSheet.create({
     card: {
         display: 'flex',
-        // borderStyle: 'solid',
-        // borderColor: '#EEEEEE',
-        // borderWidth: 1,
-        //width: '100%',
         flexDirection: 'row',
         gap: 15,
         borderRadius: 10,

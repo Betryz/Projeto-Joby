@@ -10,14 +10,7 @@ import { fetchAuth } from '../utils/fetchAuth'
 import { useWatchlistStore } from '../stores/useFavoriteStore'
 import Fontisto from '@expo/vector-icons/Fontisto';
 
-
-
-
-export default function ShowPass() {
-
-
-
-
+export default function movieInfo() {
 
     const { addReviews } = useReviewsStore()
     const { addWatchlist } = useWatchlistStore()
@@ -25,9 +18,6 @@ export default function ShowPass() {
     const { movies } = useMovieStore();
     const movie = movies.find((m) => m.id === parseInt(id));
     const router = useRouter();
-
-
-
 
     if (!movie) return <Text>Carregando...</Text>;
 
@@ -41,7 +31,6 @@ export default function ShowPass() {
     const [txtComment, setTxtComment] = useState('')
     const [txtRating, setTxtRating] = useState(0)
 
-
     const onPressIncrementRating = () => {
         const currentRating = parseInt(txtRating, 10);
         if (!isNaN(currentRating) && currentRating < 5) {
@@ -51,13 +40,11 @@ export default function ShowPass() {
         }
     };
 
-
     const handleCreateReviews = async () => {
         const review = {
             comment: txtComment,
             rating: parseInt(txtRating, 10),
             movieId: movie.id
-
         }
 
         const response = await fetchAuth('http://localhost:5000/reviews', {
@@ -79,11 +66,7 @@ export default function ShowPass() {
         return
     }
 
-
-
-
     const [txtWatched, setTxtWatched] = useState('')
-
 
     const handleCreateWatchlist = async () => {
         const watchlist = {
@@ -110,18 +93,11 @@ export default function ShowPass() {
         return
     }
 
-
-
     return (
         <ScrollView style={styles.container}>
 
-
-
-
             <View style={styles.card}>
                 <Text style={styles.title}>{movie.title}</Text>
-
-
 
                 <View style={styles.cards}>
 
@@ -141,21 +117,15 @@ export default function ShowPass() {
                                 : movie.sinopse || "Sinopse não disponível"}
                         </Text>
 
-
-
                         <Text style={styles.releaseDate}>
-                        Lançamento: {new Date(movie.release_date).toLocaleDateString()}
-                    </Text>
+                            Lançamento: {new Date(movie.release_date).toLocaleDateString()}
+                        </Text>
 
                     </View>
 
                 </View>
 
-
-
             </View>
-
-
 
             <View style={{ flexDirection: 'row', paddingHorizontal: 15, justifyContent: 'space-between' }}>
                 <Button onPress={handlePress} style={styles.Button} ><AntDesign name="star" size={24} color="black" /></Button>
@@ -165,7 +135,6 @@ export default function ShowPass() {
 
             {showContent && (
                 <View style={styles.avaliador}>
-
 
                     <View style={styles.countContainer}>
                         <Text onChangeText={setTxtRating} style={styles.numeric} keyboardType="numeric">
@@ -177,14 +146,10 @@ export default function ShowPass() {
                         </TouchableOpacity>
                     </View>
 
-
                     <TextInput style={styles.input} placeholder='Digite seu comentário...' onChangeText={setTxtComment} value={txtComment} />
-
-
 
                     <View style={styles.Button}>
                         <Button onPress={handleCreateReviews} >Avaliar</Button>
-
                     </View>
                 </View>
 
@@ -199,7 +164,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffd7',
         flex: 1
     },
-
     Button: {
         display: 'flex',
         justifyContent: 'center',
@@ -212,7 +176,6 @@ const styles = StyleSheet.create({
     cards: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-
     },
     card: {
         padding: 12,
@@ -226,7 +189,6 @@ const styles = StyleSheet.create({
         marginVertical: 50,
         marginHorizontal: 10,
         borderRadius: 10,
-
     },
     logo: {
         width: 150,
@@ -240,7 +202,6 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         textAlign: 'center',
         marginBottom: 10
-
     },
     service: {
         fontSize: 17
@@ -272,8 +233,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 10,
         paddingVertical: 5,
-
-
     },
     numeric: {
         fontSize: 18

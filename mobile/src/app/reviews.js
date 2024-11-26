@@ -2,13 +2,12 @@ import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { fetchAuth } from '../utils/fetchAuth';
 import { useReviewsStore } from '../stores/useReviewsStore';
-import Button from '../components/Button'; // Supondo que há um botão reutilizável
+import Button from '../components/Button';
 import { useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
-
 export default function Reviews() {
+
     const { setReviews } = useReviewsStore();
     const [reviews, setLocalReviews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -73,12 +72,8 @@ export default function Reviews() {
             <ScrollView>
                 {reviews.length > 0 ? (
 
-
-
                     reviews.map((review) => (
                         <View key={review.id} style={styles.reviewItem}>
-
-
 
                             {review.movie?.poster_path && (
                                 <Image
@@ -93,13 +88,10 @@ export default function Reviews() {
                                 <Text style={styles.movieTitle}> {review.movie?.title || 'Desconhecido'}</Text>
                                 <Text style={styles.reviewText}>Comentário: {review.comment}</Text>
                                 <Text style={styles.ratingText}>Nota: {review.rating}/5</Text>
-
-                                <Button style={styles.botton} onPress={() => router.push({ pathname: '/updateReviews', params: { id: review.id } })}>Editar</Button>
+                                <Button style={styles.botton} onPress={() => router.push({ pathname: '/update-reviews', params: { id: review.id } })}>Editar</Button>
 
                             </View>
                             
-
-
                             <Ionicons style={styles.icon}
                                 onPress={() => handleDelete(review.id)}
                                 name="trash-bin"
@@ -120,8 +112,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffd7',
-
-
     },
     reviewItem: {
         padding: 11,
@@ -173,8 +163,5 @@ const styles = StyleSheet.create({
         position: 'relative',
         top: 145,
         height: 20
-
-
-
     }
 });

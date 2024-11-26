@@ -3,7 +3,6 @@ import { Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-
 export default function RootLayout() {
   return (
     <Stack
@@ -42,6 +41,8 @@ export default function RootLayout() {
       <Stack.Screen name="create-watchlist" options={{ title: "Crie lista personalizada" }} />
       <Stack.Screen name="manage-watchlist" options={{ title: "Suas listas pessoais" }} />
       <Stack.Screen name="update-reviews" options={{title: "Editar avaliação"}}/>
+      <Stack.Screen name="movie-info" options={{title: "Informações do filme"}}/>
+
     </Stack>
   );
 }

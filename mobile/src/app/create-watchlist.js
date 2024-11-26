@@ -7,7 +7,8 @@ import { fetchAuth } from '../utils/fetchAuth';
 import { useMovieStore } from '../stores/movieStore';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function WatchlistCreator() {
+export default function createWatchlist() {
+
     const { movies, loading, error, fetchMovies } = useMovieStore();
     const { addToWatchlist } = useWatchlistStore();
     const router = useRouter();

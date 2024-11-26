@@ -5,7 +5,6 @@ import { getObjectData } from '../utils/asyncStorage'
 import { useLoginStore } from '../stores/useLoginStore'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-
 export default function Init() {
   const router = useRouter()
   const { login } = useLoginStore()
@@ -56,6 +55,5 @@ const styles = StyleSheet.create({
    marca: {
     fontWeight: 600,
     fontSize: 20,
-
 }
 })

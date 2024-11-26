@@ -7,6 +7,7 @@ import { storeObjectData } from '../utils/asyncStorage'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function Login() {
+  
   const router = useRouter()
 
   const {login: loginStore} = useLoginStore()
@@ -46,7 +47,6 @@ export default function Login() {
       <ScrollView style={styles.container}>
         <View style={{ flex: 1, marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
 
-
          <View  style={styles.login}>
          <FontAwesome  name="sign-in" size={40} color="black" />
         <Text style={styles.text} >
@@ -55,8 +55,6 @@ export default function Login() {
           
           </View> 
        
-
-
           <TextInput 
             style={styles.input}
             onChangeText={setTxtEmail}

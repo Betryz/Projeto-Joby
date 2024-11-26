@@ -1,10 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { useRouter } from 'expo-router'
 
-
-
-
-export default function CardMovie({ id, title, poster_path, sinopse, release_date }) {
+export default function CardMovie({ id, title, poster_path, release_date }) {
 
     const router = useRouter()
 
@@ -14,7 +11,6 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
             params: { id },
         });
     };
-
 
     return (
         <TouchableOpacity onPress={handlePress} >
@@ -31,15 +27,14 @@ export default function CardMovie({ id, title, poster_path, sinopse, release_dat
 
                     <Text style={styles.name}>{title}</Text>
 
-
                     <Text style={styles.descrisao}>
                         Lançamento: {new Date(release_date).toLocaleDateString()}
                     </Text>
 
-
                 </View>
 
             </View>
+
         </TouchableOpacity>
     )
 }
@@ -77,12 +72,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 40
     },
-
     descrisao: {
         color: '#777777',
         width: 120,
         fontSize: 10
-
     },
     inicio: {
         display: 'flex',

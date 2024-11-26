@@ -68,7 +68,6 @@ export default function SignUp(){
             onChangeText={setTxtAvatar}
             value={txtAvatar}
             keyboardType='url'
-          
           />
           <Text>Senha:</Text>
           <TextInput 
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent:'center',
     backgroundColor: '#ffffd7',
-
   },
   input: {
     borderWidth: 1,
