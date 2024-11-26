@@ -54,13 +54,6 @@ export default function Header({ onSearch }) {
 
         </View>
 
-
-
-
-
-
-
-
     )
 }
 
@@ -104,14 +97,9 @@ const styles = StyleSheet.create({
     barra: {
         flexDirection: 'row',
         backgroundColor: '#ffffd7',
-
         borderRadius: 5,
         padding: 4,
         marginHorizontal: 12
-
-
-
     }
-
 
 })
